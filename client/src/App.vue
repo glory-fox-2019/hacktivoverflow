@@ -7,9 +7,16 @@
 
 <script>
 import Nav from '@/components/Nav'
+import { mapState,mapActions } from "vuex"
 
 export default {
-  components: { Nav }
+  components: { Nav },
+  created() {
+    this.checkLogin();
+  },
+  methods: {
+    ...mapActions(['checkLogin'])
+  }
 }
 </script>
 

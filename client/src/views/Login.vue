@@ -5,13 +5,13 @@
           <p>Hacktiv<br><b>Overflow</b></p>
         </div>
         <div class="auth--form">
-          <form>
+          <form @submit.prevent="login({email: email, password: password})">
             <h2>Login</h2>
             <div class="form-group">
-              <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="Password">
+              <input type="password" class="form-control" placeholder="Password" v-model="password">
             </div>
             <p>Doesn't have an account? <router-link to="/register">Register</router-link></p>
             <button type="submit" class="btn">Submit</button>
@@ -29,9 +29,33 @@
 
 <script>
 import GSigninButton from '@/components/GSigninButton';
+import { mapState,mapActions } from "vuex"
+
 export default {
   name: 'login',
+  data(){
+    return {
+      email: '',
+      password: '',
+    }
+  },
+  created(){
+    if(this.isLogin){
+      this.$router.replace('/')
+    }
+  },
   components: {GSigninButton},
+  methods:{
+    ...mapActions(['login'])
+  },
+  computed: {
+    ...mapState(['isLogin'])
+  },
+  watch: {
+    isLogin(val){
+      if(val) this.$router.replace('/');
+    }
+  }
 }
 </script>
 
