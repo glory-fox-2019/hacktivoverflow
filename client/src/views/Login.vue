@@ -1,0 +1,40 @@
+<template>
+  <div id="login" class="auth">
+      <div class="card">
+        <div class="auth--banner">
+          <p>Hacktiv<br><b>Overflow</b></p>
+        </div>
+        <div class="auth--form">
+          <form>
+            <h2>Login</h2>
+            <div class="form-group">
+              <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password">
+            </div>
+            <p>Doesn't have an account? <router-link to="/register">Register</router-link></p>
+            <button type="submit" class="btn">Submit</button>
+          </form>
+          <div class="auth--divider">
+            <p>Or</p>
+          </div>
+          <div class="auth--form--google">
+            <G-Signin-Button></G-Signin-Button>
+          </div>
+        </div>
+      </div>
+  </div>
+</template>
+
+<script>
+import GSigninButton from '@/components/GSigninButton';
+export default {
+  name: 'login',
+  components: {GSigninButton},
+}
+</script>
+
+<style>
+
+</style>
