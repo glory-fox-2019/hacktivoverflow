@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import QuestionListItem from "@/components/QuestionListItem";
-import { mapState,mapActions } from "vuex"
+import QuestionListItem from '@/components/QuestionListItem'
+import { mapState, mapActions } from 'vuex'
 
 export default {
-  components: {QuestionListItem},
-  data() {
+  components: { QuestionListItem },
+  data () {
     return {
 
     }
   },
-  created(){
+  created () {
     this.fetchQuestions()
   },
   computed: {

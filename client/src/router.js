@@ -18,6 +18,21 @@ export default new Router({
       component: () => import(/* webpackChunkName: "question" */ './views/Question.vue')
     },
     {
+      path: '/createQuestion',
+      name: 'CreateQuestion',
+      component: () => import(/* webpackChunkName: "CreateQuestion" */ './views/CreateQuestion.vue')
+    },
+    {
+      path: '/editQuestion',
+      name: 'EditQuestion',
+      component: () => import(/* webpackChunkName: "EditQuestion" */ './views/EditQuestion.vue')
+    },
+    {
+      path: '/user/myquestion',
+      name: 'MyQuestion',
+      component: () => import(/* webpackChunkName: "MyQuestion" */ './views/MyQuestion.vue')
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
@@ -26,6 +41,6 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: () => import(/* webpackChunkName: "register" */ './views/Register.vue')
-    },
+    }
   ]
 })

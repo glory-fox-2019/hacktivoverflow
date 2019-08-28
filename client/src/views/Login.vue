@@ -28,32 +28,51 @@
 </template>
 
 <script>
-import GSigninButton from '@/components/GSigninButton';
-import { mapState,mapActions } from "vuex"
+import GSigninButton from '@/components/GSigninButton'
+import { mapState } from 'vuex'
+import ax from '@/config/axios'
 
 export default {
   name: 'login',
-  data(){
+  data () {
     return {
       email: '',
-      password: '',
+      password: ''
     }
   },
-  created(){
-    if(this.isLogin){
+  created () {
+    if (this.isLogin) {
       this.$router.replace('/')
     }
   },
-  components: {GSigninButton},
-  methods:{
-    ...mapActions(['login'])
+  components: { GSigninButton },
+  methods: {
+    login (payload) {
+      ax({
+        url: '/user/login',
+        method: 'post',
+        data: payload
+      })
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
+          this.$store.commit('SET_USER', data.payload)
+          this.$store.commit('SET_ISLOGIN', true)
+        })
+        .catch(({ response }) => {
+          this.$swal({
+            type: 'error',
+            title: 'Error!',
+            text: response.data.error
+          })
+        })
+    }
   },
   computed: {
     ...mapState(['isLogin'])
   },
   watch: {
-    isLogin(val){
-      if(val) this.$router.replace('/');
+    isLogin (val) {
+      if (val) this.$router.replace('/')
     }
   }
 }

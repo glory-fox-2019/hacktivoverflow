@@ -15,6 +15,7 @@ class User {
       .then(data => {
         let payload = {
           _id: data._id,
+          name: data.name,
           email: data.email,
           loginWith: data.loginWith,
         }
@@ -34,6 +35,7 @@ class User {
           if(bcrypt.comparePassword(req.body.password, data.password)){
             let payload = {
               _id: data._id,
+              name: data.name,
               email: data.email,
               loginWith: data.loginWith,
             }
@@ -78,7 +80,7 @@ class User {
       })
       .then(data => {
         let payload = {
-          id: data._id,
+          _id: data._id,
           name: data.name,
           email: data.email,
           loginWith: data.loginWith,
@@ -94,7 +96,7 @@ class User {
       .findById(req.decode._id)
       .then(data => {
         let payload = {
-          id: data._id,
+          _id: data._id,
           name: data.name,
           email: data.email,
           loginWith: data.loginWith,

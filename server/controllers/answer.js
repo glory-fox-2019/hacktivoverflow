@@ -52,45 +52,67 @@ class Answer {
   static upvote(req,res,next){
     Model.Answer
       .findByIdAndUpdate(req.params.idanswer, {
-        $push: { upvotes: req.decode._id }
+        $pull: { downvotes: req.decode._id }
       })
+      .then(data => {
+        return Model.Answer
+          .findOne({
+            upvotes: req.decode._id
+          })
+        })
+        .then(data => {
+          if(data) return data
+          return Model.Answer
+            .findByIdAndUpdate(req.params.idanswer, {
+              $push: { upvotes: req.decode._id }
+            })
+        })
       .then(data => {
         if(!data) next({httpStatus: 404, message: 'Answer not found'})
         res.json({update: data.length, message: 'Upvote Success!'});
       })
       .catch(next);
   }
-  static cancelUpvote(req,res,next){
+  static netralvote(req,res,next){
     Model.Answer
       .findByIdAndUpdate(req.params.idanswer, {
         $pull: { upvotes: req.decode._id }
       })
       .then(data => {
+        return Model.Answer
+          .findByIdAndUpdate(req.params.idanswer, {
+            $pull: { downvotes: req.decode._id }
+          })
+      })
+      .then(data => {
         if(!data) next({httpStatus: 404, message: 'Answer not found'})
-        res.json({delete: data.length, message: 'Delete Upvote Success!'});
+        res.json({update: data.length, message: 'Netral vote Success!'});
       })
       .catch(next);
+
   }
 
   static downvote(req,res,next){
     Model.Answer
       .findByIdAndUpdate(req.params.idanswer, {
-        $push: { downvotes: req.decode._id }
+        $pull: { upvotes: req.decode._id }
       })
       .then(data => {
-        if(!data) next({httpStatus: 404, message: 'Answer not found'})
-        res.json({success: data.length, message: 'Upvote Success!'});
-      })
-      .catch(next);
-  }
-  static cancelDownvote(req,res,next){
-    Model.Answer
-      .findByIdAndUpdate(req.params.idanswer, {
-        $pull: { downvotes: req.decode._id }
-      })
+        return Model.Answer
+          .findOne({
+            downvotes: req.decode._id
+          })
+        })
+        .then(data => {
+          if(data) return data
+          return Model.Answer
+            .findByIdAndUpdate(req.params.idanswer, {
+              $push: { downvotes: req.decode._id }
+            })
+        })
       .then(data => {
         if(!data) next({httpStatus: 404, message: 'Answer not found'})
-        res.json({delete: data.length, message: 'Delete Upvote Success!'});
+        res.json({update: data.length, message: 'Downvote Success!'});
       })
       .catch(next);
   }

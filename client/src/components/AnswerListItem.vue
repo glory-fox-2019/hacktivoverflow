@@ -1,7 +1,7 @@
 <template>
-  <div class="answer--list__item">
+  <div class="answer--list__item" v-if="answer && idquestion">
     <div class="content--left">
-      <Vote></Vote>
+      <Vote :type="'answer'" :idquestion="idquestion" :idanswer="answer._id" :upvotes="answer.upvotes" :downvotes="answer.downvotes"></Vote>
     </div>
     <div class="content--right">
       <div class="answer__title content__title">
@@ -12,7 +12,7 @@
       </div>
       <div class="answer__more--container content__more--container">
         <div class="row">
-          <Comment :comments="answer.comments"></Comment>
+          <Comment :type="'answer'" :comments="answer.comments" :idquestion="idquestion" :idanswer="answer._id"></Comment>
           <Content-Detail :user="answer.user" :date="answer.createdAt"></Content-Detail>
         </div>
       </div>
@@ -26,8 +26,8 @@ import Vote from '@/components/Vote'
 import ContentDetail from '@/components/ContentDetail'
 
 export default {
-  components: {Comment,Vote,ContentDetail},
-  props: ['answer'],
+  components: { Comment, Vote, ContentDetail },
+  props: ['answer', 'idquestion']
 }
 </script>
 

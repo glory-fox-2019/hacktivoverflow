@@ -7,12 +7,12 @@
 
 <script>
 import Nav from '@/components/Nav'
-import { mapState,mapActions } from "vuex"
+import { mapActions } from 'vuex'
 
 export default {
   components: { Nav },
-  created() {
-    this.checkLogin();
+  created () {
+    this.checkLogin()
   },
   methods: {
     ...mapActions(['checkLogin'])

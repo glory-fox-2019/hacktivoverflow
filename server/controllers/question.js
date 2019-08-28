@@ -45,50 +45,75 @@ class Question {
   }
 
   static upvote(req,res,next){
+    // FIND DOWNVOTE
+    // FIND UPVOTE
+      // IF !UPVOTE, THEN PUSH NEW UPVOTE
+      
     Model.Question
       .findByIdAndUpdate(req.params.id, {
-        $push: { upvotes: req.decode._id }
+        $pull: { downvotes: req.decode._id }
       })
+      .then(data => {
+        return Model.Question
+          .findOne({
+            upvotes: req.decode._id
+          })
+        })
+        .then(data => {
+          if(data) return data
+          return Model.Question
+            .findByIdAndUpdate(req.params.id, {
+              $push: { upvotes: req.decode._id }
+            })
+        })
       .then(data => {
         if(!data) next({httpStatus: 404, message: 'Question not found'})
         res.json({update: data.length, message: 'Upvote Success!'});
       })
       .catch(next);
   }
-  static cancelUpvote(req,res,next){
+  static netralvote(req,res,next){
     Model.Question
       .findByIdAndUpdate(req.params.id, {
         $pull: { upvotes: req.decode._id }
       })
       .then(data => {
-        if(!data) next({httpStatus: 404, message: 'Question not found'})
-        else res.json({delete: data.length, message: 'Delete Upvote Success!'});
+        return Model.Question
+          .findByIdAndUpdate(req.params.id, {
+            $pull: { downvotes: req.decode._id }
+          })
       })
-      .catch(next);
+      .then(data => {
+        if(!data) next({httpStatus: 404, message: 'Question not found'})
+        res.json({update: data.length, message: 'Netral vote Success!'});
+      })
   }
 
   static downvote(req,res,next){
     Model.Question
       .findByIdAndUpdate(req.params.id, {
-        $push: { downvotes: req.decode._id }
+        $pull: { upvotes: req.decode._id }
       })
       .then(data => {
+        return Model.Question
+          .findOne({
+            downvotes: req.decode._id
+          })
+        })
+        .then(data => {
+          if(data) return data
+          return Model.Question
+            .findByIdAndUpdate(req.params.id, {
+              $push: { downvotes: req.decode._id }
+            })
+        })
+      .then(data => {
         if(!data) next({httpStatus: 404, message: 'Question not found'})
-        else res.json({success: data.length, message: 'Upvote Success!'});
+        res.json({update: data.length, message: 'Downvote Success!'});
       })
       .catch(next);
   }
-  static cancelDownvote(req,res,next){
-    Model.Question
-      .findByIdAndUpdate(req.params.id, {
-        $pull: { downvotes: req.decode._id }
-      })
-      .then(data => {
-        if(!data) next({httpStatus: 404, message: 'Question not found'})
-        else res.json({delete: data.length, message: 'Delete Upvote Success!'});
-      })
-      .catch(next);
-  }
+
   static findAll(req,res,next){
     let whereData = {}
     if(req.query.search) whereData.title = { $regex: req.query.search, $options: "i"}

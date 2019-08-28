@@ -237,17 +237,17 @@ Error:
 - 401:
   - User must login
 
-## Cancel Upvote Question
-Url: `/question/:id/upvote`
-Method: `DELETE`
+## Netral Vote Question
+Url: `/question/:id/netralvote`
+Method: `PATCH`
 Status: `200`
 Authentication: `REQUIRED`
 
 Response: 
 ```
 {
-  delete: Number,
-  message: 'Delete Upvote Success!',
+  success: Number,
+  message: 'Netral vote Success!',
 }
 ```
 Error: 
@@ -267,25 +267,6 @@ Response:
 {
   success: Number,
   message: 'Upvote Success!',
-}
-```
-Error: 
-- 404
-  - Question not found
-- 401:
-  - User must login
-
-## Cancel Downvote Question
-Url: `/question/:id/downvote`
-Method: `DELETE`
-Status: `200`
-Authentication: `REQUIRED`
-
-Response: 
-```
-{
-  delete: Number,
-  message: 'Delete Upvote Success!',
 }
 ```
 Error: 
@@ -496,15 +477,8 @@ Authentication: `REQUIRED`
 Response: 
 ```
 {
-  _id: String,
-  title: String,
-  description: String,
-  upvotes: Array,
-  downvotes: Array,
-  comments: Array,
-  user: String,
-  createdAt: Date,
-  updatedAt: Date,
+  success: Number,
+  message: 'Upvote Success!',
 }
 ```
 Error: 
@@ -513,8 +487,8 @@ Error:
 - 401:
   - User must login
 
-## Cancel Upvote Answer
-Url: `/question/:idquestion/answer/:idanswer/upvote`
+## Netral Vote Answer
+Url: `/question/:idquestion/answer/:idanswer/netralvote`
 Method: `DELETE`
 Status: `200`
 Authentication: `REQUIRED`
@@ -522,15 +496,8 @@ Authentication: `REQUIRED`
 Response: 
 ```
 {
-  _id: String,
-  title: String,
-  description: String,
-  upvotes: Array,
-  downvotes: Array,
-  comments: Array,
-  user: String,
-  createdAt: Date,
-  updatedAt: Date,
+  success: Number,
+  message: 'Netral vote Success!',
 }
 ```
 Error: 
@@ -548,15 +515,8 @@ Authentication: `REQUIRED`
 Response: 
 ```
 {
-  _id: String,
-  title: String,
-  description: String,
-  upvotes: Array,
-  downvotes: Array,
-  comments: Array,
-  user: String,
-  createdAt: Date,
-  updatedAt: Date,
+  success: Number,
+  message: 'Downvote Success!',
 }
 ```
 Error: 
@@ -564,33 +524,6 @@ Error:
   - Answer not found
 - 401:
   - User must login
-
-## Cancel Downvote Answer
-Url: `/question/:idquestion/answer/:idanswer/downvote`
-Method: `DELETE`
-Status: `200`
-Authentication: `REQUIRED`
-
-Response: 
-```
-{
-  _id: String,
-  title: String,
-  description: String,
-  upvotes: Array,
-  downvotes: Array,
-  comments: Array,
-  user: String,
-  createdAt: Date,
-  updatedAt: Date,
-}
-```
-Error: 
-- 404
-  - Answer not found
-- 401:
-  - User must login
-
 
 <!-- ## Find All Answer
 Url: `/question/:idquestion/answer`
@@ -680,7 +613,7 @@ Response:
 {
   _id: String,
   text: String,
-  user: String,
+  user: Object,
   createdAt: Date,
   updatedAt: Date,
 }
@@ -714,7 +647,7 @@ Response:
 {
   _id: String,
   text: String,
-  user: String,
+  user: Object,
   createdAt: Date,
   updatedAt: Date,
 }

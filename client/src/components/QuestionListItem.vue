@@ -27,7 +27,7 @@
 <script>
 export default {
   props: ['question'],
-  data(){
+  data () {
     return {
 
     }

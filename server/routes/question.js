@@ -19,10 +19,8 @@ router.put('/:id', authorization.question, question.edit);
 router.delete('/:id', authorization.question, question.delete);
 
 router.patch('/:id/upvote', question.upvote);
-router.delete('/:id/upvote', question.cancelUpvote);
-
+router.patch('/:id/netralvote', question.netralvote);
 router.patch('/:id/downvote', question.downvote);
-router.delete('/:id/downvote', question.cancelDownvote);
 
 router.post('/:idquestion/comment', comment.createOnQuestion);
 

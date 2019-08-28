@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const port = process.env.PORT;
 const cors = require('cors');
 const routes = require('./routes');
+const morgan = require('morgan');
 
 mongoose.connect('mongodb://localhost:27017/task_hacktivoverflow',{ useNewUrlParser: true })
   .then(() => console.log('Connected to Database'))
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/task_hacktivoverflow',{ useNewUrlPar
 
 
 app.use(cors());
+app.use(morgan('dev'))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));

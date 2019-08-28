@@ -9,6 +9,9 @@ class Comment {
         user: req.decode._id,
       })
       .then(data => {
+        return data.populate('user').execPopulate();
+      })
+      .then(data => {
         commentData = data;
         return Model.Answer
           .findByIdAndUpdate(req.params.idanswer, {
@@ -29,8 +32,10 @@ class Comment {
         user: req.decode._id,
       })
       .then(data => {
+        return data.populate('user').execPopulate();
+      })
+      .then(data => {
         commentData = data;
-        console.log('masuk create on question', req.params.idquestion)
         return Model.Question
           .findByIdAndUpdate(req.params.idquestion, {
             $push: { comments: commentData._id}

@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  props: ['user','date']
+  props: ['user', 'date']
 }
 </script>
 

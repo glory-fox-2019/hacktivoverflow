@@ -1,6 +1,11 @@
-$orange: #FFB800;
+$orange: #FF9900;
+$light-orange: #FFEBCE;
 $dark-orange: #B28100;
 $blue: #0075FF;
+$white: #ffffff;
+$black: #5F5F5F;
+
+$drop-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
 
 $radius-small: 8px;
 $radius-normal: 10px;
@@ -9,10 +14,10 @@ $radius-big: 15px;
 #app{
   width: 100%;
   min-height: 100vh;
-  background-color: #F6F6F6;
+  background-color: $white;
 }
 #nav{
-  background-color: $orange;
+  background-color: $white;
   >div{
     display: flex;
     align-items: center;
@@ -20,7 +25,7 @@ $radius-big: 15px;
   .nav__brand{
     padding: 10px 20px;
     span{
-      color: black;
+      color: $orange;
       text-decoration: none;
       font-size: 30px;
     }
@@ -36,9 +41,9 @@ $radius-big: 15px;
     width: 100%;
     input{
       background-color: transparent;
-      color: $dark-orange;
+      color: $black;
       width: 100%;
-      border: 1px solid currentColor;
+      border: 0;
       padding: 10px;
       font-size: 18px;
       border-radius: $radius-small;
@@ -49,33 +54,67 @@ $radius-big: 15px;
   }
   .nav--right{
     display: flex;
+    flex-direction: row;
+    justify-content: stretch;
   }
   .nav__account{
-    padding: 10px;
-    display: flex;
-    align-items: center;
+    height: 100%;
+    position: relative;
+    .nav__account--button{
+      height: 67px;
+      padding: 6px;
+      color: $orange;
+      background-color: $light-orange;
+      display: flex;
+      align-items: center;
+    }
     .nav__account__avatar{
       margin: 0 5px;
-      width: 45px;
-      height: 45px;
-      background-color: white;
+      height: 35px;
+      width: 35px;
+      background-color: #888;
       border-radius: 50%;
     }
     .nav__account__name{
-      margin-left: 10px;
+      margin: 0 10px;
+    }
+    .nav__account__menu{
+      background-color: white;
+      right: 0;
+      position: absolute;
+      z-index: 999;
+      min-width: 100%;
+      box-sizing: border-box;
+      box-shadow: $drop-shadow;
+      ul{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        li{
+          a{
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            color: $black;
+          }
+        }
+
+      }
     }
   }
   .nav__action{
     align-self: center;
     padding: 0 20px;
     a{
-      color: black;
+      color: $orange;
     }
   }
 }
 .card{
   margin: 30px 0;
   border-radius: $radius-normal;
+  border: 0;
+  box-shadow: $drop-shadow;
   .title{
     padding: 20px;
     padding-bottom: 40px;
@@ -147,6 +186,7 @@ $radius-big: 15px;
       .content__description{
         width: 100%;
         padding-bottom: 20px;
+        font-size: 18px;
       }
       .content__detail--container{
         display: flex;
