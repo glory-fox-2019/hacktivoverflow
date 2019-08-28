@@ -9,7 +9,7 @@ class UserController {
     let obj = {
       fullname, username, email, password
     }
-    
+
     User.create(obj)
     .then((data) => {
       let token = {

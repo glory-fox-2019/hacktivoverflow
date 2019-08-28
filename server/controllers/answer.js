@@ -4,8 +4,8 @@ const Comment = require('../models/comment');
 
 class AnswerController {
   static addAnswer(req, res, next) {
-    const { user_id, question_id, text } = req.body;
-    Answer.create({ user_id, text })
+    const { question_id, text } = req.body;
+    Answer.create({ user_id: req.payload._id, text })
       .then(data => {
         return Question.updateOne(
           { _id: question_id }, 

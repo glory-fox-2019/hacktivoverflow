@@ -5,11 +5,13 @@ const { hashPassword } = require('../helper/bcryptjs');
 const UserSchema = new Schema({
   fullname: {
     type: String,
-    required: [true, 'Must have fullname']
+    required: [true, 'Must have fullname'],
+    min: [10, 'Minimal name length is 6 character!'],
   },
   username: {
     type: String,
-    unique: [true, 'Username must unique'],
+    unique: true,
+    min: [10, 'Minimal username length is 10 character!'],
     validate: [(val) => {
       if (val.includes(' ') || val.includes('@') || val.includes('.')) {
         return false;
@@ -19,8 +21,8 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-    required: [true, 'email required!'],
-    unique: [true, 'email must unique'],
+    required: [true, 'Email required!'],
+    unique: true,
     validate: [function(val) {
       return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(val);
     }, 'Email not valid']
@@ -33,6 +35,9 @@ const UserSchema = new Schema({
   profile_pic: {
     type: String,
     default : 'https://res.cloudinary.com/dxkkt5pzu/image/upload/v1566793505/my_dafault/no-profile-picture.png',
+  },
+  favorite_question: {
+    type: Array,
   }
 }, { timestamps: true, versionKey: false });
 
@@ -41,5 +46,22 @@ UserSchema.pre('save', function() {
 })
 
 const User = mongoose.model('User', UserSchema);
+
+UserSchema.path('email').validate((v) => {
+  return new Promise((resolve, reject) => {
+    User.find()
+    .then(data => {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].email === v) {
+          reject(new Error('Email sudah terdaftar!'));
+        }
+      }
+      resolve();
+    })
+    .catch(err => {
+      reject(new Error(err));
+    })
+  })
+})
 
 module.exports = User;

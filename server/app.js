@@ -11,6 +11,7 @@ mongoose.connect('mongodb+srv://admin:admin@master-cluster-nwspo.mongodb.net/hac
   useCreateIndex: true,
 });
 
+app.use(require('morgan')('dev'));
 app.use(require('cors')());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -30,12 +31,4 @@ app.use('/answer', answer);
 const errorHandler = require('./middleware/errorHandler');
 app.use(errorHandler);
 
-app.listen( PORT , () => {
-  console.log('\x1b[33m\x1b[1m', ' * * * * * * * * * * * * * * * * * * * * * * * *');
-  console.log(
-    '\x1b[33m\x1b[1m', ' *',
-    '\x1b[37m\x1b[1m', `Exclusive connected to port >>>>>> ${PORT}!`,
-    '\x1b[33m\x1b[1m', ' *','\x1b[34m\x1b[1m');
-    // console.log(`Exclusive connected to port >>>>>> 3000!`)
-  console.log('\x1b[33m\x1b[1m', ' * * * * * * * * * * * * * * * * * * * * * * * *');
-});
+module.exports = app;

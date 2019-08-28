@@ -23,7 +23,15 @@ class QuestionController {
         }
       })
       .then( data => {
-        res.status(200).json(data);
+        let tags = [];
+        for (let i = 0; i < data.length; i++) {
+          for (let j = 0; j < data[i].tags.length; j++) {
+            if (!tags.includes(data[i].tags[j])) {
+              tags.push(data[i].tags[j]);
+            }
+          }
+        }
+        res.status(200).json({ tags, data });
       })
       .catch( next );
   }
