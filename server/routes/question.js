@@ -7,6 +7,7 @@ router.use(Authentication);
 
 router.get('/', QuestionController.loadQuestion);
 router.post('/', QuestionController.create);
+router.get('/:id', QuestionController.findOneQuestion)
 router.put('/:id', Authorization, QuestionController.updateQuestion)
 router.post('/:id', QuestionController.voteQuestion)
 router.delete('/:id', Authorization, QuestionController.delete);

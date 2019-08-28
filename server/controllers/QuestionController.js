@@ -25,7 +25,7 @@ class QuestionController {
 
     static async loadQuestion (req, res, next) {
         try {
-            const questions = await Question.find().populate('user', '-password').populate({
+            const questions = await Question.find().sort({updatedAt: -1}).populate('user', '-password').populate({
                 path: 'answer',
                 populate: {
                     path: 'user',
@@ -72,6 +72,10 @@ class QuestionController {
                         findByIdQuestion.totalvotes = findByIdQuestion.upvotes.length - findByIdQuestion.downvotes.length;
                         findByIdQuestion.save()
                     }
+                    else {
+                        findByIdQuestion.downvotes.pull(userId)
+                        findByIdQuestion.save()
+                    }
                 }
                 else {
                     if (findDownVote) {
@@ -80,9 +84,38 @@ class QuestionController {
                         findByIdQuestion.totalvotes = findByIdQuestion.upvotes.length - findByIdQuestion.downvotes.length;
                         findByIdQuestion.save()
                     }
+                    else {
+                        findByIdQuestion.upvotes.pull(userId)
+                        findByIdQuestion.save()
+                    }
                 }
             }
             res.status(200).json(findByIdQuestion)
+        }
+        catch (err) {
+            next(err)
+        }
+    }
+
+    static async findOneQuestion (req, res, next) {
+        try {
+            const id = req.params.id;
+            const question = await Question.findById(id).populate('user', '-password').populate({
+                path: 'answer',
+                populate: {
+                    path: 'user',
+                    select: '-password'
+                }
+            })
+            if (question) {
+                res.status(200).json(question)
+            }
+            else {
+                throw {
+                    status: 404,
+                    message: 'Question not found'
+                }
+            }
         }
         catch (err) {
             next(err)
