@@ -2,7 +2,7 @@ const Question = require('../models/question')
 
 class questionController {
     static find(req, res, next) {
-        Question.find()
+        Question.find().populate('userId')
         .then(result => {
             res.status(200).json(result)
         })
@@ -10,8 +10,11 @@ class questionController {
     }
 
     static findOne(req, res, next) {
-        let userId = req.decode.id
-        Question.find({userId})
+        Question.findById(req.params.id).populate('userId')
+        .then(result => {
+            res.status(200).json(result)
+        })
+        .catch(next)
     }
 
     static create(req, res, next) {
@@ -69,6 +72,7 @@ class questionController {
                     .then(result => {
                         res.status(200).json({message: 'removed down vote'})
                     })
+                    .catch(next)
                 }
             }
 
@@ -77,8 +81,9 @@ class questionController {
                 .then(result => {
                     res.status(200).json({message: 'add upvote'})
                 })
+                .catch(next)
             } else {
-                res.status(400).json({message: 'already upvote'})
+                res.status(200).json({message: 'already upvote'})
             }
         })
         .catch(next)
@@ -102,6 +107,7 @@ class questionController {
                     .then(result => {
                         res.status(200).json({message: 'removed up vote'})
                     })
+                    .catch(next)
                 }
             }
 
@@ -110,8 +116,9 @@ class questionController {
                 .then(result => {
                     res.status(200).json({message: 'add downvote'})
                 })
+                .catch(next)
             } else {
-                res.status(400).json({message: 'already downvote'})
+                res.status(200).json({message: 'already downvote'})
             }
         })
         .catch(next)

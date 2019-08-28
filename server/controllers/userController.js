@@ -20,7 +20,7 @@ class UserController {
                     }
                     const token = generateToken(payload)
                     // console.log(token)
-                    res.status(200).json({token})
+                    res.status(200).json({token, user})
                 } else { 
                     next
                 }
