@@ -1,5 +1,13 @@
 # NFSOverflow
 
+```
+Deploy Client :
+http://nfs-hoverflow.s3-website-ap-southeast-1.amazonaws.com/
+
+Deploy Server :
+http://ec2-3-19-76-11.us-east-2.compute.amazonaws.com:3000
+```
+
 ## Basic Route
 
 ### Register New User
