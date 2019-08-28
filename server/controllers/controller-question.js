@@ -4,7 +4,7 @@ class ControllerQuestion {
 
   static getAll(req, res, next) {
     Question
-      .find()
+      .find().sort({createdAt: -1})
       .then(questions => {
         res.status(200).json(questions)
       })
@@ -12,20 +12,23 @@ class ControllerQuestion {
   }
 
   static getOne(req, res, next) {
+    // console.log(req.params.id);
     Question
       .findById({ _id: req.params.id })
+      // .populate('userId')
       .then(card => {
+        // console.log(card, '<==== card controller');
         res.status(200).json(card)
       })
       .catch(next)
   }
 
   static create(req, res, next) {
-    let { content, title } = req.body
-    // const image = req.file ? req.file.cloudStoragePublicUrl : ''
+    let { content, title, upVote, downVote } = req.body
+    let userId = req.decoded.user._id
 
     Question
-      .create({ content, title })
+      .create({ content, title, userId, upVote, downVote })
       .then(question => {
         res.status(201).json(question)
       })

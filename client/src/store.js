@@ -21,9 +21,9 @@ export default new Vuex.Store({
       state.isLogin = payload;
     },
     LOGOUT(state, payload) {
+      router.push('/');
       state.isLogin = payload;
       localStorage.clear();
-      router.push('/');
     },
     LOGIN(state, payload) {
       state.isLogin = true;
@@ -46,7 +46,8 @@ export default new Vuex.Store({
     },
     GET_ONE_QUESTION(state, payload) {
       state.question = payload;
-      router.push('/ask-detail');
+      // console.log(payload);
+      // router.push('/detail');
     },
   },
 

@@ -6,29 +6,32 @@
       <button>test</button>
     </div>
     <div class="task-content p-4">
-      <h5 @click.prevent="toDetailTask(asks._id)">{{asks.title}}</h5>
-      <!-- {{asks._id}} -->
+      <router-link :to="`/detail/${asks._id}`">{{asks.title}}</router-link>
       <div class="task-tag mt-4">
         <button>test</button>
         <button>test</button>
+        <small>{{Moment(asks.createdAt).fromNow()}}</small>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+// import {mapState} from 'vuex';
+import Moment from 'moment';
 export default {
   props:['asks'],
   data() {
-    return {}
+    return {
+      Moment,
+    };
+  },
+  computed: {
+    // ...mapState(['question']),
   },
   methods: {
-    toDetailTask(questionId) {
-      this.$store.dispatch('getOneQuestion', questionId);
-    }
   },
-
-}
+};
 </script>
 
 <style scoped>
@@ -39,7 +42,6 @@ export default {
 };
 .task-content {
   text-align: left !important;
-  padding: 100px;
 };
 p {
   font-size: 10px !important;

@@ -1,15 +1,15 @@
 const express = require('express');
 const route = express.Router();
 const question = require('./route-question')
-const users = require('./route-user')
-// const carts = require('./route-cart');
+const user = require('./route-user')
+const answer = require('./route-answer');
 
-route.use('/user', users)
+route.use('/user', user)
 route.use('/question', question)
-// route.use('/cart', carts)
+route.use('/answer', answer)
 
 route.get('*', (req, res) => {
     res.status(404).json({msg: 'Page not found'})
-})
+});
 
-module.exports = route
+module.exports = route;

@@ -17,7 +17,7 @@
     <div>
       <router-link v-if="!isLogin" class="btn btn-light my-2 my-sm-0 mr-3" to="/login" type="submit">Login</router-link>
       <!-- <button v-if="" class="btn btn-primary my-2 my-sm-0 mr-3" to="toRegister" type="submit">Register</button> -->
-      <div class="btn-group ml-5 mr-2">
+      <div v-if="isLogin" class="btn-group ml-5 mr-2">
         <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="color: silver; border:none;">
         <a>{{this.user.name}}</a>
         <i class="far fa-user-circle ml-2"  style="font-size: 25px; color:silver;"></i>  
@@ -26,7 +26,7 @@
           <button class="dropdown-item" type="button">Dashboard</button>
           <router-link to="/ask" class="dropdown-item" type="button">Create Question</router-link>
           <div class="dropdown-divider"></div>
-          <button @click.prevent="logout" class="dropdown-item" type="button">Logout</button>
+          <a @click.prevent="logout" class="dropdown-item">Logout</a>
         </div>
       </div>
     </div>
