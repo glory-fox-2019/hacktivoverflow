@@ -4,7 +4,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
-const baseUrl = 'http://localhost:3000/api'
+const baseUrl = 'http://3.15.230.206/api'
 export default new Vuex.Store({
   state: {
     questions: [],

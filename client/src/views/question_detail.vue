@@ -67,7 +67,7 @@
 <script>
 import Swal from 'sweetalert2'
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000/api'
+const baseUrl = 'http://3.15.230.206/api'
 export default {
     data () {
         return {

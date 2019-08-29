@@ -29,7 +29,7 @@
 
 <script>
 import axios from 'axios'
-const baseUrl = "http://localhost:3000/api"
+const baseUrl = "http://3.15.230.206/api"
 export default {
     created () {
         axios.get(baseUrl + '/questions/' + this.$route.params.id)
