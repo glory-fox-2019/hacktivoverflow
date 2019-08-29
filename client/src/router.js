@@ -29,9 +29,15 @@ export default new Router({
       component: questionDetail
     },
     {path:"/user",
-     name: "question",
+     name: "user",
      component : userQuestion
 
     }
+    // ,
+    // {
+    //   path:"/answer",
+    //   name : "answer",
+    //   component : userAnswer,
+    // }
   ]
 })

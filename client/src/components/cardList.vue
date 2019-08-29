@@ -1,6 +1,6 @@
 <template>
   <div>
-      <card :question="question" v-for="question in getAllQuestions" :key="question.id"></card>
+      <card :isUser="isUser" :question="question" v-for="question in getAllQuestions" :key="question.id"></card>
 
   </div>
 </template>
@@ -9,19 +9,28 @@
 import card from './card'
 export default {
     name : "cardList",
+    props : {
+        isUser : Boolean,
+    },
     components : {
         card
     },
     computed : {
 
         getAllQuestions(){
-            return this.$store.state.allQuestions
+            if (this.isUser){
+                return this.$store.state.userQuestions
+            }
+            else{
+                return this.$store.state.allQuestions
+            }
         }
 
     },
     mounted(){
         
         this.$store.dispatch("getAllQuestions")
+        this.$store.dispatch("getUserQuestions")
     }
 
 }

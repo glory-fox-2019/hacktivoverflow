@@ -60,7 +60,7 @@ class AnswerController {
     }
 
     static upvote(req, res, next) {
-
+        // console.log("masuk ke upvote answer")
         let UserId = req.decode.id
         let id = req.body.id
 
@@ -90,6 +90,7 @@ class AnswerController {
 
     static downvote(req, res, next) {
 
+        // console.log("masuk ke downvote answer")
         let UserId = req.decode.id
         let id = req.body.id
 

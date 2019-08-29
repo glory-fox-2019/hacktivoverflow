@@ -21,7 +21,7 @@
 
                   </div>
                     
-                    <cardList></cardList>
+                    <cardList :isUser="false"></cardList>
                 </div>
             </div>
             <sidebar></sidebar>
@@ -35,8 +35,8 @@
         <b-form-group label="Enter your title" label-for="title">
           <b-form-input type="text" v-model="formcreateQuestion.title" placeholder="title" required></b-form-input>
         </b-form-group>
-        <b-form-group label="answer" label-for="description">
-           <textarea v-model="formcreateQuestion.description" placeholder="answer" class="form-control" rows="3" ></textarea>
+        <b-form-group label="question" label-for="description">
+           <textarea v-model="formcreateQuestion.description" placeholder="answer" class="form-control" rows="3" required></textarea>
         </b-form-group>
       </b-form>
       <div slot="modal-footer">
@@ -68,6 +68,7 @@ export default {
   data(){
     return{
       isQuestionModalActive : false,
+      isUser : false,
       formcreateQuestion : {
         title : "",
         description : ""
@@ -80,8 +81,12 @@ export default {
   methods : {
     createQuestion(){
       this.$store.dispatch("createQuestion", this.formcreateQuestion)
-      this.isQuestionModalActive = false
-
+      .then(()=>{
+        this.isQuestionModalActive = false
+        this.formcreateQuestion.title = ""
+        this.formcreateQuestion.description =""
+      })
+      
     }
 
   },

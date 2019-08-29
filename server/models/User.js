@@ -3,7 +3,11 @@ const Schema = mongoose.Schema
 const { generatePass } = require('../helpers/encryptPass')
 
 const UserSchema = new Schema({
-    username : String,
+    username : {
+        type : String,
+        required :true
+
+    },
     email : {
         type :String,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],

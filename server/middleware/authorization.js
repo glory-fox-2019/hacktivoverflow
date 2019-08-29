@@ -4,7 +4,7 @@ const Question = require('../models/Question')
 function authorization(req,res,next){
     
     console.log('authorization')
-    let id = req.body.id
+    let id = req.params.id
     // console.log(id)
     Question.findOne({
         '_id':id,
