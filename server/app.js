@@ -14,8 +14,12 @@ app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use(morgan('dev'))
 
-mongoose.connect( 'mongodb://localhost:27017/overflow' , {useNewUrlParser: true},()=>{
-    console.log('connected to mongodb');
+mongoose.connect(`mongodb://${process.env.NAME_MONGO}:${process.env.PASSWORD_MONGO}@cluster0-shard-00-00-qjyss.mongodb.net:27017,cluster0-shard-00-01-qjyss.mongodb.net:27017,cluster0-shard-00-02-qjyss.mongodb.net:27017/${process.env.DB_NAME_MONGO}?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority` , {useNewUrlParser: true},(err,client)=>{
+    if(err) {
+        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+    }else{
+        console.log('success connect to mongo');
+        }
 })
  
 app.use(cors())

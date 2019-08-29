@@ -10,7 +10,8 @@ export default new Vuex.Store({
     questions: [],
     myquestions: [],
     isLogin: false,
-    oneQuestion: null
+    oneQuestion: null,
+    answers: []
 
   },
   mutations: {
@@ -192,6 +193,14 @@ export default new Vuex.Store({
         }
       )
         .then(({ data }) => {
+          axios.get(baseUrl + '/answers/all/' + payload.QuestionId)
+            .then(({ data }) => {
+              context.state.answers = data
+              console.log(data)
+            })
+            .catch(err => {
+              console.log(err)
+            })
           Swal.fire({
             type: 'success',
             title: `New answer is created!`,

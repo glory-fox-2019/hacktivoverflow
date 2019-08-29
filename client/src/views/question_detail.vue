@@ -74,7 +74,7 @@ export default {
             user: '',
             answerTitle: '',
             answerDesc:'',
-            answers: []
+            answers: this.$store.state.answers
         }
     },
     created () {
@@ -94,6 +94,8 @@ export default {
             this.answerTitle = ''
             this.answerDesc = ''
             this.fetchAnswer()
+            this.answers= this.$store.state.answers
+            this.$router.push('/'+this.$route.params.id)
         },
         fetchAnswer () {
             axios.get(baseUrl + '/answers/all/'+ this.$route.params.id)
