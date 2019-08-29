@@ -31,6 +31,10 @@ export default new Vuex.Store({
         isLogin: false,
         questions: [],
         oneQuestion: {},
+        quote: {
+            text: '',
+            author: ''
+        }
     },
     mutations: {
         SETISLOGIN(state, payload) {
@@ -41,6 +45,10 @@ export default new Vuex.Store({
         },
         SETONEQUESTION(state, payload) {
             state.oneQuestion = payload
+        },
+        SETQUOTE(state, payload) {
+            state.quote.text = payload.text
+            state.quote.author = payload.author
         }
     },
     actions: {
@@ -323,6 +331,18 @@ export default new Vuex.Store({
             })
             .catch(err => {
                 swalerr('Failed update answer', err.response.data)
+            })
+        },
+        getCron ({ commit, dispatch }, payload) {
+            axios({
+                method: 'get',
+                url: "http://localhost:3000/quote",
+            })
+            .then(({ data }) => {
+                commit('SETQUOTE', data)
+            })
+            .catch(err => {
+                console.log(err)
             })
         }
     }

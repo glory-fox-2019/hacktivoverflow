@@ -4,7 +4,7 @@
     <b-card
       style="width: 100%; height: 100%;"
       class="mb-2">
-        <b-form @submit.prevent="signIn" style="width: 100%; height: 80%; display:flex; flex-direction: column; justify-content: center;">
+        <b-form @submit.prevent="signIn" style="width: 100%; height: 80%; display:flex; flex-direction: column; align-content: center;">
             <label for="email" style="font-size: 15px;">Email</label>
             <b-input v-model="form.email" type="email" id="email" aria-describedby="password-help-block" class="mb-3"></b-input>
             <label for="password" style="font-size: 15px;">Password</label>
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     data() {
         return {

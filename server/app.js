@@ -4,8 +4,9 @@ const cors = require('cors')
 const routes = require('./routes')
 const errhandler = require('./middlewares/errhandler')
 const app = express();
-
-mongoose.connect('mongodb://localhost:27017/Hacktiv-Overflow', { useNewUrlParser: true }, function (err) {
+const cron = require('./helpers/cron')
+const uri = process.env.uri
+mongoose.connect(uri, { useNewUrlParser: true, useFindAndModify: false }, function (err) {
     if (err) {
         console.log(err)
     }
@@ -15,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/Hacktiv-Overflow', { useNewUrlParser
 })
 
 app.use(cors())
+cron()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/', routes)

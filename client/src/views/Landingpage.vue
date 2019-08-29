@@ -1,5 +1,5 @@
 <template>
-<b-container fluid style="display: flex; height: 100vh; justify-content: center; align-items: center;">
+<b-container fluid style="display: flex; height: 100vh; justify-content: center;">
     <Login></Login>
 </b-container>  
 </template>
