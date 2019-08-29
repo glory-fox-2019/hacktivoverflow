@@ -16,37 +16,37 @@
 
 <script>
 // @ is an alias to /src
-import axios from "../api/config.js";
-import Question from "../components/Question.vue";
+import axios from '../api/config.js';
+import Question from '../components/Question.vue';
 
 export default {
-  name: "home",
+  name: 'home',
   data() {
     return {
       questions: [],
     };
   },
   components: {
-    Question
+    Question,
   },
   created() {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     axios({
-      url: "/question/find/collection",
-      method: "get",
-      headers: {token}
+      url: '/question/find/collection',
+      method: 'get',
+      headers: { token },
     })
       .then(({ data }) => {
         this.questions = data;
       })
-      .catch(err=> {
-          console.log(err)
+      .catch((err) => {
+        console.log(err);
       });
   },
   methods: {
     detail(id) {
       console.log(id);
-    }
+    },
   },
 };
 </script>

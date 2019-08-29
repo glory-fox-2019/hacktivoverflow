@@ -37,54 +37,55 @@
 </template>
 
 <script>
-import axios from "../api/config";
+import axios from '../api/config';
+
 export default {
-  props: ["data"],
+  props: ['data'],
   data() {
     return {
-      up: "far fa-thumbs-up icon-vote",
-      down: "far fa-thumbs-down icon-vote",
-      id: localStorage.getItem("id"),
-      token: localStorage.getItem("token"),
+      up: 'far fa-thumbs-up icon-vote',
+      down: 'far fa-thumbs-down icon-vote',
+      id: localStorage.getItem('id'),
+      token: localStorage.getItem('token'),
       description: this.data.description,
       isEdit: false,
       edited: false,
-      answer : this.data
+      answer: this.data,
     };
   },
   methods: {
     checkVote(upvotes, downvotes) {
-      const id = localStorage.getItem("id");
+      const id = localStorage.getItem('id');
       if (upvotes.indexOf(id) !== -1) {
-        this.up = "fas fa-thumbs-up icon-vote";
+        this.up = 'fas fa-thumbs-up icon-vote';
       } else {
-        this.up = "far fa-thumbs-up icon-vote";
+        this.up = 'far fa-thumbs-up icon-vote';
       }
       if (downvotes.indexOf(id) !== -1) {
-        this.down = "fas fa-thumbs-down icon-vote";
+        this.down = 'fas fa-thumbs-down icon-vote';
       } else {
-        this.down = "far fa-thumbs-down icon-vote";
+        this.down = 'far fa-thumbs-down icon-vote';
       }
     },
     vote(votetype) {
       const id = this.data._id;
-      const token = localStorage.token;
+      const { token } = localStorage;
       axios({
         url: `/answer/votes/${id}`,
-        method: `post`,
+        method: 'post',
         data: { votetype },
-        headers: { token }
+        headers: { token },
       })
         .then(({ data }) => {
           this.answer.upvotes = data.upvotes;
           this.answer.downvotes = data.downvotes;
           this.checkVote(this.answer.upvotes, this.answer.downvotes);
         })
-        .catch(err => {
-          let payload = {
+        .catch((err) => {
+          const payload = {
             content: err.response.data.message,
-            variant: "danger",
-            title: "vote"
+            variant: 'danger',
+            title: 'vote',
           };
           this.makeToast(payload);
         });
@@ -93,54 +94,54 @@ export default {
       this.$bvToast.toast(payload.content, {
         title: payload.title,
         variant: payload.variant,
-        solid: true
+        solid: true,
       });
     },
     editForm() {
       this.edited = true;
     },
-    cancelEdit(){
+    cancelEdit() {
       this.edited = false;
     },
-    updateData(){
+    updateData() {
       axios({
         url: `/answer/update/${this.answer._id}`,
-        method: "patch",
-        data : {description: this.description},
-        headers : {token: this.token}
+        method: 'patch',
+        data: { description: this.description },
+        headers: { token: this.token },
       })
-      .then(({ data }) => {
-        this.edited = false;
-        this.answer = data;
-        let payload = {
-          title: 'Answer',
-          content: 'Successfully update!',
-          variant: 'success'
-        }
-        this.makeToast(payload)
-        let answers = this.$parent.question.answer;
-        for (let i=0; i< answers.length; i++){
-          if (answers[i]._id == data._id){
-            answers[i] = data
+        .then(({ data }) => {
+          this.edited = false;
+          this.answer = data;
+          const payload = {
+            title: 'Answer',
+            content: 'Successfully update!',
+            variant: 'success',
+          };
+          this.makeToast(payload);
+          const answers = this.$parent.question.answer;
+          for (let i = 0; i < answers.length; i++) {
+            if (answers[i]._id == data._id) {
+              answers[i] = data;
+            }
           }
-        }
-      })
-      .catch(err => {
-        let payload = {
-          title: 'Answer',
-          content: err.response.data.message,
-          variant: 'danger'
-        }
-        this.makeToast(payload)
-      })
-    }
+        })
+        .catch((err) => {
+          const payload = {
+            title: 'Answer',
+            content: err.response.data.message,
+            variant: 'danger',
+          };
+          this.makeToast(payload);
+        });
+    },
   },
   created() {
     this.checkVote(this.answer.upvotes, this.answer.downvotes);
     if (this.answer.owner._id == this.id) {
       this.isEdit = true;
     }
-  }
+  },
 };
 </script>
 

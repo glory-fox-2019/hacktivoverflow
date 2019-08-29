@@ -78,9 +78,10 @@
 </template>
 
 <script>
-import answer from "../components/Answer.vue";
-import axios from "../api/config";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
+import answer from '../components/Answer.vue';
+import axios from '../api/config';
+
 export default {
   data() {
     return {
@@ -88,17 +89,17 @@ export default {
         owner: {},
         answer: [],
         upvotes: [],
-        downvotes: []
+        downvotes: [],
       },
-      newAnswer: "",
+      newAnswer: '',
       isEdit: false,
       edited: false,
-      up : 'far fa-thumbs-up',
-      down : 'far fa-thumbs-down'
+      up: 'far fa-thumbs-up',
+      down: 'far fa-thumbs-down',
     };
   },
   components: {
-    answer
+    answer,
   },
   created() {
     this.fetchData();
@@ -106,40 +107,40 @@ export default {
   methods: {
     fetchData() {
       const { id } = this.$route.params;
-      const userId = localStorage.getItem("id");
+      const userId = localStorage.getItem('id');
       axios({
-        method: "get",
-        url: `/question/find/${id}`
+        method: 'get',
+        url: `/question/find/${id}`,
       })
         .then(({ data }) => {
           if (data.owner._id == userId) {
             this.isEdit = true;
           }
           this.question = data;
-          this.checkVote(this.question.upvotes , this.question.downvotes)
+          this.checkVote(this.question.upvotes, this.question.downvotes);
         })
         .catch(console.log);
     },
     createAnswer() {
       if (!localStorage.token) {
-        this.$router.push("/login");
+        this.$router.push('/login');
       } else {
         const { id } = this.$route.params;
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         axios({
-          method: "post",
+          method: 'post',
           url: `/answer/${id}`,
           data: { description: this.newAnswer },
-          headers: { token }
+          headers: { token },
         })
           .then(({ data }) => {
             this.question.answer.push(data);
           })
-          .catch(err => {
-            let payload = {
-              variant: "danger",
-              title: "Answer",
-              content: err.response.data.message
+          .catch((err) => {
+            const payload = {
+              variant: 'danger',
+              title: 'Answer',
+              content: err.response.data.message,
             };
             this.makeToast(payload);
           });
@@ -149,7 +150,7 @@ export default {
       this.$bvToast.toast(payload.content, {
         title: payload.title,
         variant: payload.variant,
-        solid: true
+        solid: true,
       });
     },
     editData() {
@@ -159,116 +160,116 @@ export default {
       this.edited = false;
     },
     updateData() {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const { id } = this.$route.params;
-      if (this.question.title == "" || this.question.description == "") {
-        let payload = {
-          title: "Update",
-          variant: "danger",
-          content: "field cant blank!"
+      if (this.question.title == '' || this.question.description == '') {
+        const payload = {
+          title: 'Update',
+          variant: 'danger',
+          content: 'field cant blank!',
         };
         this.makeToast(payload);
         return;
       }
       axios({
-        method: "patch",
+        method: 'patch',
         url: `/question/update/${id}`,
         data: {
           title: this.question.title,
-          description: this.question.description
+          description: this.question.description,
         },
-        headers: { token }
+        headers: { token },
       })
         .then(({ data }) => {
           this.edited = false;
           console.log(data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.response);
-          let payload = {
-            title: "Update",
-            variant: "danger",
-            content: err.response.data.message
+          const payload = {
+            title: 'Update',
+            variant: 'danger',
+            content: err.response.data.message,
           };
           this.makeToast(payload);
         });
     },
     deleteData() {
       Swal.fire({
-        title: "Want delete this question ?",
+        title: 'Want delete this question ?',
         text: "You won't be able to revert this!",
-        type: "warning",
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(result => {
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
         if (result.value) {
-          Swal.showLoading()
-          this.confirmDelete()
+          Swal.showLoading();
+          this.confirmDelete();
         }
       });
     },
-    confirmDelete(){
-      const token = localStorage.getItem("token");
+    confirmDelete() {
+      const token = localStorage.getItem('token');
       const { id } = this.$route.params;
       axios({
-        method:'delete',
+        method: 'delete',
         url: `/question/delete/${id}`,
-        headers: {token}
+        headers: { token },
       })
-      .then(({ data }) => {
-        let payload = {
-          type : "success",
-          title : "successfuly deleted"
-        }
-        this.$store.dispatch('alert', payload)
-        this.$router.push('/question')
-      })
-      .catch(err => {
-        let payload = {
-          type : "error",
-          title : err.response.data.message
-        }
-         this.$store.dispatch('alert', payload)
-      })
+        .then(({ data }) => {
+          const payload = {
+            type: 'success',
+            title: 'successfuly deleted',
+          };
+          this.$store.dispatch('alert', payload);
+          this.$router.push('/question');
+        })
+        .catch((err) => {
+          const payload = {
+            type: 'error',
+            title: err.response.data.message,
+          };
+          this.$store.dispatch('alert', payload);
+        });
     },
-    checkVote(upvotes,downvotes){
-      const id = localStorage.getItem('id')
-      if (upvotes.indexOf(id) !== -1){
-        this.up = 'fas fa-thumbs-up'
-      }else {
-        this.up = 'far fa-thumbs-up'
+    checkVote(upvotes, downvotes) {
+      const id = localStorage.getItem('id');
+      if (upvotes.indexOf(id) !== -1) {
+        this.up = 'fas fa-thumbs-up';
+      } else {
+        this.up = 'far fa-thumbs-up';
       }
-      if (downvotes.indexOf(id) !== -1){
-        this.down = 'fas fa-thumbs-down'
-      } else{
-        this.down = 'far fa-thumbs-down'
+      if (downvotes.indexOf(id) !== -1) {
+        this.down = 'fas fa-thumbs-down';
+      } else {
+        this.down = 'far fa-thumbs-down';
       }
     },
-    vote(votetype){
-      const { id } = this.$route.params
-      const token = localStorage.token
+    vote(votetype) {
+      const { id } = this.$route.params;
+      const { token } = localStorage;
       axios({
         url: `/question/votes/${id}`,
-        method: `post`,
-        data: {votetype},
-        headers: {token}
+        method: 'post',
+        data: { votetype },
+        headers: { token },
       })
-      .then(({ data }) =>{
-        this.question.upvotes = data.upvotes;
-        this.question.downvotes = data.downvotes;
-        this.checkVote(this.question.upvotes , this.question.downvotes)
-      })
-      .catch(err => {
-        let payload = {
-          content : err.response.data.message,
-          variant : 'danger',
-          title : 'vote' 
-        }
-        this.makeToast(payload)
-      })
-    }
+        .then(({ data }) => {
+          this.question.upvotes = data.upvotes;
+          this.question.downvotes = data.downvotes;
+          this.checkVote(this.question.upvotes, this.question.downvotes);
+        })
+        .catch((err) => {
+          const payload = {
+            content: err.response.data.message,
+            variant: 'danger',
+            title: 'vote',
+          };
+          this.makeToast(payload);
+        });
+    },
   },
 };
 </script>

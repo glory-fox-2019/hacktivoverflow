@@ -13,7 +13,7 @@
 
         <b-navbar-nav class="mr-5 ml-5" style="width: 50%;">
           <b-nav-form style="width:100%;">
-            <b-form-input size="md" class="mr-sm-2" style="width:100%;" placeholder="Search"></b-form-input>
+            <!-- <b-form-input size="md" class="mr-sm-2" style="width:100%;" placeholder="Search"></b-form-input> -->
           </b-nav-form>
         </b-navbar-nav>
 
@@ -48,22 +48,22 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  computed: mapState(["isLogin"]),
+  computed: mapState(['isLogin']),
   methods: {
     logout() {
-      this.$bvToast.toast(`Succesfully Logout`, {
-        title: "Logout",
-        variant: "success",
+      this.$bvToast.toast('Succesfully Logout', {
+        title: 'Logout',
+        variant: 'success',
         solid: true,
         autoHideDelay: 5000,
-        appendToast: false
+        appendToast: false,
       });
-      this.$store.commit("CLEARLOGIN");
-    }
-  }
+      this.$store.commit('CLEARLOGIN');
+    },
+  },
 };
 </script>
 

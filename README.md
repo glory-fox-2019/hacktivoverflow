@@ -9,7 +9,8 @@
 **Auth Required** : `none`<br>
 **Permision Required** : `none`<br>
 
-**Data**
+**Data** <br>
+
 Name | Type | Require | Description 
 -----|------|-------- | -----------
 email| `String` | `YES`| Email User
@@ -35,7 +36,8 @@ password| `String` | `YES` | Password User
 **Auth Required** : `none`<br>
 **Permision Required** : `none`<br>
 
-**Data**
+**Data** <br>
+
 Name | Type | require | Description
 -----|------|--------- | ----------
 email | `String` |  `YES` | Email User
@@ -97,12 +99,14 @@ token | `String` | `YES` | Token from login
 **Permision Required** : `YES`<br>
 
 **Data** <br>
+
 Name | Type | require | Description
 -----| ------ | --------- | ----------
 title | `String` |  `NO` | Title Question
 description | `String` | `NO` | Description Question
 
 **Header** <br>
+
 Name | Type | require | Description
 -----| ------ | --------- | ----------
 token | `String` | `YES` | Token From Login
@@ -129,6 +133,7 @@ token | `String` | `YES` | Token From Login
 **Permision Required** : `YES`<br>
 
 **Header** <br>
+
 Name | Type | require | Description
 -----| ------ | --------- | ----------
 token | `String` | `YES` | Token From Login
@@ -146,11 +151,13 @@ token | `String` | `YES` | Token From Login
 **Permision Required** : `none`<br>
 
 **Data** <br>
+
 Name | Type | require | Description
 -----| ------ | --------- | ----------
 votetype | `String` | `YES` | Value Must be `upvotes` or `downvotes`
 
 **Header** <br>
+
 Name | Type | require | Description
 -----| ------ | --------- | ----------
 token | `String` | `YES` | Token From Login
@@ -165,6 +172,7 @@ token | `String` | `YES` | Token From Login
 **Permision Required** : `none`<br>
 
 **Params** <br>
+
 Name | Type | require | Description
 -----| ------ | --------- | ----------
 id | `String` | `YES` | ID Question
@@ -181,6 +189,20 @@ Name | Type | require | Description
 -----| ------ | --------- | ----------
 token | `String` | `YES` | Token from login
 
+```json
+{
+    "upvotes": [],
+    "downvotes": [],
+    "_id": "5d67b26c9f291e15b3034059",
+    "description": "solved thanks",
+    "question": "5d65ae9ac0b9970d699fc4f2",
+    "owner": "5d63b7e7df78b7627816f4f4",
+    "createdAt": "2019-08-29T11:09:32.508Z",
+    "updatedAt": "2019-08-29T11:09:32.508Z",
+    "__v": 0
+}
+```
+
 
 ### Update Answer
 
@@ -190,6 +212,7 @@ token | `String` | `YES` | Token from login
 **Permision Required** : `YES`<br>
 
 **Params** <br>
+
 Name | Type | require | Description
 -----| ------ | --------- | ----------
 id | `String` | `YES` | ID Answer
@@ -206,6 +229,20 @@ Name | Type | require | Description
 -----| ------ | --------- | ----------
 token | `String` | `YES` | Token from login
 
+```json
+{
+    "upvotes": [],
+    "downvotes": [],
+    "_id": "5d67b26c9f291e15b3034059",
+    "description": "solved thanks",
+    "question": "5d65ae9ac0b9970d699fc4f2",
+    "owner": "5d63b7e7df78b7627816f4f4",
+    "createdAt": "2019-08-29T11:09:32.508Z",
+    "updatedAt": "2019-08-29T11:09:32.508Z",
+    "__v": 0
+}
+```
+
 ### Vote Answer
 **URL** : `/answer/votes/:id`<br>
 **Method** : `POST`<br>
@@ -213,6 +250,7 @@ token | `String` | `YES` | Token from login
 **Permision Required** : `none`<br>
 
 **Params** <br>
+
 Name | Type | require | Description
 -----| ------ | --------- | ----------
 id | `String` | `YES` | ID Answer
@@ -227,4 +265,20 @@ votetype | `String` | `YES` | Value Must be `upvotes` or `downvotes`
 
 Name | Type | require | Description
 -----| ------ | --------- | ----------
-token | `String` | `YES` | Token from logi
+token | `String` | `YES` | Token from login
+
+```json
+{
+    "upvotes": [
+        "5d63b7e7df78b7627816f4f4"
+    ],
+    "downvotes": [],
+    "_id": "5d6709db77ab1f34cd6f06d8",
+    "description": "BROOOOS",
+    "question": "5d63b889e51cd863899b87eb",
+    "owner": "5d63b7e7df78b7627816f4f4",
+    "createdAt": "2019-08-28T23:10:19.989Z",
+    "updatedAt": "2019-08-29T11:12:06.391Z",
+    "__v": 0
+}
+```

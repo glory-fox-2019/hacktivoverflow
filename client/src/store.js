@@ -17,16 +17,16 @@ export default new Vuex.Store({
       localStorage.clear();
       state.isLogin = false;
     },
-    CHANGEQUESTION(state,payload){
-      state.questions = payload
-    }
+    CHANGEQUESTION(state, payload) {
+      state.questions = payload;
+    },
   },
   actions: {
-    alert(context, payload){
+    alert(context, payload) {
       Swal.fire({
         type: payload.type,
-        title: payload.title
-      })
-    }
+        title: payload.title,
+      });
+    },
   },
 });

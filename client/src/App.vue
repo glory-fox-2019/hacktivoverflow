@@ -24,17 +24,17 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
 import { mapState } from 'vuex';
+import Navbar from '@/components/Navbar.vue';
 
 export default {
   computed: mapState(['isLogin']),
   components: {
-    Navbar
+    Navbar,
   },
   created() {
     if (localStorage.token) {
-      this.$store.commit("SAVELOGIN");
+      this.$store.commit('SAVELOGIN');
     }
   },
 };

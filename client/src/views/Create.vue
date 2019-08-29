@@ -14,7 +14,7 @@
       <b-alert v-model="errorCreate" variant="danger" dismissible>{{errorMessage}}</b-alert>
       <b-row>
         <b-col cols="12">
-          <b-form @submit.prevent="createQuestion"> 
+          <b-form @submit.prevent="createQuestion">
             <b-form-group id="input-group-1" label="Title :" label-for="title">
               <b-form-input
                 id="title"
@@ -33,7 +33,7 @@
                 rows="8"
               ></b-form-textarea>
             </b-form-group>
-            <b-button variant="success" v-if="!isProc" type="submit">Login</b-button>
+            <b-button variant="success" v-if="!isProc" type="submit"> Create </b-button>
             <div class="text-center" v-if="isProc">
               <b-spinner label="Spinning"></b-spinner>
               <b-spinner type="grow" label="Spinning"></b-spinner>
@@ -50,52 +50,52 @@
 </template>
 
 <script>
-import axios from "../api/config";
+import axios from '../api/config';
 
 export default {
   data() {
     return {
-      errorMessage: "Ini Error",
+      errorMessage: 'Ini Error',
       errorCreate: false,
       isProc: false,
       form: {
-        title: "",
-        description: ""
-      }
+        title: '',
+        description: '',
+      },
     };
   },
   methods: {
     createQuestion() {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       this.isProc = true;
       const input = this.form;
       axios({
-        method: "post",
-        url: "/question/create",
+        method: 'post',
+        url: '/question/create',
         data: input,
-        headers: { token }
+        headers: { token },
       })
         .then(({ data }) => {
           this.isProc = false;
-          this.makeToast('Sucessfully created','Create','primary')
+          this.makeToast('Sucessfully created', 'Create', 'primary');
           this.$router.push(`/question/${data._id}`);
         })
-        .catch(err => {
-            console.log(err.response)
-            this.isProc = false;
-            this.errorCreate = true;
-            this.errorMessage = err.response.data.message
+        .catch((err) => {
+          console.log(err.response);
+          this.isProc = false;
+          this.errorCreate = true;
+          this.errorMessage = err.response.data.message;
         });
     },
-    makeToast(content,title,variant){
-        console.log('make toast')
-        this.$bvToast.toast(content, {
-            title: title,
-            variant: variant,
-            solid: true
-          });
-    }
-  }
+    makeToast(content, title, variant) {
+      console.log('make toast');
+      this.$bvToast.toast(content, {
+        title,
+        variant,
+        solid: true,
+      });
+    },
+  },
 };
 </script>
 

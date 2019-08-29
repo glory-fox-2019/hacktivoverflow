@@ -73,7 +73,7 @@ export default {
         .then(({ data }) => {
           this.loginProc = false;
           localStorage.setItem('token', data.token);
-          localStorage.setItem('id',data.data._id);
+          localStorage.setItem('id', data.data._id);
           this.$store.commit('SAVELOGIN');
           this.$router.push('/question');
         })

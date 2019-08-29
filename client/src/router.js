@@ -15,7 +15,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/question'
+      redirect: '/question',
     },
     {
       path: '/question',
@@ -35,7 +35,7 @@ export default new Router({
     {
       path: '/question/collection',
       name: 'collection',
-      component : Collection,
+      component: Collection,
     },
     {
       path: '/question/:id',
@@ -45,7 +45,7 @@ export default new Router({
     {
       path: '/create',
       name: 'create',
-      component : Create,
-    }
+      component: Create,
+    },
   ],
 });

@@ -16,12 +16,12 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-import axios from "../api/config.js";
-import Question from "../components/Question.vue";
+import HelloWorld from '@/components/HelloWorld.vue';
+import axios from '../api/config.js';
+import Question from '../components/Question.vue';
 
 export default {
-  name: "home",
+  name: 'home',
   data() {
     return {
       questions: [],
@@ -29,12 +29,12 @@ export default {
   },
   components: {
     HelloWorld,
-    Question
+    Question,
   },
   created() {
     axios({
-      url: "/question/find",
-      method: "get"
+      url: '/question/find',
+      method: 'get',
     })
       .then(({ data }) => {
         this.questions = data;
@@ -42,9 +42,6 @@ export default {
       .catch(console.log);
   },
   methods: {
-    detail(id) {
-      console.log(id);
-    }
   },
 };
 </script>
