@@ -16,9 +16,6 @@ router.delete('/:questionId/:answerId/', auth.authorAnswer, AnswerController.del
 // find answer for edit
 router.get('/find/:answerId', AnswerController.findOneAnswer)
 
-// edit answer
-// router.delete('/:answerId', AnswerController.updateAnswer)
-
 // update answer
 router.put('/:answerId', auth.authorAnswer, AnswerController.updateAnswer)
 
