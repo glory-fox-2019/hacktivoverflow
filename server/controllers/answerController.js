@@ -2,7 +2,7 @@ const Answer = require('../models/answer')
 
 class answerController {
     static find(req, res, next) {
-        Answer.find().populate('userId')
+        Answer.find().populate('userId').sort({createdAt: -1})
         .then(result => {
             res.status(200).json(result)
         })
@@ -11,12 +11,20 @@ class answerController {
 
     static findOne(req, res, next) {
         let id = req.params.id
-        Answer.find({questionId: id}).populate('userId')
+        Answer.find({questionId: id}).populate('userId').sort({createdAt: -1})
         .then(result => {
             res.status(200).json(result)
         })
         .catch(next)
-    }  
+    }
+
+    static findbyId(req, res, next) {
+        Answer.findById(req.params.id).populate('userId')
+        .then(result => {
+            res.status(200).json(result)
+        })
+        .catch(next)
+    }
 
     static create(req, res, next) {
         let { id } = req.decode
@@ -37,8 +45,9 @@ class answerController {
 
     static update(req, res, next) {
         let { id } = req.params
-        let { content } = req.body
-        Answer.findByIdAndUpdate(id, content, {new: true, runValidators: true})
+        let updatedData = {}
+        req.body.content && (updatedData.content = req.body.content)
+        Answer.findByIdAndUpdate(id, updatedData, {new: true, runValidators: true})
         .then(result => {
             res.status(200).json(result)
         })
@@ -62,6 +71,7 @@ class answerController {
             for(let i = 0; i < answer.upVote.length; i++) {
                 if (answer.upVote[i] == userId) {
                     check = false
+                    res.status(200).json({message: 'already upvote'})
                 }
             }
             for (let j = 0; j < answer.downVote.length; j++) {
@@ -81,9 +91,7 @@ class answerController {
                     res.status(200).json({message: 'add upvote'})
                 })
                 .catch(next)
-            } else {
-                res.status(200).json({message: 'already upvote'})
-            }
+            } 
         })
         .catch(next)
     }
@@ -93,11 +101,11 @@ class answerController {
         let userId = req.decode.id
         Answer.findById(id)
         .then(answer => {
-            console.log(answer)
             let check = true
             for(let i = 0; i < answer.downVote.length; i++) {
                 if (answer.downVote[i] == userId) {
                     check = false
+                    res.status(200).json({message: 'already downvote'})
                 }
             }
             for (let j = 0; j < answer.upVote.length; j++) {
@@ -117,8 +125,6 @@ class answerController {
                     res.status(200).json({message: 'add downvote'})
                 })
                 .catch(next)
-            } else {
-                res.status(200).json({message: 'already downvote'})
             }
         })
         .catch(next)

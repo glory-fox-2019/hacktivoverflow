@@ -66,6 +66,7 @@ export default {
           localStorage.setItem("token", data.token);
           localStorage.setItem("userData", data.user._id);
           this.$store.commit("CHANGELOGIN", true);
+          this.$store.commit('GETCURRENTUSER', data.user._id)
           Swal.fire({
             position: "center",
             type: "success",

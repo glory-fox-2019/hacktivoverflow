@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000
 const userRouter = require('./routes/userRouter')
 const questionRouter = require('./routes/questionRouter')
 const answerRouter = require('./routes/answerRouter')
+const topRouter = require('./routes/topRouter')
 const errorHandler = require('./helpers/errorHandler')
 
 app.use(cors())
@@ -26,6 +27,7 @@ mongoose.connect(`mongodb+srv://ecommerce:Thunder123@clustertype40-z9sli.mongodb
 app.use('/users', userRouter)
 app.use('/questions', questionRouter)
 app.use('/answers', answerRouter)
+app.use('/top', topRouter)
 
 app.use(errorHandler)
 

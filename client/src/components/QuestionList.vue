@@ -1,5 +1,5 @@
 <template>
-  <v-layout row>
+  <v-layout row class="forborder">
     <v-flex md2>
       <v-list-item-content>
         <v-list-item-title>Votes</v-list-item-title>
@@ -9,15 +9,16 @@
       </v-list-item-content>
     </v-flex>
     <v-divider vertical></v-divider>
-    <v-flex md7 @click="showDetail(q._id)" class="clickhover">
-      <v-list-item-title>
-        <h3>{{q.title}}</h3>
+    <v-flex md7 >
+      <v-list-item-title @click="showDetail(q._id)" class="clickhover">
+        <h3>{{q.title}}</h3> <br>
       </v-list-item-title>
+      <p class="elipsis"> {{q.content}} </p>
       <v-list-item-subtitle>by: {{q.userId.name}}</v-list-item-subtitle>
     </v-flex>
 
     <v-flex v-if="q.userId._id == currentUser" row wrap>
-      <v-btn color="warning">Edit</v-btn>
+      <v-btn color="warning" @click="edit(q._id)">Edit</v-btn>
     </v-flex>
     <v-flex v-if="q.userId._id == currentUser" row wrap>
       <v-btn color="error" @click="remove(q._id)">Delete</v-btn>
@@ -42,6 +43,12 @@ export default {
   methods: {
     showDetail(id) {
       this.$router.push(`/home/${id}`);
+    },
+
+    edit(id) {
+      this.$store.commit('CHANGEPAGE', 'question')
+      this.$store.commit('CHANGEEDITID', id)
+      this.$router.push('/home/editor')
     },
 
     remove(id) {
@@ -69,8 +76,12 @@ export default {
   computed: mapState(["answers", "currentUser"]),
 
   created() {
-    this.$store.dispatch("getAnswers", this.q._id);
-    this.replies = this.answers.length;
+    let token = localStorage.getItem('token')
+      axios.get(`${url}/answers/${this.q._id}`, { headers: { token } })
+        .then(({data}) => {
+          this.replies = data.length
+        })
+        .catch(console.log)
   }
 };
 </script>
@@ -79,5 +90,20 @@ export default {
 .clickhover:hover {
   color: orange;
   transition: 0.3s all;
+}
+
+.elipsis {
+ overflow: hidden;
+ text-overflow: ellipsis;
+ display: -webkit-box;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: 4; /* number of lines to show */
+ line-height: 1.5;        /* fallback */
+ max-height: 4*1.5;       /* fallback */
+}
+
+.forborder {
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
 }
 </style>

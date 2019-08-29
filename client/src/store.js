@@ -12,7 +12,9 @@ export default new Vuex.Store({
     questions: [],
     answers: [],
     isLogin: false,
-    question: {}
+    question: {},
+    page: '',
+    editId: ''
   },
   mutations: {
     GETQUESTIONS(state, payload) {
@@ -33,6 +35,14 @@ export default new Vuex.Store({
 
     GETDETAIL(state, payload) {
       state.question = payload
+    },
+
+    CHANGEPAGE(state, payload) {
+      state.page = payload
+    },
+
+    CHANGEEDITID(state, payload) {
+      state.editId = payload
     }
   },
   actions: {

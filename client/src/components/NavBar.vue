@@ -24,6 +24,7 @@ export default {
       localStorage.removeItem('token')
       localStorage.removeItem('userData')
       this.$store.commit('CHANGELOGIN', false)
+      this.$store.commit('GETCURRENTUSER', '')
       this.$router.push('/login')
     },
   }

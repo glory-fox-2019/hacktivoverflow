@@ -15,6 +15,7 @@
       <v-list-item-content>
           <AddQuestion/>
           <br>
+          <h2 class="qlist">Questions List</h2>
           <QuestionList v-for="(question, index) in questions" :key="index" :q="question">
           </QuestionList>
        
@@ -38,4 +39,8 @@ export default {
 </script>
 
 <style>
+.qlist{
+  padding: 20px;
+  margin-top: 30px
+}
 </style>

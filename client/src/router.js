@@ -6,6 +6,7 @@ import AllQuestions from './views/AllQuestions.vue'
 import MyQuestions from './views/MyQuestions.vue'
 import Detail from './views/Detail.vue'
 import Register from './views/Register.vue'
+import Editor from './views/Editor.vue'
 
 Vue.use(Router)
 
@@ -29,10 +30,15 @@ export default new Router({
           component: MyQuestions
         },
         {
+          path: 'editor',
+          name: 'editor',
+          component: Editor
+        },
+        {
           path: ':id',
           name: 'detail',
           component: Detail
-        }
+        },
       ]
     },
     {
@@ -44,6 +50,7 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
-    }
+    },
+    
   ]
 })
