@@ -13,9 +13,6 @@
                 <p small> Replies </p>
               </b-col>
             </b-row>
-            <!-- <i class="fas fa-thumbs-up icon-vote"></i>
-            <h3 class="mt-4 mb-4"> {{question.upvotes.length - question.downvotes.length}} </h3>
-            <i class="far fa-thumbs-down icon-vote"></i> -->
           </div>
         </b-col>
         <b-col cols="8">

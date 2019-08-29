@@ -1,53 +1,37 @@
 <template>
-  <b-container>
-    <div class="item-list pt-5 pb-5">
-      <question
-        id="question"
-        v-for="question in questions"
-        :key="question._id"
-        :question="question"
-        class="transition"
-      ></question>
-    </div>
-    <div class="overflow-auto">
-    </div>
-  </b-container>
+  <div>
+    <question
+      id="question"
+      v-for="question in questions"
+      :key="question._id"
+      :question="question"
+      class="transition"
+    ></question>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { mapState } from 'vuex';
 import axios from '../api/config.js';
 import Question from '../components/Question.vue';
 
 export default {
   name: 'home',
+  computed: {
+    ...mapState(['questions']),
+  },
   data() {
-    return {
-      questions: [],
-    };
+    return {};
   },
   components: {
     Question,
   },
   created() {
     const token = localStorage.getItem('token');
-    axios({
-      url: '/question/find/collection',
-      method: 'get',
-      headers: { token },
-    })
-      .then(({ data }) => {
-        this.questions = data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.$store.dispatch('getMyCollection', token);
   },
-  methods: {
-    detail(id) {
-      console.log(id);
-    },
-  },
+  methods: {},
 };
 </script>
 

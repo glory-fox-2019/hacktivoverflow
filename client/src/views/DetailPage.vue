@@ -182,10 +182,8 @@ export default {
       })
         .then(({ data }) => {
           this.edited = false;
-          console.log(data);
         })
         .catch((err) => {
-          console.log(err.response);
           const payload = {
             title: 'Update',
             variant: 'danger',
@@ -259,9 +257,11 @@ export default {
         .then(({ data }) => {
           this.question.upvotes = data.upvotes;
           this.question.downvotes = data.downvotes;
+          this.$store.commit('UPDATEVOTEQUESTION', data)
           this.checkVote(this.question.upvotes, this.question.downvotes);
         })
         .catch((err) => {
+          console.log(err)
           const payload = {
             content: err.response.data.message,
             variant: 'danger',

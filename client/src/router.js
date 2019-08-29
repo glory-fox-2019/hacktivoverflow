@@ -6,6 +6,7 @@ import Register from './views/Register.vue';
 import Detail from './views/DetailPage.vue';
 import Create from './views/Create.vue';
 import Collection from './views/Collection.vue';
+import ParentQuestion from './views/ParentQuestion.vue';
 
 Vue.use(Router);
 
@@ -15,13 +16,28 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'parent',
+      component: ParentQuestion,
       redirect: '/question',
+      children: [
+        {
+          path: 'question',
+          name: 'home',
+          component: Home,
+        },
+        {
+          path: '/question/collection',
+          name: 'collection',
+          component: Collection,
+        },
+        {
+          path: '/question/:id',
+          name: 'detail',
+          component: Detail,
+        },
+      ],
     },
-    {
-      path: '/question',
-      name: 'home',
-      component: Home,
-    },
+
     {
       path: '/login',
       name: 'login',
@@ -31,16 +47,6 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register,
-    },
-    {
-      path: '/question/collection',
-      name: 'collection',
-      component: Collection,
-    },
-    {
-      path: '/question/:id',
-      name: 'detail',
-      component: Detail,
     },
     {
       path: '/create',

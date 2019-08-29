@@ -1,6 +1,5 @@
 <template>
-  <b-container>
-    <div class="item-list pt-5 pb-5">
+  <div>
       <question
         id="question"
         v-for="question in questions"
@@ -8,23 +7,25 @@
         :question="question"
         class="transition"
       ></question>
-    </div>
-    <div class="overflow-auto">
-    </div>
-  </b-container>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { mapState } from 'vuex';
 import HelloWorld from '@/components/HelloWorld.vue';
 import axios from '../api/config.js';
 import Question from '../components/Question.vue';
 
+
 export default {
   name: 'home',
+  computed: {
+    ...mapState(['questions']),
+  },
   data() {
     return {
-      questions: [],
+
     };
   },
   components: {
@@ -32,14 +33,7 @@ export default {
     Question,
   },
   created() {
-    axios({
-      url: '/question/find',
-      method: 'get',
-    })
-      .then(({ data }) => {
-        this.questions = data;
-      })
-      .catch(console.log);
+    this.$store.dispatch('getQuestions');
   },
   methods: {
   },
