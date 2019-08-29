@@ -21,6 +21,13 @@ export default new Router({
           path: '/detail/:id',
           name: 'detail',
           component: () => import(/* webpackChunkName: "detail" */ './components/DetailTask.vue'),
+          children: [
+            {
+              path: '',
+              name: 'answer',
+              component: () => import(/* webpackChunkName: "answer" */ './components/Answer.vue'),
+            },
+          ],
         },
       ],
     },

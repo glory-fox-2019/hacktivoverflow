@@ -1,7 +1,6 @@
 <template>
 <!-- <p>masuk</p> -->
 <div>
-
   <Navbar/>
   <Form/>
 </div>

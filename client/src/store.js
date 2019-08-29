@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Axios from 'axios';
 import router from './router';
+import { stat } from 'fs';
 // import router from './router';
 // import swal from 'sweetalert2';
 
@@ -14,6 +15,8 @@ export default new Vuex.Store({
     isOwner: false,
     questions: [],
     question: [],
+    answers: [],
+    answer: [],
     user: {},
   },
   mutations: {
@@ -46,8 +49,12 @@ export default new Vuex.Store({
     },
     GET_ONE_QUESTION(state, payload) {
       state.question = payload;
-      // console.log(payload);
-      // router.push('/detail');
+    },
+    CREATE_ANSWER(state, payload) {
+      state.answers.push(payload);
+    },
+    GET_ANSWER(state, payload) {
+      state.answers = payload;
     },
   },
 
@@ -89,6 +96,24 @@ export default new Vuex.Store({
         .get(`${baseUrl}/api/question/${questionId}`)
         .then(({ data }) => {
           context.commit('GET_ONE_QUESTION', data);
+        })
+        .catch(console.log);
+    },
+    createAnswer(context, answer) {
+      Axios
+        .post(`${baseUrl}/api/answer`, answer)
+        .then(({ data }) => {
+          console.log(data);
+          context.commit('CREATE_ANSWER', data);
+        })
+        .catch(console.log);
+    },
+    getAnswer(context, questionId) {
+      Axios
+        .get(`${baseUrl}/api/answer${questionId}`)
+        .then(({ data }) => {
+          console.log(data);
+          context.commit('GET_ANSWER', data);
         })
         .catch(console.log);
     },

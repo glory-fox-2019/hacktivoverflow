@@ -17,13 +17,33 @@
     <div class="col-ms-10">
       <p>{{question.content}}</p>
       <div class="d-flex justify-content-between">
-        <button>Edit</button>
+        <div>
+          <button>Edit</button>
+          <button>Delete</button>
+        </div>
         <div class="d-flex">
           <a>{{Moment(question.createdAt).fromNow()}}</a>
           <button>{{this.user.name}}</button>
         </div>
       </div>
     </div>
+  </div>
+  <div class="tag-answer mt-5 ml-3">
+    <h5>0 Answer</h5>
+  </div>
+  
+  <!-- comment -->
+  <router-view/> 
+
+  <div class="answer mt-5 ml-5">
+    <h5>Your Answer</h5>
+    <form @submit.prevent="answer">
+      <div class="form-group">
+        <textarea v-model="answer" class="form-control" rows="3"></textarea>
+        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Answer</button>
+    </form>
   </div>
 </div>
 </template>
@@ -39,15 +59,22 @@ export default {
       user: {
         name: localStorage.name,
       },
+      answer:'',
     };
   },
   computed: {
-    ...mapState(['question'])
+    ...mapState(['question']),
+  },
+  methods: {
+    answer() {
+      this.$store.dispatch('createAnswer', this.answer);
+    },
   },
   created() {
-    this.$store.dispatch('getOneQuestion', this.$route.params.id)
-  }
-}
+    this.$store.dispatch('getAnswer', this.$route.params.id);
+  },
+  
+};
 </script>
 
 <style scoped>
@@ -57,6 +84,8 @@ export default {
 };
 i {
   height: 100px !important;
+};
+.answer {
+  padding-left: 4rem;
 }
-
 </style>
