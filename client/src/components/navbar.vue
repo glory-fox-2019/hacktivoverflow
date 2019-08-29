@@ -29,7 +29,7 @@
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template slot="button-content"><em style="font-size:20px">{{$store.state.currentUser}}</em></template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <!-- <b-dropdown-item href="#">Profile</b-dropdown-item> -->
           <b-dropdown-item @click="signOut">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -51,7 +51,7 @@ export default {
       localStorage.clear()
       this.$store.commit("LOGIN_STATUS", false)
       this.$router.push("/").catch(err=>{
-        
+
       })
     }
   }

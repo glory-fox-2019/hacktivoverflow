@@ -33,6 +33,7 @@ class AnswerController {
 
         req.body.title && (updatedData.title = req.body.title)
         req.body.description && (updatedData.description = req.body.description)
+        console.log(updatedData)
 
         Answer.findByIdAndUpdate(id, updatedData, { new: true })
             .then(success => {

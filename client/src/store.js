@@ -46,7 +46,7 @@ export default new Vuex.Store({
     }
 ,
     ALL_ANSWER(state, payload){
-        console.log(payload)
+        // console.log(payload)
         state.answers = payload
 
     },
@@ -67,6 +67,7 @@ export default new Vuex.Store({
 
     getAllQuestions({commit}){
         let token = localStorage.getItem("token")
+        Vue.swal.showLoading()
 
         axios({
             url : `${questions_url}`,
@@ -74,7 +75,8 @@ export default new Vuex.Store({
             headers : {token}
         })
         .then(response=>{
-            console.log(response.data)
+            Vue.swal.close()
+            // console.log(response.data)
             let allQuestion = response.data
             commit("ALL_QUESTIONS", allQuestion)
         })
@@ -87,6 +89,7 @@ export default new Vuex.Store({
     getOneQuestion({commit},payload){
         let id = payload
         let token = localStorage.getItem("token")
+        Vue.swal.showLoading()
         axios({
             url : `${questions_url}/${id}`,
             method : "GET",
@@ -95,6 +98,7 @@ export default new Vuex.Store({
             }
         })
         .then(response=>{
+            Vue.swal.close()
             // console.log(response.data)
             let question = response.data
             commit("QUESTION_DETAIL", question)
@@ -108,6 +112,7 @@ export default new Vuex.Store({
 
         let QuestionId = payload
         let token = localStorage.getItem("token")
+        Vue.swal.showLoading()
 
         axios({
             url : `${answer_url}/${QuestionId}`,
@@ -117,7 +122,8 @@ export default new Vuex.Store({
             }
         })
         .then(response=>{
-            console.log(response.data)
+            Vue.swal.close()
+            // console.log(response.data)
             commit("ALL_ANSWER", response.data)
         })
         .catch(err=>{
@@ -126,7 +132,7 @@ export default new Vuex.Store({
     }
 ,
     createAnswer({commit,dispatch},payload){
-
+        Vue.swal.showLoading()
         let token = localStorage.getItem("token")
         axios({
             url:`${answer_url}`,
@@ -135,7 +141,8 @@ export default new Vuex.Store({
             headers : {token},
         })
         .then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
+            Vue.swal.close()
             dispatch("getAnswer", payload.QuestionId)
 
         })
@@ -183,14 +190,15 @@ export default new Vuex.Store({
     
     getUserQuestions({commit}){
         let token = localStorage.getItem("token")
-
+        Vue.swal.showLoading()
         axios({
             url : `${questions_url}/user`,
             method : "GET",
             headers : {token}
         })
         .then(response=>{
-            console.log(response.data)
+            Vue.swal.close()
+            // console.log(response.data)
             let allQuestion = response.data
             commit("USER_QUESTIONS", allQuestion)
         })
@@ -219,7 +227,7 @@ export default new Vuex.Store({
             }
         })
         .then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
             dispatch("getUserQuestions")
             Vue.swal.close()
             Vue.swal.fire({
@@ -231,7 +239,7 @@ export default new Vuex.Store({
 
         })
         .catch(err=>{
-            console.log(err)
+            // console.log(err)
             let message = err.response.data.message
             Vue.swal.fire({
                 type : "error",
@@ -256,7 +264,7 @@ export default new Vuex.Store({
             }
         })
         .then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
             Vue.swal.close()
             Vue.swal.fire({
                 type : "success",
@@ -274,7 +282,7 @@ export default new Vuex.Store({
     },
 
     upvoteQuestion({commit,dispatch}, payload){
-
+        Vue.swal.showLoading()
         let id = payload
         let token = localStorage.getItem('token')
         axios({
@@ -286,7 +294,8 @@ export default new Vuex.Store({
             }
         })
         .then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
+            Vue.swal.close()
             dispatch("getAllQuestions")
             dispatch("getOneQuestion", id)
         })
@@ -304,7 +313,7 @@ export default new Vuex.Store({
     },
 
     downvoteQuestion({commit, dispatch}, payload){
-
+        Vue.swal.showLoading()
         let id = payload
         let token = localStorage.getItem('token')
         axios({
@@ -316,7 +325,8 @@ export default new Vuex.Store({
             }
         })
         .then(response=>{
-            console.log(response.data)
+            Vue.swal.close()
+            // console.log(response.data)
             dispatch("getAllQuestions")
             dispatch("getOneQuestion", id)
             
@@ -336,7 +346,7 @@ export default new Vuex.Store({
 
     upvoteAnswer({commit,dispatch}, payload){
         // console.log(payload)
-
+        Vue.swal.showLoading()
         let id = payload.id
         let token = localStorage.getItem('token')
         axios({
@@ -348,10 +358,10 @@ export default new Vuex.Store({
             }
         })
         .then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
             // dispatch("getAnswer")
             dispatch("getAnswer", payload.QuestionId)
-
+            Vue.swal.close()
             // dispatch("getAllQuestions")
             // dispatch("getOneQuestion", id)
             
@@ -371,7 +381,7 @@ export default new Vuex.Store({
 
     downvoteAnswer({commit, dispatch}, payload){
         // console.log(payload)
-
+        Vue.swal.showLoading()
         let id = payload.id
         let token = localStorage.getItem('token')
         axios({
@@ -383,7 +393,8 @@ export default new Vuex.Store({
             }
         })
         .then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
+            Vue.swal.close()
             // dispatch("getAnswer")
             dispatch("getAnswer", payload.QuestionId)
             // dispatch("getAllQuestions")
@@ -403,16 +414,17 @@ export default new Vuex.Store({
     },
     getUserAnswers({commit,dispatch}){
         let token = localStorage.getItem("token")
-
+        Vue.swal.showLoading()
         axios({
             url : `${answer_url}`,
             method : "GET",
             headers : {token}
         })
         .then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
             let payload  =response.data
             commit("USER_ANSWER",payload)
+            Vue.swal.close()
         })
         .catch(err=>{
             console.log(err)
@@ -424,16 +436,18 @@ export default new Vuex.Store({
 
         let id = payload.id
         let title = payload.title
-        let content = payload.content
+        let description = payload.description
+        // console.log(de)
 
         axios({
             url : `${answer_url}/${id}`,
             method : "PATCH",
-            data : {title,content},
+            data : {title,description},
             headers : {token}
         })
         .then(response=>{
-            console.log(response.data)
+            // console.log(response.data)
+            dispatch("getUserAnswers")
             Vue.swal.close()
             Vue.swal.fire({
                  type : "success",
@@ -441,7 +455,7 @@ export default new Vuex.Store({
                  showConfirmButton : false,
                  timer : 1500
             })
-            dispatch("getUserAnswers")
+            
         })
         .catch(err=>{
             // console.log(err)

@@ -2,11 +2,16 @@
   <div class="card flex-col mt-3" style="width:100%">
     <!-- <router-link :to="'/question/'+question._id" > -->
     <div class="" style="display:flex;justify-content:row">
-      <div class="ml-2 mr-2 mt-4" style="width:18%">
+      <div v-if="!isUser" class="ml-2 mr-2 mt-4" style="width:18%">
           <div @click="upvote(theanswer)"><i class="fas fa-arrow-up"></i></div>
           <p>{{totalVotes()}}</p>
           <div @click="downvote(theanswer)"><i class="fas fa-arrow-down"></i></div>
-          </div>
+      </div>
+       <div v-if="isUser" class="ml-2 mr-2 mt-4" style="width:18%">
+          <div ><i class="fas fa-arrow-up"></i></div>
+          <p>{{totalVotes()}}</p>
+          <div><i class="fas fa-arrow-down"></i></div>
+      </div>
     <div class="card-body">
       <h5 class="card-title">{{theanswer.title}}</h5>
       <p class="card-text text-justify">{{theanswer.description}}</p>

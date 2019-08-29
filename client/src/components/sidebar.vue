@@ -13,10 +13,7 @@
                  <router-link to="/answer" style="color:inherit" > <h6>My Answer</h6></router-link>
                   <hr>
                 </div>
-                    <div class="make-me-sticky">
-                  <h6>Item 1</h6>
-                  <hr>
-                </div>
+                    
         </div>
     </div>
 </template>
