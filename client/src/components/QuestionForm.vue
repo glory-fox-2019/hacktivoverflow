@@ -2,7 +2,7 @@
   <div class="ui container" style="margin-top: 5rem;">
     <div class="ui basic segment">
       <form class="ui large form">
-        <h1 class="ui header">{{ edit ? 'Edit Article' : 'Ask Question' }}</h1>
+        <h1 class="ui header">{{ edit ? 'Edit Question' : 'Ask Question' }}</h1>
         <div class="ui form">
           <div class="field">
             <label for="title">Title</label>

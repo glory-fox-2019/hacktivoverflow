@@ -11,7 +11,7 @@
       @remove-a="removeAnswer"
       v-show="answer._id !== answerObj._id || edit === false"
     />
-    <div class="ui basic segment" v-if="notOwner && edit && answered">
+    <div class="ui basic segment" v-if="edit && answered">
       <h2>Edit Answer</h2>
       <ckeditor :editor="editor" v-model="answerObj.content" :config="editorConfig"></ckeditor>
       <button
@@ -21,11 +21,10 @@
       >Post Your Answer</button>
     </div>
     <div class="ui basic segment">
-      <div v-if="notOwner && !answered">
+      <div v-if="!edit">
         <h2>Your Answer</h2>
         <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
-        <button
-          class="ui teal button"
+        <button class="ui teal button"
           style="margin-top: 1rem;"
           @click="submitAnswer"
         >Post Your Answer</button>

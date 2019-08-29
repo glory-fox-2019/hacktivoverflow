@@ -7,7 +7,7 @@
             <div class="content">
               <div class="ui left floated small basic buttons" style="margin-right: 1.2rem;">
                 <button class="ui button ktk" @click="goToQ(q._id)">
-                  {{ q.upvotes.length - q.downvotes.length }}
+                  {{ q.upvotes.length === 0 ? 0 : q.upvotes.length - q.downvotes.length }}
                   <br>
                   <br>Votes:
                 </button>

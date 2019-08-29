@@ -42,7 +42,11 @@ export default {
   },
   computed: {
     votes () {
-      return this.item.upvotes.length - this.item.downvotes.length
+      if (this.item.upvotes.length < 1) {
+        return 0
+      } else {
+        return this.item.upvotes.length - this.item.downvotes.length
+      }
     },
     owner () {
       return this.item.owner.email === localStorage.getItem('email')
