@@ -87,15 +87,15 @@ export default {
         })
     }
   },
-  created() {
-    if (localStorage.getItem('token')) {
-      console.log(this.isLogin);
-      this.isLogin = true;
-      console.log(this.isLogin);
-    } else {
-      this.isLogin = false;
-    }
-  },
+  watch: {
+    $route() {
+      if (localStorage.getItem('token')) {
+        this.isLogin = true;
+      } else {
+        this.isLogin = false;
+      }
+    },
+  }
 }
 </script>
 
