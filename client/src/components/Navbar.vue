@@ -6,13 +6,12 @@
       <v-spacer></v-spacer>
       <v-menu offset-y>
       <template v-slot:activator="{ on }">
-      <v-avatar size="36px" v-on="on">
-        <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="avatar">
-      </v-avatar>
-        
+        <v-avatar size="36px" v-on="on">
+          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="avatar">
+        </v-avatar>
       </template>
       <v-list class="py-0">
-        <v-list-item link class="px-7">
+        <v-list-item link class="px-7" router :to="'/profile'">
           <v-icon left>account_circle</v-icon>
           <v-list-item-content>Profile</v-list-item-content>
         </v-list-item>

@@ -41,6 +41,86 @@ class AnswerController {
       })
       .catch( next );
   }
+
+  static upvote(req, res, next) {
+    Answer.findOne({ _id: req.params.id })
+      .then(one => {
+        if (one) {
+          if (one.user_id == req.payload._id) {
+            return 'VOTE_SELF';
+          } else {  
+            return Answer.updateOne(
+              { _id: req.params.id },
+              { $pull: { down_votes: req.payload._id } }
+            )
+          }
+        } else {
+          return 'ANSWER_NOT_FOUND';
+        }
+      })
+      .then(message => {
+        if (message === 'ANSWER_NOT_FOUND' || message === 'VOTE_SELF') {
+          return message;
+        } else {
+          return Answer.updateOne(
+            { _id: req.params.id },
+            { $addToSet: { up_votes: req.payload._id } }
+          )
+        }
+      })
+      .then(message => {
+        if (message === 'ANSWER_NOT_FOUND'|| message === 'VOTE_SELF') {
+          next({ message })
+        } else {
+          res.status(200).json({ message: 'Voted up!' })
+        }
+      })
+      .catch( next )
+  }
+  
+  static downvote(req, res, next) {
+    Answer.findOne({ _id: req.params.id })
+      .then(one => {
+        if (one) {
+          if (one.user_id == req.payload._id) {
+            return 'VOTE_SELF';
+          } else {  
+            return Answer.updateOne(
+              { _id: req.params.id },
+              { $pull: { up_votes: req.payload._id } }
+            )
+          }
+        } else {
+          return 'ANSWER_NOT_FOUND';
+        }
+      })
+      .then(message => {
+        if (message === 'ANSWER_NOT_FOUND' || message === 'VOTE_SELF') {
+          return message;
+        } else {
+          return Answer.updateOne(
+            { _id: req.params.id },
+            { $addToSet: { down_votes: req.payload._id } }
+          )
+        }
+      })
+      .then(message => {
+        if (message === 'ANSWER_NOT_FOUND'|| message === 'VOTE_SELF') {
+          next({ message })
+        } else {
+          res.status(200).json({ message: 'Voted down!' })
+        }
+      })
+      .catch( next )
+  }
+
+  static findOne(req, res, next) {
+    Answer.findOne({ _id: req.params.id })
+      .then( data => {
+        res.status(200).json(data);
+      })
+      .catch( next );
+  }
 }
 
 module.exports = AnswerController;

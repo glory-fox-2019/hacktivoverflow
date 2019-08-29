@@ -13,6 +13,16 @@ export default new Router({
       component: () => import(/* webpackChunkName: "home" */ './views/Home.vue'),
     },
     {
+      path: '/popular',
+      name: 'popular',
+      component: () => import(/* webpackChunkName: "popular" */ './views/Popular.vue'),
+    },
+    {
+      path: '/tag/:tag',
+      name: 'tag',
+      component: () => import(/* webpackChunkName: "tag" */ './views/Tag.vue'),
+    },
+    {
       path: '/question/:id',
       name: 'detail',
       component: () => import(/* webpackChunkName: "detail" */ './views/Detail.vue'),
@@ -26,6 +36,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
-    }
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import(/* webpackChunkName: "profile" */ './views/Profile.vue'),
+    },
   ],
 });

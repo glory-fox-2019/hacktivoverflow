@@ -53,6 +53,10 @@ class UserController {
       .catch(next);
     }
   }
+
+  static decode(req, res, next) {
+    res.status(200).send(req.payload._id);
+  }
 }
 
 module.exports = UserController;

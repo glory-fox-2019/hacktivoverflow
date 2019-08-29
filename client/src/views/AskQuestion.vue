@@ -74,14 +74,25 @@ export default {
         tags: this.model
       }
       if (payload.title.length < 1 || payload.text.length < 1) {
-        this.$swal('Input kurang lengkap');
+        this.$swal.fire({
+          type: 'error',
+          title: 'Input kurang lengkap'
+        });
+      } else {
+        this.$store.dispatch('askQuestion', payload)
+        .then(msg => {
+          this.$store.commit('SNACK_MESSAGE', 'Question submited!');
+          // this.$swal.fire('',msg);
+          this.$router.push('/');
+        })
+        .catch(msg => {
+          this.$swal(msg);
+        })
       }
-      this.$store.dispatch('askQuestion', payload);
     }
   },
 }
 </script>
 
 <style scoped>
-  
 </style>

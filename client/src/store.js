@@ -1,13 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import { stat } from 'fs';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     baseUrl: 'http://localhost:3000',
     questionBundle: [],
+    oneTag: [],
     tags: [],
+    snackMessage: '',
   },
   mutations: {
     FETCH_QUESTION(state, payload) {
@@ -15,6 +18,12 @@ export default new Vuex.Store({
     },
     FETCH_TAGS(state, payload) {
       state.tags = payload;
+    },
+    FETCH_BY_TAG(state, payload) {
+      state.oneTag = payload;
+    },
+    SNACK_MESSAGE(state, payload) {
+      state.snackMessage = payload;
     }
   },
   actions: {
@@ -66,7 +75,7 @@ export default new Vuex.Store({
           console.log(response.data.message);
         })
     },
-    getOneQuestion({ state }, payload) {
+    getOneQuestion({ state, dispatch }, payload) {
       return new Promise((resolve, reject) => {
         axios({
           method: 'GET',
@@ -76,6 +85,7 @@ export default new Vuex.Store({
           }
         })
           .then(({data}) => {
+            dispatch('fetchQuestion');
             resolve(data);
           })
           .catch(({response}) => {
@@ -138,7 +148,7 @@ export default new Vuex.Store({
         })
       })
     },
-    answerQuestion({ state }, payload) {
+    answerQuestion({ state, dispatch }, payload) {
       return new Promise((resolve, reject) => {
         axios({
           method: "POST",
@@ -152,10 +162,171 @@ export default new Vuex.Store({
           dispatch('fetchQuestion');
           resolve(data.message);
         })
-        .catch(({response}) => {
-          console.log(response);
+        .catch((err) => {
           reject(response.data.message);
         })
+      })
+    },
+    getId({ state }) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "get",
+          url: `${state.baseUrl}/user`,
+          headers: {
+            token: localStorage.getItem('token'),
+          },
+        })
+        .then(({ data }) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(response.data.message);
+        })
+      })
+    },
+    upVoteAnswer({ state, dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "POST",
+          url: `${state.baseUrl}/answer/upvote/${payload}`,
+          headers: {
+            token: localStorage.getItem('token'),
+          },
+        })
+        .then(_ => {
+          dispatch('fetchQuestion');
+          resolve();
+        })
+        .catch(({response}) => {
+          reject(response.data.message);
+        })
+      })
+    },
+    downVoteAnswer({ state, dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: "POST",
+          url: `${state.baseUrl}/answer/downvote/${payload}`,
+          headers: {
+            token: localStorage.getItem('token'),
+          },
+        })
+        .then(_ => {
+          dispatch('fetchQuestion');
+          resolve();
+        })
+        .catch(({response}) => {
+          reject(response.data.message);
+        })
+      })
+    },
+    getOneAnswer({ state }, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: `${state.baseUrl}/answer/${payload}`,
+          headers: {
+            token: localStorage.getItem('token'),
+          }
+        })
+          .then(({data}) => {
+            resolve(data);
+          })
+          .catch(({response}) => {
+            console.log(response.data.message);
+          })
+      })
+    },
+    getTags({ state, commit }, payload) {
+      axios({
+        method: 'GET',
+        url: `${state.baseUrl}/question/tag/${payload}`,
+        headers: {
+          token: localStorage.getItem('token'),
+        }
+      })
+        .then(({data}) => {
+          commit('FETCH_BY_TAG', data);
+          console.log(data);
+        })
+        .catch(({response}) => {
+          console.log(response.data.message);
+        })
+    },
+    getPopular({ state }) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: `${state.baseUrl}/question/popular/tag`,
+          headers: {
+            token: localStorage.getItem('token'),
+          }
+        })
+          .then(({data}) => {
+            resolve(data.filter);
+          })
+          .catch(({response}) => {
+            console.log(response.data.message);
+          })
+        })
+    },
+    deleteQuestion({ state, dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'DELETE',
+          url: `${state.baseUrl}/question/${payload}`,
+          headers: {
+            token: localStorage.getItem('token'),
+          }
+        })
+          .then(({data}) => {
+            dispatch('fetchQuestion');
+            resolve(true);
+          })
+          .catch(({response}) => {
+            console.log(response.data.message);
+          })
+      })
+    },
+    deleteAnswer({ state, dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'DELETE',
+          url: `${state.baseUrl}/answer/${payload}`,
+          headers: {
+            token: localStorage.getItem('token'),
+          }
+        })
+          .then(({data}) => {
+            // dispatch('one')
+            resolve(data.message);
+          })
+          .catch(({response}) => {
+            console.log(response.data.message);
+          })
+      })
+    },
+    editQuestion({ state, dispatch }, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'PUT',
+          url: `${state.baseUrl}/question/${payload.question_id}`,
+          headers: {
+            token: localStorage.getItem('token'),
+          },
+          data: {
+            title: payload.title,
+            text: payload.text,
+            tags: payload.tags,
+          }
+        })
+          .then(({data}) => {
+            dispatch('fetchQuestion');
+            resolve(data.message);
+          })
+          .catch(({response}) => {
+            console.log(response.data.message);
+          })
       })
     }
   },

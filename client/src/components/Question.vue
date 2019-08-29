@@ -18,7 +18,7 @@
       </v-card-title>
       <v-chip-group multiple column
         active-class="primary--text">
-        <v-chip class="ma-0" v-for="tag in question.tags" :key="tag">
+        <v-chip class="ma-0" v-for="tag in question.tags" :key="tag" :to="'/tag/'+tag">
           {{ tag }}
         </v-chip>
       </v-chip-group>
