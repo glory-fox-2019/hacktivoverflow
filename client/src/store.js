@@ -11,7 +11,8 @@ export default new Vuex.Store({
     currentUser: '',
     questions: [],
     answers: [],
-    isLogin: false
+    isLogin: false,
+    question: {}
   },
   mutations: {
     GETQUESTIONS(state, payload) {
@@ -29,6 +30,10 @@ export default new Vuex.Store({
     GETCURRENTUSER(state, payload) {
       state.currentUser = payload
     },
+
+    GETDETAIL(state, payload) {
+      state.question = payload
+    }
   },
   actions: {
     getQuestions(context, payload) {
@@ -45,6 +50,15 @@ export default new Vuex.Store({
       axios.get(`${url}/answers/${payload}`, { headers: { token } })
         .then(({data}) => {
           context.commit('GETANSWERS', data)
+        })
+        .catch(console.log)
+    },
+
+    getQuestionDetail(context, payload) {
+        let token = localStorage.getItem('token')
+        axios.get(`${url}/questions/${payload}`, {headers: {token}})
+        .then(({data}) => {
+            context.commit('GETDETAIL', data)
         })
         .catch(console.log)
     }

@@ -7,6 +7,16 @@
           <v-list-item-subtitle> {{answers.length}} Answers</v-list-item-subtitle>
           <v-list-item-subtitle> posted by: {{question.userId.name}} </v-list-item-subtitle>
       </v-list-item-content>
+
+      <v-list-item-content>
+          </v-list-item-content>
+          <v-list-item-content>
+          </v-list-item-content>
+          <v-list-item-content>
+          <i class="far fa-thumbs-up ok" @click="up(question)"></i>
+            {{question.upVote.length - question.downVote.length}}
+        <i class="far fa-thumbs-down ok" @click="down(question)"></i>
+          </v-list-item-content>
     </v-list-item>
     
     <v-divider></v-divider>
@@ -32,29 +42,49 @@ export default {
     name: 'detailQuestion',
     data () {
         return {
-            question: {},
+            // question: {},
         }
     },
     computed: mapState([
-        'answers'
+        'answers',
+        'question'
     ]),
     components: {
         AnswerList,
         AddAnswer
     },
+    methods: {
+        up(input) {
+            let id = input._id
+            let token = localStorage.getItem('token')
+            axios.patch(`${url}/questions/${id}/upvote`, {}, {headers: {token}})
+            .then(({data}) => {
+                this.$store.dispatch('getQuestionDetail', id)
+            })
+            .catch(console.log)
+        },
+
+        down(input) {
+            let id = input._id
+            let token = localStorage.getItem('token')
+            axios.patch(`${url}/questions/${id}/downvote`, {}, {headers: {token}})
+            .then(({data}) => {
+                this.$store.dispatch('getQuestionDetail', id)
+            })
+            .catch(console.log)
+        }
+    },
     created() {
         let id = this.$route.params.id
-        let token = localStorage.getItem('token')
-        axios.get(`${url}/questions/${id}`, {headers: {token}})
-        .then(({data}) => {
-            this.question = data
-            this.$store.dispatch('getAnswers', data._id)
-        })
-        .catch(console.log)
+        this.$store.dispatch('getQuestionDetail', id)
+        this.$store.dispatch('getAnswers', id)       
     }
 }
 </script>
 
 <style>
+.ok{
+    cursor:grab
+}
 
 </style>

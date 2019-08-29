@@ -1,74 +1,83 @@
 <template>
-
   <v-layout row>
-      <v-flex md2>
-          <i class="far fa-thumbs-up ok" @click="up(q)"></i>
-            {{q.upVote.length - q.downVote.length}}
-        <i class="far fa-thumbs-down ok" @click="down(q)"></i>
-      </v-flex>
+    <v-flex md2>
+      <v-list-item-content>
+        <v-list-item-title>Votes</v-list-item-title>
+        <v-list-item-subtitle>{{q.upVote.length - q.downVote.length}}</v-list-item-subtitle>
+        <v-list-item-title>Answers</v-list-item-title>
+        <v-list-item-subtitle>{{replies}}</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-flex>
     <v-divider vertical></v-divider>
-          <v-flex md7 @click="showDetail(q._id)" class="clickhover">
-          <v-list-item-title> <h3> {{q.title}} </h3></v-list-item-title>
-          <v-list-item-subtitle> by: {{q.userId.name}}</v-list-item-subtitle>
-         </v-flex>
-    
-      
-    <v-divider vertical></v-divider>
-      <v-flex md2>
-          asjdhuoahsd
-      </v-flex>
-    </v-layout>
-    
+    <v-flex md7 @click="showDetail(q._id)" class="clickhover">
+      <v-list-item-title>
+        <h3>{{q.title}}</h3>
+      </v-list-item-title>
+      <v-list-item-subtitle>by: {{q.userId.name}}</v-list-item-subtitle>
+    </v-flex>
+
+    <v-flex v-if="q.userId._id == currentUser" row wrap>
+      <v-btn color="warning">Edit</v-btn>
+    </v-flex>
+    <v-flex v-if="q.userId._id == currentUser" row wrap>
+      <v-btn color="error" @click="remove(q._id)">Delete</v-btn>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
-import axios from 'axios'
-const url = "http://localhost:3000"
+import axios from "axios";
+import { mapState } from "vuex";
+import Swal from 'sweetalert2'
+const url = "http://localhost:3000";
 
 export default {
-    name: 'questionlist',
-    props: ['q'],
-    data() {
-        return {
-        }
+  name: "questionlist",
+  props: ["q"],
+  data() {
+    return {
+      replies: 0
+    };
+  },
+  methods: {
+    showDetail(id) {
+      this.$router.push(`/home/${id}`);
     },
-    methods: {
-        showDetail(id) {
-            this.$router.push(`/home/${id}`)
-        },
 
-        up(input) {
-            let id = input._id
-            let token = localStorage.getItem('token')
-            axios.patch(`${url}/questions/${id}/upvote`, {}, {headers: {token}})
-            .then(({data}) => {
+    remove(id) {
+      let token = localStorage.getItem("token");
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          axios
+            .delete(`${url}/questions/${id}`, { headers: { token } })
+            .then(({ data }) => {
                 this.$store.dispatch('getQuestions')
-            })
-            .catch(console.log)
-        },
-
-        down(input) {
-            let id = input._id
-            let token = localStorage.getItem('token')
-            axios.patch(`${url}/questions/${id}/downvote`, {}, {headers: {token}})
-            .then(({data}) => {
-                this.$store.dispatch('getQuestions')
-            })
-            .catch(console.log)
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            });
         }
-    },
-    
-}
+      });
+    }
+  },
+  computed: mapState(["answers", "currentUser"]),
+
+  created() {
+    this.$store.dispatch("getAnswers", this.q._id);
+    this.replies = this.answers.length;
+  }
+};
 </script>
 
 <style>
-.ok{
-    cursor:grab
-}
-
-
-.clickhover:hover{
-color: orange;
-transition: 0.3s all;
+.clickhover:hover {
+  color: orange;
+  transition: 0.3s all;
 }
 </style>

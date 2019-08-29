@@ -5,6 +5,7 @@ import Login from './views/Login.vue'
 import AllQuestions from './views/AllQuestions.vue'
 import MyQuestions from './views/MyQuestions.vue'
 import Detail from './views/Detail.vue'
+import Register from './views/Register.vue'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
     }
   ]
 })

@@ -6,11 +6,19 @@
           <v-col cols="12" sm="8" md="4">
             <v-card class="elevation-12">
               <v-toolbar color="primary" dark flat>
-                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-toolbar-title>Register form</v-toolbar-title>
                 <div class="flex-grow-1"></div>
               </v-toolbar>
               <v-card-text>
                 <v-form>
+                    <v-text-field
+                    label="Name"
+                    name="name"
+                    prepend-icon="person"
+                    type="text"
+                    v-model="name"
+                  ></v-text-field>
+
                   <v-text-field
                     label="Email"
                     name="email"
@@ -29,7 +37,7 @@
                   ></v-text-field>
                   <v-card-actions>
                     <div class="flex-grow-1"></div>
-                    <v-btn color="primary" @click="login">Login</v-btn>
+                    <v-btn color="primary" @click="register">Register</v-btn>
                   </v-card-actions>
                 </v-form>
               </v-card-text>
@@ -52,34 +60,33 @@ export default {
   },
   data: () => ({
     drawer: null,
+    name: "",
     email: "",
     password: ""
   }),
   methods: {
-    login() {
+    register() {
       axios
-        .post(`${url}/users/login`, {
+        .post(`${url}/users/register`, {
+          name: this.name,
           email: this.email,
           password: this.password
         })
         .then(({ data }) => {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("userData", data.user._id);
-          this.$store.commit("CHANGELOGIN", true);
+         this.$router.push('/login')
           Swal.fire({
             position: "center",
             type: "success",
-            title: "Welcome to HacktivOverflow",
+            title: "Please login to continue",
             showConfirmButton: false,
             timer: 1500
           });
-          this.$router.push("/home/all");
         })
         .catch(err => {
           Swal.fire({
             type: "error",
             title: "Oops...",
-            text: "Invalid email/password"
+            text: "Please fill all the blanks"
           });
         });
     }
