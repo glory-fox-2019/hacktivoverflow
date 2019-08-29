@@ -58,6 +58,7 @@ class ControllerQuestion {
       })
       .catch(next)
   }
+
   static delete(req, res, next) {
     Question
       .findByIdAndDelete({
@@ -73,118 +74,43 @@ class ControllerQuestion {
       })
       .catch(next)
   }
+
   static votes(req, res, next) {
+
     const voteType = req.query.type
     const questionId = req.params.id
-    const userId = req.decoded.id
+    const userId = req.decoded.user._id
 
     Question
       .findOne({ _id: questionId })
       .populate("UserId")
       .then(found => {
+        // console.log(found, '<---- then');
         if (!found) throw new Error('question not found')
         else {
           if (voteType == 'upvote') {
-            if (found.upvote.includes(userId)) throw new Error('you already vote')
-            else if (found.downvote.includes(userId)) {
-              found.downvote.pull(userId)
-              found.upvote.push(userId)
+            if (found.upVote.includes(userId)) throw new Error('you already vote')
+            else if (found.downVote.includes(userId)) {
+              found.downVote.pull(userId)
+              found.upVote.push(userId)
             }
-            else found.upvote.push(userId)
+            else found.upVote.push(userId)
           }
           else if (voteType == 'downvote') {
-            if (found.downvote.includes(userId)) throw new Error('you already vote')
-            else if (found.upvote.includes(userId)) {
-              found.upvote.pull(userId)
-              found.downvote.push(userId)
+            if (found.downVote.includes(userId)) throw new Error('you already vote')
+            else if (found.upVote.includes(userId)) {
+              found.upVote.pull(userId)
+              found.downVote.push(userId)
             }
-            else found.downvote.push(userId)
+            else found.downVote.push(userId)
           }
           else throw new Error('invalid vote type')
-          console.log(found);
           return found.save()
         }
       })
       .then(question => res.status(200).json(question))
       .catch(next)
   }
-  // static upVote(req, res, next) {
-  //   console.log('masuk');
-
-  //   let UserId = localStorage.getItem('token');
-  //   let { id } = req.params
-
-  //   Question
-  //     .findOne({
-  //       _id: id, upVote: UserId
-  //     })
-  //     .then(data => {
-  //       if (data) {
-  //         res.status(400).json({ message: "You can't Upvote" })
-  //       } else {
-  //         return Question.findOne({
-  //           _id: id,
-  //           downVote: UserId
-  //         })
-  //       }
-  //     })
-  //     .then(response => {
-  //       if (response) {
-  //         return question.findByIdAndUpdate(
-  //           id,
-  //           { $pull: { downvote: UserId } },
-  //           { new: true }
-  //         )
-  //       } else {
-  //         return question.findByIdAndUpdate(
-  //           id,
-  //           { $push: { upVote: UserId } },
-  //           { new: true }
-  //         )
-  //       }
-  //     })
-  //     .then(results => {
-  //       res.status(200).json(results)
-  //     })
-  //     .catch(next)
-  // }
-  // static downVote() {
-
-  //   let UserId = req.decode.id
-  //   let { id } = req.params
-
-  //   Question.findOne({
-  //     _id: id, downVote: UserId
-  //   })
-  //     .then(data => {
-  //       if (data) {
-  //         res.status(400).json({ message: "You can't Upvote" })
-  //       } else {
-  //         return question.findOne(
-  //           { _id: id, upvote: UserId }
-  //         )
-  //       }
-  //     })
-  //     .then(response => {
-  //       if (response) {
-  //         return question.findByIdAndUpdate(
-  //           id,
-  //           { $pull: { upvote: UserId }},
-  //           { new: true }
-  //         )
-  //       } else {
-  //         return question.findByIdAndUpdate(
-  //           id,
-  //           { $push: { downvote: UserId }}, 
-  //           { new: true }
-  //         )
-  //       }
-  //     })
-  //     .then(results => {
-  //       res.status(200).json(results)
-  //     })
-  //     .catch(next)
-  // }
 }
 
 module.exports = ControllerQuestion

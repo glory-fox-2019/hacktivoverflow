@@ -2,9 +2,9 @@
 <div class="task-detail">
   <div class="detail d-flex align-item-center">
     <div class="col-ms-2 pl-4 pr-5 d-flex flex-column" style="height:50px; ">
-      <i class="fas fa-chevron-up" style="font-size:15px; cursor:pointer;"></i>
+      <i class="fas fa-chevron-up" @click.prevent="upvoteAnswer(answ._id)" style="font-size:15px; cursor:pointer;"></i>
       <a style="font-size:15px;">{{answ.upVote.length}}</a>
-      <i class="fas fa-chevron-down" style="font-size:15px; cursor:pointer;"></i>
+      <i class="fas fa-chevron-down" @click.prevent="downvoteAnswer(answ._id)" style="font-size:15px; cursor:pointer;"></i>
     </div>
     <div class="col-ms-10">
       <p>{{answ.content}}</p>
@@ -83,7 +83,15 @@ export default {
       this.$store.dispatch('submitUpdateAnswer', this.newAnswer);
       this.$store.dispatch('getAnswer', this.$route.params.id);
       $('#Modal').modal('hide');
-    }
+    },
+    upvoteAnswer(id) {
+      this.$store.dispatch('upvoteAnswer', id);
+      this.$store.dispatch('getAnswer', this.$route.params.id);
+    },
+    downvoteAnswer(id) {
+      this.$store.dispatch('downvoteAnswer', id);
+      this.$store.dispatch('getAnswer', this.$route.params.id);
+    },
   },
   created() {
     this.$store.dispatch('getAnswer', this.$route.params.id);

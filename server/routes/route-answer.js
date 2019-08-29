@@ -5,8 +5,8 @@ const { authorize, authentication } = require('../middleware/auth');
 
 route.get('/:id', controllerAnswer.getAllByQuestion);
 route.post('/', authentication, controllerAnswer.create);
-// route.post('/', authorize, upload.multer.single('image'), upload.sendUploadToGCS, controllerProduct.create)
-route.patch('/:id', authorize, controllerAnswer.update)
-route.delete('/:id', authorize, controllerAnswer.delete)
+route.patch('/:id', authorize, controllerAnswer.update);
+route.delete('/:id', authorize, controllerAnswer.delete);
+// route.patch('/vote/:id', authorize, controllerAnswer.delete);
 
-module.exports = route
+module.exports = route;

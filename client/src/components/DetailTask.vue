@@ -32,10 +32,8 @@
     <h5>{{answer.length}} Answer</h5>
     <hr>
   </div>
-  
   <!-- comment -->  
   <router-view/>
-
   <hr>
   <div class="answer mt-5 ml-5">
     <h5>Your Answer</h5>
@@ -126,17 +124,24 @@ export default {
       this.$store.dispatch('getOneQuestion', this.$route.params.id);
       $('#exampleModal').modal('hide');      
     },
-    upvote() {
-      this.$store.dispatch('upvoteQuestion', this.user.id);
+    upvote(id) {
+      this.$store.dispatch('upvoteQuestion', id);
+      this.$store.dispatch('getOneQuestion', this.$route.params.id);
     },
-    downvote() {
-      this.$store.dispatch('downvoteQuestion', this.user.id);
+    downvote(id) {
+      this.$store.dispatch('downvoteQuestion', id);
+      this.$store.dispatch('getOneQuestion', this.$route.params.id);
     },
   },
   created() {
     this.$store.dispatch('getOneQuestion', this.$route.params.id);
     this.$store.dispatch('getAnswer', this.$route.params.id);
   },
+  watch: {
+    votes() {
+      this.question
+    }
+  }
   
 };
 </script>

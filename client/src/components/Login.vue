@@ -21,6 +21,7 @@
 
 <script>
 
+  import Swal from 'sweetalert2';
 export default {
   name: 'login',
   data() {
@@ -36,11 +37,6 @@ export default {
       this.$store.dispatch('login', this.formLogin);
     },
   },
-  // created() {
-  //   if (localStorage.token) {
-  //     this.state.commit('ISLOGIN', true)
-  //   }
-  // }
 };
 </script>
 
