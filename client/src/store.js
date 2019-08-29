@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Axios from 'axios';
 import router from './router';
+import { rejects } from 'assert';
 // import { stat } from 'fs';
 // import router from './router';
 // import swal from 'sweetalert2';
@@ -187,23 +188,32 @@ export default new Vuex.Store({
         })
         .catch(console.log);
     },
-    upvoteQuestion(context, userId) {
+    upvoteQuestion(context, questionId) {
       Axios
-        .post(`${baseUrl}/api/question/upvote`, userId)
+        .defaults.headers.common.token = localStorage.token;
+      Axios
+        .patch(`${baseUrl}/api/question/votes/${questionId}?type=upvote`)
         .then(({ data }) => {
           console.log(data);
-          context.commit('UPVOTE_QUESTION', data);
+          context.dispatch('fetchQuestion', questionId);
         })
-        .catch(console.log);
+        .catch((err) => {
+          console.log(err.respons.data);
+        })
     },
-    // downvoteQuestion(context, userId) {
-    //   Axios
-    //     .post(`${baseUrl}/api/question/downvote`, userId)
-    //     .then(({ data }) => {
-    //       console.log(data);
-    //       context.commit('UPVOTE_QUESTION', data);
-    //     })
-    //     .catch(console.log);
-    // },
+    downvoteQuestion(context, questionId) {
+      console.log(localStorage);
+      Axios
+        .defaults.headers.common.token = localStorage.token;
+      Axios
+        .patch(`${baseUrl}/api/question/votes/${questionId}?type=downvote`)
+        .then(({ data }) => {
+          console.log(data);
+          context.dispatch('fetchQuestion', questionId);
+        })
+        .catch((err) => {
+          console.log(err.respons.data);
+        })
+    },
   },
 });

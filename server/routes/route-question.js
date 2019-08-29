@@ -9,7 +9,7 @@ route.get('/owner/:id', controllerQuestion.getByUser);
 route.post('/', authentication, controllerQuestion.create);
 route.delete('/:id', authentication, controllerQuestion.delete);
 route.patch('/:id', authentication, controllerQuestion.update);
-// route.post('/upvote', authentication, controllerQuestion.upVote);
+route.patch('/vote/', authentication, controllerQuestion.votes);
+// route.post('/downvote/:id', authentication, controllerQuestion.downVote);
 
-
-module.exports = route
+module.exports = route;

@@ -10,9 +10,9 @@
   </div>
   <div class="detail d-flex align-item-center">
     <div class="col-ms-2 pl-4 pr-5 d-flex row" style="height:50px;">
-      <i @click.prevent="upvote" class="fas fa-chevron-up" style="font-size:30px; cursor:pointer;"></i>
+      <i @click.prevent="upvote(question._id)" class="fas fa-chevron-up" style="font-size:30px; cursor:pointer;"></i>
       <a style="font-size:30px">{{question.upVote.length}}</a>
-      <i @click.prevent="downvote" class="fas fa-chevron-down" style="font-size:30px; cursor:pointer;"></i>
+      <i @click.prevent="downvote(question._id)" class="fas fa-chevron-down" style="font-size:30px; cursor:pointer;"></i>
     </div>
     <div class="col-ms-10">
       <p>{{question.content}}</p>
@@ -127,10 +127,10 @@ export default {
       $('#exampleModal').modal('hide');      
     },
     upvote() {
-      this.$store.dispatch('upvote', this.user.id);
+      this.$store.dispatch('upvoteQuestion', this.user.id);
     },
     downvote() {
-      this.$store.dispatch('downvote', this.user.id);
+      this.$store.dispatch('downvoteQuestion', this.user.id);
     },
   },
   created() {

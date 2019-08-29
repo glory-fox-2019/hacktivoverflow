@@ -1,15 +1,15 @@
 <template>
   <div class="task">
     <div class="ml-2 d-flex align-items-center">
+      <!-- <button>test</button>
       <button>test</button>
-      <button>test</button>
-      <button>test</button>
+      <button>test</button> -->
     </div>
     <div class="task-content p-4">
       <router-link :to="`/detail/${quest._id}`">{{quest.title}}</router-link>
       <div class="task-tag mt-4">
-        <button>test</button>
-        <button>test</button>
+        <!-- <small class="mr-4">Asked by: {{this.user.name}}</small> -->
+        <!-- <small class="mr-4">Views: {{asks.upVote.length + asks.downVote.length}}</small> -->
         <small>{{Moment(quest.createdAt).fromNow()}}</small>
       </div>
     </div>
