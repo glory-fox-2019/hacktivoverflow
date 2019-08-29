@@ -40,7 +40,7 @@ new CronJob('* 3 * * * *', function() {
     }
     console.log(popularTag);
   })
-}, null, true, 'America/Los_Angeles');
+}, null, true, 'Asia/Jakarta');
 
 // CRON <<<<<<<<<<<<<<<<<<<<
 router.get('/popular/tag', (req, res, next) => {
@@ -48,7 +48,7 @@ router.get('/popular/tag', (req, res, next) => {
     .then(filter => {
       res.status(200).json({ filter });
     })
-    .catch( next )    
+    .catch( next )
 });
 
 router.delete('/:id', authorization, questionContoller.deleteQuestion);
