@@ -4,25 +4,25 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Hacky Overflow</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-menu offset-y>
-      <template v-slot:activator="{ on }">
-        <v-avatar size="36px" v-on="on">
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="avatar">
-        </v-avatar>
-      </template>
-      <v-list class="py-0">
-        <v-list-item link class="px-7" router :to="'/profile'">
-          <v-icon left>account_circle</v-icon>
-          <v-list-item-content>Profile</v-list-item-content>
-        </v-list-item>
-        <v-list-item link class="px-7 text-right" @click="logout">
-          <v-icon left>exit_to_app</v-icon>
-          <v-list-item-content>
-            Logout
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+      <v-menu offset-y v-if="isLogin">
+        <template v-slot:activator="{ on }">
+          <v-avatar size="36px" v-on="on">
+            <img src="https://res.cloudinary.com/dxkkt5pzu/image/upload/v1566793505/my_dafault/no-profile-picture.png" alt="avatar">
+          </v-avatar>
+        </template>
+        <v-list class="py-0">
+          <v-list-item link class="px-7" router :to="'/profile'">
+            <v-icon left>account_circle</v-icon>
+            <v-list-item-content>Profile</v-list-item-content>
+          </v-list-item>
+          <v-list-item link class="px-7 text-right" @click="logout">
+            <v-icon left>exit_to_app</v-icon>
+            <v-list-item-content>
+              Logout
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list-item>
@@ -60,10 +60,11 @@ export default {
       },
       {
         route: '/popular',
-        text: 'Popular',
+        text: 'Popular Tag',
         icon: 'star',
       },
     ],
+    isLogin: false,
   }),
   methods: {
     logout() {
@@ -78,13 +79,23 @@ export default {
       })
         .then((result) => {
           if (result.value) {
+            this.isLogin = false;
             localStorage.clear();
             this.$router.push('/login');
             this.$swal.fire('See yaa!');
           }
         })
     }
-  }
+  },
+  created() {
+    if (localStorage.getItem('token')) {
+      console.log(this.isLogin);
+      this.isLogin = true;
+      console.log(this.isLogin);
+    } else {
+      this.isLogin = false;
+    }
+  },
 }
 </script>
 

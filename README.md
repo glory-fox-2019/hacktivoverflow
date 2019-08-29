@@ -14,6 +14,12 @@ http://localhost:3000
   * [Create](#create)
   * [Find All](#find-all)
   * [Find One](#find-one)
+  * [Find All](#edit-question)
+* [Answer](#answer)
+  * [Up Vote Answer](#up-vote-answer)
+  * [Down Vote Answer](#down-vote-answer)
+  * [Update Answer](#update-answer)
+  * [Delete Answer](#delete-answer)
 * [Another Error](#another-error)
 
 
@@ -79,6 +85,34 @@ http://localhost:3000
     }
     ```
 
+
++ ### Get id user
+  Method : `GET`<br>
+  Endpoint : `/user`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    {
+      token: String(required),
+    }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    '5d63633daca4cf20829408f7'
+    ```
+  - 401
+    ```javascript
+    {
+      "code": 401,
+      "message": "invalid token"
+    }
+    ```
+
+
+
 ## Question
 + ### Create
   Method : `POST`<br>
@@ -112,9 +146,47 @@ http://localhost:3000
       ]
     }
     ```
-+ ### Get All
++ ### Find All
   Method : `GET`<br>
   Endpoint : `/question`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { "tags": ['javascript', 'php'],
+      "data": [
+        {
+          "votes": {
+            "up": [],
+            "down": []
+          },
+          "comments": [],
+          "answers": [],
+          "_id": "5d636d1fa8e6fb2777131b04",
+          "title": "q pertama cuy",
+          "text": "gua nanya gimana caranya kalo begini?",
+          "createdAt": "2019-08-26T05:24:47.276Z",
+          "updatedAt": "2019-08-26T05:24:47.276Z"
+        },
+      ],
+    }
+    ```
+  - 401
+    ```javascript
+    {
+      "code": 401,
+      "message": "jwt must be provided"
+    }
+    ```
++ ### Find One
+  Method : `GET`<br>
+  Endpoint : `/question/:id`
 
   #### _Request_ :
   * headers:
@@ -146,6 +218,273 @@ http://localhost:3000
       "message": "jwt must be provided"
     }
     ```
++ ### Update Question
+  Method : `PUT`<br>
+  Endpoint : `/question/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+  * body:
+    ```javascript
+    { 
+      title: String, 
+      text: String, 
+      tags: Array 
+    }
+    ```
+  * params:
+    ```javascript
+    { id: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { message: 'Question updated!' }
+    ```
+  - 401
+    ```javascript
+    {
+      "code": 401,
+      "message": "jwt must be provided"
+    }
+    ```
++ ### Up Vote Question
+  Method : `GET`<br>
+  Endpoint : `/question/upvote/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { message: 'Voted up!' }
+    ```
+  - 400
+    ```javascript
+    {
+      "code": 400,
+      "message": "VOTE_SELF"
+    }
+    ```
++ ### Down Vote Question
+  Method : `GET`<br>
+  Endpoint : `/question/downvote/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { message: 'Voted down!' }
+    ```
+  - 400
+    ```javascript
+    {
+      "code": 400,
+      "message": "VOTE_SELF"
+    }
+    ```
++ ### Get All Tag Question
+  Method : `GET`<br>
+  Endpoint : `/question/tag/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+  * params:
+    ```javascript
+    { id: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    [
+      {
+        "comments": [],
+        "answers": [],
+        "tags": [
+          "javascript",
+          "python"
+        ],
+        "up_votes": [
+          "5d63633daca4cf20829408f7",
+          "5d639748bd2569399bfc1ce1"
+        ],
+        "down_votes": [],
+        "_id": "5d63f4a0a801961c817cd438",
+        "title": "question pertama",
+        "text": "gua nanya gimana caranya kalo begini?",
+        "createdAt": "2019-08-26T15:02:56.511Z",
+        "updatedAt": "2019-08-29T07:48:09.637Z"
+      },
+    ]
+    ```
+  - 401
+    ```javascript
+    {
+      "code": 401,
+      "message": "invalid token"
+    }
+    ```
++ ### Delete Question
+  Method : `DELETE`<br>
+  Endpoint : `/question/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+  * params:
+    ```javascript
+    { id: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { message: 'Question deleted!' }
+    ```
+  - 401
+    ```javascript
+    {
+      "code": 401,
+      "message": "invalid token"
+    }
+    ```
+
+## Answer
++ ### Up Vote Answer
+  Method : `POST`<br>
+  Endpoint : `/answer/upvote/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+  * params:
+    ```javascript
+    { id: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { message: 'Voted up!' }
+    ```
+  - 400
+    ```javascript
+    {
+      "code": 400,
+      "message": "VOTE_SELF"
+    }
+    ```
++ ### Down Vote Answer
+  Method : `POST`<br>
+  Endpoint : `/answer/downvote/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+  * params:
+    ```javascript
+    { id: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { message: 'Voted down!' }
+    ```
+  - 400
+    ```javascript
+    {
+      "code": 400,
+      "message": "VOTE_SELF"
+    }
+    ```
++ ### Update Answer
+  Method : `PUT`<br>
+  Endpoint : `/answer/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { "token": String(required) }
+    ```
+  * params:
+    ```javascript
+    { "id": String(required) }
+    ```
+  * body:
+    ```javascript
+    { "text": String(required) }
+    ```
+
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { "message": 'Answer Updated!' }
+    ```
+  - 401
+    ```javascript
+    {
+      "code": 401,
+      "message": "invalid token"
+    }
+    ```
++ ### Delete Answer
+  Method : `DELETE`<br>
+  Endpoint : `/answer/:id`
+
+  #### _Request_ :
+  * headers:
+    ```javascript
+    { token: String(required) }
+    ```
+  * params:
+    ```javascript
+    { id: String(required) }
+    ```
+
+  #### _Response Body_ :
+  - 200
+    ```javascript
+    { message: 'Answer Updated!' }
+    ```
+  - 401
+    ```javascript
+    {
+      "code": 401,
+      "message": "invalid token"
+    }
+    ```
+
+
+
+
+
+
+
 
 
 

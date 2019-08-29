@@ -13,6 +13,11 @@ function errorHandler(err, req, res, next) {
       code: 404,
       message: err.message
     })
+  } else if (err.message === `invalid token`) {
+    res.status(401).json({
+      code: 401,
+      message: err.message
+    })
   } else if (err.message === `QUESTION_NOT_FOUND` || err.message === 'VOTE_SELF') {
     res.status(400).json({
       code: 400,

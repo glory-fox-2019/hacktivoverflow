@@ -6,8 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    // baseUrl: 'http://34.87.64.217',
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://34.87.64.217',
     questionBundle: [],
     oneTag: [],
     tags: [],
@@ -264,6 +263,7 @@ export default new Vuex.Store({
           }
         })
           .then(({data}) => {
+            console.log(data);
             resolve(data.filter);
           })
           .catch(({response}) => {

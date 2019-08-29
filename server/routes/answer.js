@@ -10,7 +10,7 @@ router.put('/:id', answerController.updateOne);
 router.post('/', answerController.addAnswer);
 router.post('/upvote/:id', answerController.upvote);
 router.post('/downvote/:id', answerController.downvote);
-router.delete('/:id', authorization, answerController.deleteAnswer);
 router.post('/comment', answerController.addAnswerComment);
+router.delete('/:id', authorization, answerController.deleteAnswer);
 
 module.exports = router;
