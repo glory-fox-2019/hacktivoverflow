@@ -2,7 +2,7 @@
 
 ##Link deploy 
 <br>
-[hacktiv-overflow.adielpratama.com](http://e-commerce.adielpratama.com "Hacktiv Overflow")
+[hacktiv-overflow.adielpratama.com](http://hacktiv-overflow.adielpratama.com "Hacktiv Overflow")
 
 ## Installation
 run this command before use this application :)
