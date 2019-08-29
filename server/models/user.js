@@ -41,6 +41,9 @@ const userSchema = new mongoose.Schema({
   loginWith: {
     type: String,
     default: 'normal',
+  },
+  watchedTag: {
+    type: Array
   }
 },{
   versionKey: false,

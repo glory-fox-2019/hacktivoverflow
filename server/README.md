@@ -772,6 +772,93 @@ Error:
 - 401:
   - User must login
 
+<!-- # Tag
+## Get User Watched Tag
+URL:  `/user/tag`
+Method: `GET`
+Status Code:  **`200`**
+Authentication: `TRUE`
+
+Response:
+```
+{
+  watched_tag: []
+}
+```
+<br/>
+
+## Add Watched Tag
+URL:  `/tag/`
+Method: `POST`
+Status Code:  **`200`**
+Authentication: `TRUE`
+
+Data:
+```
+{
+  tag: 'Tag'
+}
+```
+
+Response:
+```
+{
+  success: Number,
+  message: 'Success Add Watched Tag'
+}
+```
+<br/>
+
+## Delete Watched Tag
+URL:  `/tag/:tag`
+Method: `DELETE`
+Status Code:  **`200`**
+Authentication: `TRUE`
+
+Response: 
+```
+{
+  delete: 1,
+  message: 'Successfully Delete Question',
+}
+```
+Error: 
+- 404: 
+  - Question not found
+
+- 401:
+  - User must login
+
+<br/>
+
+## View Question by Tag
+Url: `/tag/:tag`
+Method: `GET`
+Status: `200`
+
+Response: 
+```
+[
+  {
+    _id: String,
+    title: String,
+    description: String,
+    upvotes: Array,
+    downvotes: Array,
+    answers: Array,
+    tags: Array,
+    comments: Array,
+    user: {
+      _id: String,
+      name: String,
+      email: String,
+    },
+    createdAt: Date,
+    updatedAt: Date,
+  },
+  ...
+]
+``` -->
 
 # Error handler
 
