@@ -5,11 +5,10 @@ import router from './router'
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 
-const users_url = 'http://35.192.45.25/users/'
-const questions_url = 'http://localhost:3000/questions'
-const answer_url = 'http://localhost:3000/answers'
-const cart_url = 'http://35.192.45.25/carts'
-const transaction_url = 'http://35.192.45.25/transactions'
+
+const questions_url = 'http://13.250.110.115//questions'
+const answer_url = 'http://13.250.110.115/answers'
+
 
 Vue.use(Vuex)
 Vue.use(VueSweetalert2)

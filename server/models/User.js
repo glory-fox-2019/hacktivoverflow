@@ -10,6 +10,7 @@ const UserSchema = new Schema({
     },
     email : {
         type :String,
+        required : true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
         validate : {
             validator : function(){
@@ -32,7 +33,10 @@ const UserSchema = new Schema({
             }, message : "this email has been used"
         }
     },
-    password : String
+    password : {
+        type :String,
+        required : true
+    }
 },{
     timestamps : true,
     versionKey :false

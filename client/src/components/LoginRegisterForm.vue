@@ -86,7 +86,7 @@
 
 <script>
 import axios from 'axios'
-const server_url = 'http://localhost:3000/users'
+const server_url = 'http://13.250.110.115/users'
 
 export default {
   name: 'loginRegisterForm',
