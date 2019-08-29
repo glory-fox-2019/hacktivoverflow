@@ -3,10 +3,7 @@ const router = express.Router()
 const questionController = require('../controllers/questionController')
 const authentication = require('../middlewares/authentication')
 const authorizeQuestion = require('../middlewares/authorizeQuestion')
-var CronJob = require('cron').CronJob;
-new CronJob('0 7 * * 1', function() {
-    questionController.topThree
-  }, null, true, 'Asia/Jakarta');
+
 
 router.use(authentication)
 router.get('/', questionController.find)

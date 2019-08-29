@@ -2,6 +2,7 @@ const Top = require('../models/top')
 const express = require('express')
 const router = express.Router()
 const Question = require('../models/question')
+var CronJob = require('cron').CronJob;
 
 router.post('/', (req, res, next) => {
     Top.create({
