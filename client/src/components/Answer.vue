@@ -37,15 +37,15 @@
         <v-row>
           <v-expand-transition>
             <v-card-text v-show="answerEdit">
-              <v-textarea relative>
+              <v-textarea relative v-model="editText">
                 <template v-slot:label>
                   <div>
-                    Your answer . . .
+                    Edit your answer
                   </div>
                 </template>
               </v-textarea>
               <v-card-actions class="d-flex justify-end">
-                <v-btn depressed color="primary" class="align-self-end">Edit</v-btn>
+                <v-btn depressed color="primary" class="align-self-end" @click="editAnswer">Edit</v-btn>
                 <v-btn depressed color="error" class="align-self-end" @click="answerEdit = false">Cancel</v-btn>
               </v-card-actions>
             </v-card-text>
@@ -63,6 +63,7 @@ export default {
     idUser: '',
     oneData: {},
     answerEdit: false,
+    editText: '',
   }),
   created() {
     this.$store.dispatch('getId')
@@ -70,6 +71,7 @@ export default {
         this.idUser = id;
       })
     this.oneData = this.answer;
+    this.editText = this.answer.text;
   },
   methods: {
     upVote() {
@@ -127,6 +129,25 @@ export default {
             type: 'warning',
             title: 'Something wrong!',
           })
+        })
+    },
+    editAnswer() {
+      let payload = {
+        id: this.oneData._id,
+        text: this.editText,
+      }
+      this.$store.dispatch('editAnswer', payload)
+        .then(_=> {
+          this.$swal.fire({
+            type: 'success',
+            title: 'Berhasil update answer!'
+          })
+          this.$store.dispatch('getOneAnswer', this.oneData._id)
+            .then(data => {
+              this.oneData = data;
+            })
+          this.answerEdit = false;
+          this.editText = '';
         })
     }
   }

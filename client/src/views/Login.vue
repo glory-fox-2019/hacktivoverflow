@@ -157,7 +157,7 @@ export default {
           this.$router.push('/');
           this.$swal.fire({
             type: 'success',
-            title: msg[0],
+            title: msg,
           })
         })
         .catch(msg => {

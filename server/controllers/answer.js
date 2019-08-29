@@ -121,6 +121,14 @@ class AnswerController {
       })
       .catch( next );
   }
+
+  static updateOne(req, res, next) {
+    Answer.updateOne({ _id: req.params.id }, { text: req.body.text })
+      .then(_=> {
+        res.status(200).json({ message: 'Answer Updated!' });
+      })
+      .catch( next );
+  }
 }
 
 module.exports = AnswerController;

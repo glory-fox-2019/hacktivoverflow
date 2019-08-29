@@ -35,6 +35,11 @@ export default {
       .then(id => {
         this.idUser = id;
       })
+  },
+  watch: {
+    $route() {
+      this.$store.dispatch('getTags', this.$route.params.tag);
+    }
   }
 };
 </script>

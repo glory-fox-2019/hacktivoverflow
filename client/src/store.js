@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // baseUrl: 'http://34.87.64.217',
     baseUrl: 'http://localhost:3000',
     questionBundle: [],
     oneTag: [],
@@ -325,6 +326,26 @@ export default new Vuex.Store({
             resolve(data.message);
           })
           .catch(({response}) => {
+            console.log(response.data.message);
+          })
+      })
+    },
+    editAnswer({ state }, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'PUT',
+          url: `${state.baseUrl}/answer/${payload.id}`,
+          headers: {
+            token: localStorage.getItem('token'),
+          },
+          data: {
+            text: payload.text,
+          }
+        })
+          .then(_=> {
+            resolve();
+          })
+          .catch(({ response }) => {
             console.log(response.data.message);
           })
       })

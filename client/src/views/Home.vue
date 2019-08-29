@@ -31,18 +31,19 @@ export default {
     snackbar: false,
   }),
   created() {
+    this.$store.dispatch('fetchQuestion');
+    
     this.$store.dispatch('getId')
       .then(id => {
         this.idUser = id;
       })
+
     if (this.snackMessage.length > 1) {
       this.theText = this.snackMessage;
       this.snackbar = true;
       this.$store.commit('SNACK_MESSAGE', '');
     }
   },
-  methods: {
-  }
 };
 </script>
 
