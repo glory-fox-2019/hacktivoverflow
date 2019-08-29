@@ -85,8 +85,8 @@ class User {
           email: data.email,
           loginWith: data.loginWith,
         }
-        let token = jwt.generateToken(payload);
-        res.json({token, payload});
+        let access_token = jwt.generateToken(payload);
+        res.json({access_token, payload});
       })
       .catch(next);
   }
