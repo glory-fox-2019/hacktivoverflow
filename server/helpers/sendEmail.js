@@ -12,7 +12,7 @@ function sendEmail(data) {
   });
 
   const mailOptions = {
-    from: "admin@askthemap.com",
+    from: "'Ask The Map' <admin@askthemap.com>",
     to: data.email,
     subject: "Monthly Report",
     html:

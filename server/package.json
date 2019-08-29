@@ -19,7 +19,8 @@
     "kue": "^0.11.6",
     "mongoose": "^5.6.7",
     "node-cron": "^2.0.3",
-    "nodemailer": "^6.3.0"
+    "nodemailer": "^6.3.0",
+    "sweetalert2": "^8.16.3"
   },
   "devDependencies": {
     "dotenv": "^8.0.0",

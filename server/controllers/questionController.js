@@ -55,65 +55,114 @@ class QuestionContoller {
     }
 
     static upvote(req, res, next) {
-        Question
-            .updateOne({
-                _id: req.params.id
-            }, {
-                    $addToSet: {
-                        upvotes: ObjectId(req.authenticatedUser._id)
-                    },
-                    $pull: {
-                        downvotes: ObjectId(req.authenticatedUser._id)
-                    }
-                })
-            .then(result => {
-                if (result.n && result.ok) {
-                    res
-                        .status(200)
-                        .json(result)
-                } else {
-                    res
-                        .status(404)
-                        .json({
-                            message: 'Question not found'
+        let token = req.authenticatedUser
+        Question.findOne({_id : req.params.id})
+        .then(data => {
+            if (!data) {
+                res.status(404).json({ message: 'Not Found' })
+            } else {
+                let id = req.params.id
+                let checkUpvotes = data.upvotes.includes(token._id)
+                let checkDownvotes = data.downvotes.includes(token._id)
+
+                if (checkUpvotes) {
+                    Question.findByIdAndUpdate(id,
+                        {$pull:
+                            {upvotes: token._id}
+                        },
+                        {new:true}
+                    )
+                    .then( updated => {
+                        res.status(200).json( { data: updated } )
+                    })
+                } else if (!checkUpvotes && checkDownvotes) {
+                    Question.findByIdAndUpdate(req.params.id,
+                        {$pull:
+                            {downvotes: token._id}
+                        },
+                        {new:true}
+                    )
+                    .then( updated => {
+                        Question.findByIdAndUpdate(req.params.id,
+                            {$push:
+                                {upvotes: token._id}
+                            },
+                            {new:true}
+                        )
+                        .then( updated => {
+                            res.status(200).json( { data: updated } )
                         })
+                    })
+                } else if (!checkUpvotes && !checkDownvotes) {
+                    Question.findByIdAndUpdate(req.params.id,
+                        {$push:
+                            {upvotes: token._id}
+                        },
+                        {new:true}
+                    )
+                    .then( updated => {
+                        res.status(200).json( { data: updated } )
+                    })
                 }
-            })
-            .catch(err => {
-                next(err)
-            })
+            }
+        })
+        .catch(next)
     }
 
     static downvote(req, res, next) {
-        Question
-            .updateOne({
-                _id: req.params.id
-            },
-                {
-                    $addToSet: {
-                        downvotes: ObjectId(req.authenticatedUser._id)
-                    },
-                    $pull: {
-                        upvotes: ObjectId(req.authenticatedUser._id)
-                    }
-                }
-            )
-            .then(result => {
-                if (result.n && result.ok) {
-                    res
-                        .status(200)
-                        .json(result)
-                } else {
-                    res
-                        .status(404)
-                        .json({
-                            message: 'Question not found'
+        let token = req.authenticatedUser
+        Question.findOne({_id : req.params.id})
+        .then(data => {
+            if (!data) {
+                res.status(404).json({ message: 'Not Found' })
+            } else {
+                let id = req.params.id
+                let checkUpvotes = data.upvotes.includes(token._id)
+                let checkDownvotes = data.downvotes.includes(token._id)
+
+                if (checkDownvotes) {
+                    Question.findByIdAndUpdate(id,
+                        {$pull:
+                            {downvotes: token._id}
+                        },
+                        {new:true}
+                    )
+                    .then( updated => {
+                        res.status(200).json( { data: updated } )
+                    })
+                } else if (checkUpvotes && !checkDownvotes) {
+                    Question.findByIdAndUpdate(req.params.id,
+                        {$pull:
+                            {upvotes: token._id}
+                        },
+                        {new:true}
+                    )
+                    .then( updated => {
+                        // res.status(200).json( { data: updated } )
+                        Question.findByIdAndUpdate(req.params.id,
+                            {$push:
+                                {downvotes: token._id}
+                            },
+                            {new:true}
+                        )
+                        .then( updated => {
+                            res.status(200).json( { data: updated } )
                         })
+                    })
+                } else if (!checkUpvotes && !checkDownvotes) {
+                    Question.findByIdAndUpdate(req.params.id,
+                        {$push:
+                            {downvotes: token._id}
+                        },
+                        {new:true}
+                    )
+                    .then( updated => {
+                        res.status(200).json( { data: updated } )
+                    })
                 }
-            })
-            .catch(err => {
-                next(err)
-            })
+            }
+        })
+        .catch(next)
     }
 
     static getAll(req, res, next) {
