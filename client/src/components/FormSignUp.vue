@@ -13,7 +13,7 @@
             <h3>Looking for answer ...</h3>
           </div>
         </div>
-        <form class="col-6">
+        <form class="col-6" @submit.prevent="signup()" id="form-signup">
           <!-- ============= username -->
           <label for>
             <i class="fas fa-user-alt mr-3"></i> Username:
@@ -32,7 +32,7 @@
         </form>
       </div>
       <div class="foter" slot="modal-footer">
-        <button class="btn btn-primary mr-2" @click="signup()">SignUp</button>
+        <button class="btn btn-primary mr-2" type="submit" form="form-signup">SignUp</button>
         <button class="btn btn-danger" @click="cancel()">Cancel</button>
       </div>
     </b-modal>
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
@@ -60,6 +62,11 @@ export default {
         .then(data => {
           console.log("Successfuly registered!");
           this.$bvModal.hide("signup");
+          Swal.fire({
+            type: "success",
+            title: "Welcome!",
+            text: "Freely ask anything in this forum :D"
+          });
         })
         .catch(err => {
           console.log(err);

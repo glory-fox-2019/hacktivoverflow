@@ -11,7 +11,9 @@
         >My Watched Questions</b-nav-item>
       </b-nav>
     </div>
-    <router-view />
+    <transition name="fade">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -42,7 +44,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.fullPath == "/watch-list") {
-        vm.isSelectingAllQuestion = false;
+        vm.$store.commit("TO_WATCHED_QUESTIONS");
       }
     });
   }
@@ -50,6 +52,14 @@ export default {
 </script>
 
 <style scoped>
+.fade-enter-active {
+  transition: opacity 1s;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
 .list {
   width: 100%;
 }

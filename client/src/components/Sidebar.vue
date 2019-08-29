@@ -11,19 +11,19 @@
     <!-- menu-section -->
     <div class="dashboard-section d-flex flex-column align-items-start pl-4 pt-3">
       <h4 class="mb-3">Dasboard</h4>
-      <a href class="d-flex align-items-center">
+      <a href class="d-flex align-items-center" @click.prevent>
         <i class="fas fa-user"></i>
         <span>Profile</span>
       </a>
-      <a href class="d-flex align-items-center">
+      <a href class="d-flex align-items-center" @click.prevent>
         <i class="far fa-question-circle mr-3"></i>
         <span>Your Questions</span>
       </a>
-      <a href class="d-flex align-items-center">
+      <a href class="d-flex align-items-center" @click.prevent>
         <i class="far fa-comment mr-3"></i>
         <span>Your Answers</span>
       </a>
-      <a href class="d-flex align-items-center">
+      <a href class="d-flex align-items-center" @click.prevent>
         <i class="fas fa-cog mr-3"></i>
         <span>Your Setting</span>
       </a>

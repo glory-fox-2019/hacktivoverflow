@@ -56,6 +56,10 @@ export default new Vuex.Store({
     },
     TO_WATCHED_QUESTIONS(state) {
       state.isSelectingAllQuestion = false
+    },
+    SEARCH_QUESTIONS(state, payload) {
+      state.questions = payload
+      state.isSelectingAllQuestion = true
     }
   },
   actions: {
