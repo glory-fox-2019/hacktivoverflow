@@ -6,11 +6,11 @@
       <button>test</button>
     </div>
     <div class="task-content p-4">
-      <router-link :to="`/detail/${asks._id}`">{{asks.title}}</router-link>
+      <router-link :to="`/detail/${quest._id}`">{{quest.title}}</router-link>
       <div class="task-tag mt-4">
         <button>test</button>
         <button>test</button>
-        <small>{{Moment(asks.createdAt).fromNow()}}</small>
+        <small>{{Moment(quest.createdAt).fromNow()}}</small>
       </div>
     </div>
   </div>
@@ -20,14 +20,14 @@
 import {mapState} from 'vuex';
 import Moment from 'moment';
 export default {
-  props:['asks'],
+  props:['quest'],
   data() {
     return {
       Moment,
     };
   },
   computed: {
-    ...mapState(['question']),
+    // ...mapState(['question']),
   },
   methods: {
   },

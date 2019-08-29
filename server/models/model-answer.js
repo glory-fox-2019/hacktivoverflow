@@ -6,6 +6,10 @@ const answerSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
+  questionId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Question',
+  },
   upVote: [
     {
       type: Schema.Types.ObjectId,

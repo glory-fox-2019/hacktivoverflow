@@ -1,11 +1,12 @@
 const express = require('express');
 const route = express.Router();
 const controllerAnswer = require('../controllers/controller-answer');
+const { authorize, authentication } = require('../middleware/auth');
 
-route.post('/', controllerAnswer.create);
-// route.get('/:id', controllerProduct.getOne)
+route.get('/:id', controllerAnswer.getAllByQuestion);
+route.post('/', authentication, controllerAnswer.create);
 // route.post('/', authorize, upload.multer.single('image'), upload.sendUploadToGCS, controllerProduct.create)
-// route.patch('/:id', authorize, controllerProduct.update)
-// route.delete('/:id', authorize, controllerProduct.delete)
+route.patch('/:id', authorize, controllerAnswer.update)
+route.delete('/:id', authorize, controllerAnswer.delete)
 
 module.exports = route

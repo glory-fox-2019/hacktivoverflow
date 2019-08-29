@@ -36,6 +36,9 @@ export default {
       this.$store.dispatch('createQuestion', this.question);
     },
   },
+  created() {
+    this.$store.dispatch('getQuestion')
+  }
 };
 </script>
 

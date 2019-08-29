@@ -11,6 +11,9 @@ const app = express()
 const port = process.env.PORT || 3000
 
 mongoose.connect(process.env.MONGO_ATLAS, { useNewUrlParser: true })
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 app.use(cors())
 app.use(express.json())

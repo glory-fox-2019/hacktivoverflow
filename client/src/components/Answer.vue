@@ -1,33 +1,48 @@
 <template>
 <div class="task-detail">
-  <div class="ml-3">
-    <!-- <h3>{{question.title}}</h3> -->
-    <!-- {{question}} -->
-    <div>
-      <!-- <p >asked by: {{this.user.name}}</p> -->
-    </div>
-    <hr>
-  </div>
   <div class="detail d-flex align-item-center">
-    <div class="col-ms-2 pl-4 pr-5 d-flex row" style="height:50px;">
-      <i class="fas fa-chevron-up" style="font-size:30px"></i>
-      <!-- <a style="font-size:30px">{{question.upVote}}</a> -->
-      <i class="fas fa-chevron-down" style="font-size:30px"></i>
+    <div class="col-ms-2 pl-4 pr-5 d-flex flex-column" style="height:50px; ">
+      <i class="fas fa-chevron-up" style="font-size:15px; cursor:pointer;"></i>
+      <a style="font-size:15px;">{{answ.upVote.length}}</a>
+      <i class="fas fa-chevron-down" style="font-size:15px; cursor:pointer;"></i>
     </div>
     <div class="col-ms-10">
-      <!-- <p>{{question.content}}</p> -->
+      <p>{{answ.content}}</p>
       <div class="d-flex justify-content-between">
         <div>
-          <button>Edit</button>
-          <button>Delete</button>
+          <button class="mr-2" @click="editAnswer" data-toggle="modal" data-target="#Modal" data-whatever="@getbootstrap">Edit</button>
+          <a @click.prevent="removeAnswer(answ._id)">Delete</a>
         </div>
-        <div class="d-flex">
-          <!-- <a>{{Moment(question.createdAt).fromNow()}}</a> -->
+        <div class="d-flex ml-5">
+          <a>{{Moment(answ.createdAt).fromNow()}}</a>
           <!-- <button>{{this.user.name}}</button> -->
         </div>
       </div>
-      <div class="answer">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores amet quis repellat esse, iste praesentium dolorum adipisci laudantium, quod deleniti nihil iure ab quaerat consequatur, eligendi minima obcaecati. Enim, eligendi!
+    </div>
+  </div>
+
+  <!-- modal edit answerr -->
+  <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Answer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Your new answer:</label>
+              <textarea v-model="newAnswer.content" class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button @click="submitUpdateAnswer" type="button" class="btn btn-primary">Send</button>
+        </div>
       </div>
     </div>
   </div>
@@ -39,19 +54,39 @@ import {mapState} from 'vuex';
 import Moment from 'moment';
 
 export default {
+  props: ['answ'],
   data() {
     return {
       Moment,
       user: {
         name: localStorage.name,
       },
+      newAnswer: {
+        id: '',
+        content: '',
+      },
     };
   },
   computed: {
     ...mapState(['answer']),
   },
+  methods: {
+    removeAnswer(id) {
+      this.$store.dispatch('removeAnswer', id);
+      this.$store.dispatch('getAnswer', this.$route.params.id);
+    },
+    editAnswer() {
+      this.newAnswer.id = this.answ._id;
+      this.newAnswer.content = this.answ.content;
+    },
+    submitUpdateAnswer() {
+      this.$store.dispatch('submitUpdateAnswer', this.newAnswer);
+      this.$store.dispatch('getAnswer', this.$route.params.id);
+      $('#Modal').modal('hide');
+    }
+  },
   created() {
-    // this.$store.dispatch('getOneQuestion', this.$route.params.id)
+    this.$store.dispatch('getAnswer', this.$route.params.id);
   },
   
 };

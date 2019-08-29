@@ -9,7 +9,7 @@
         <router-view/>
       </div>
       <div class="col-md-3 mt-5">
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione corporis laboriosam quos ex dolorum consequatur, aut asperiores tempore perferendis quasi commodi corrupti sapiente magni maiores veniam ea voluptatem labore suscipit?</p>
+        <!-- <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione corporis laboriosam quos ex dolorum consequatur, aut asperiores tempore perferendis quasi commodi corrupti sapiente magni maiores veniam ea voluptatem labore suscipit?</p> -->
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@ export default {
   name: "home",
   components: {
     Navbar,
-    SideBar
+    SideBar, 
   },
   computed: {
     ...mapState(['questions']),

@@ -7,9 +7,6 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <!-- <li class="nav-item active"><a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li>
-      <li class="nav-item"><a class="nav-link">Link</a></li>
-      <li class="nav-item"><a class="nav-link">Disabled</a></li> -->
     </ul>
     <form class="form-inline mr-3">
       <input class="form-control mr-sm-2 " type="search" placeholder="Search" aria-label="Search">
@@ -23,7 +20,6 @@
         <i class="far fa-user-circle ml-2"  style="font-size: 25px; color:silver;"></i>  
         </button>
         <div class="dropdown-menu dropdown-menu-right">
-          <button class="dropdown-item" type="button">Dashboard</button>
           <router-link to="/ask" class="dropdown-item" type="button">Create Question</router-link>
           <div class="dropdown-divider"></div>
           <a @click.prevent="logout" class="dropdown-item">Logout</a>
@@ -49,7 +45,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$state.commit('LOGOUT', false);
+      this.$store.commit('LOGOUT', false);
     }
   },
   created() {

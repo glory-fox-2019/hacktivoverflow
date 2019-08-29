@@ -19,15 +19,19 @@ export default new Router({
         },
         {
           path: '/detail/:id',
-          name: 'detail',
           component: () => import(/* webpackChunkName: "detail" */ './components/DetailTask.vue'),
           children: [
             {
               path: '',
               name: 'answer',
-              component: () => import(/* webpackChunkName: "answer" */ './components/Answer.vue'),
+              component: () => import(/* webpackChunkName: "answer" */ './components/taskAnswer.vue'),
             },
           ],
+        },
+        {
+          path: '/myquestion',
+          name: 'myquestion',
+          component: () => import(/* webpackChunkName: "myquestion" */ './components/MyQuestion.vue'),
         },
       ],
     },
@@ -40,11 +44,6 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: () => import(/* webpackChunkName: "register" */ './components/Register.vue'),
-    },
-    {
-      path: '/ask',
-      name: 'ask',
-      component: () => import(/* webpackChunkName: "home" */ './components/CreateQuestion.vue'),
     },
   ],
 });
