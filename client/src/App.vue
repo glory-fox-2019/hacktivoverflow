@@ -13,37 +13,33 @@
 
 <script>
 import navbar from './components/navbar'
-import sidebar from "./components/sidebar"
+import sidebar from './components/sidebar'
 export default {
-  name : "app",
-  data(){
-    return{
-    
-    }
+  name: 'app',
+  data () {
+    return {
 
+    }
   },
-  components : {
+  components: {
     navbar,
     sidebar
   },
-  computed : {
-    getLoginStatus(){
+  computed: {
+    getLoginStatus () {
       return this.$store.state.isLogin
     }
   },
-  created(){
-
-    if (localStorage.getItem("token")){
-      let username  = localStorage.getItem("username")
-      this.$store.commit("LOGIN_STATUS", true)
-      this.$store.commit("CURRENT_USER", username)
-      
-    }
-    else{
-      this.$store.commit("LOGIN_STATUS", false)
+  created () {
+    if (localStorage.getItem('token')) {
+      let username = localStorage.getItem('username')
+      this.$store.commit('LOGIN_STATUS', true)
+      this.$store.commit('CURRENT_USER', username)
+    } else {
+      this.$store.commit('LOGIN_STATUS', false)
     }
   }
-  
+
 }
 </script>
 

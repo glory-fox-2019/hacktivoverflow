@@ -20,16 +20,16 @@
       <!-- <p>on  -->
     </div>
     </div>
-    <div v-if="isUser" class="card-footer" style="display-flex;justify-content:space-around;"> 
-             
+    <div v-if="isUser" class="card-footer" style="display-flex;justify-content:space-around;">
+
              <div class="row">
             <div class="col-3">
-                
-            </div> 
-             
+
+            </div>
+
              <div class="col-8">
                   <button v-if="isUser"  @click="isEditModalActive = true" class="btn btn-warning">edit</button> |||
-            
+
                  <button  v-if="isUser" @click="deleteAnswer" class="btn btn-warning">delete</button>
             </div>
              </div>
@@ -50,29 +50,24 @@
       <div slot="modal-footer">
         <b-button variant="primary" data-dismiss="modal" type="submit" form="editFormForm">Confirm</b-button>
       </div>
-    </b-modal>   
-
-
-
-
-
+    </b-modal>
 
   </div>
 </template>
 
 <script>
 export default {
-  name: "answer",
+  name: 'answer',
   props: {
     theanswer: Object,
-    isUser : Boolean,
+    isUser: Boolean
   },
-  data(){
-    return{
-      isEditModalActive : false,
-      formEditAnswer : {
-        title : this.theanswer.title,
-        description : this.theanswer.description
+  data () {
+    return {
+      isEditModalActive: false,
+      formEditAnswer: {
+        title: this.theanswer.title,
+        description: this.theanswer.description
       }
 
     }
@@ -80,66 +75,59 @@ export default {
 
   methods: {
 
-    totalVotes(){
-
+    totalVotes () {
       return this.theanswer.upvotes.length - this.theanswer.downvotes.length
-
     },
-    editAnswer(){
-
+    editAnswer () {
       let payload = this.formEditAnswer
       payload.id = this.theanswer._id
       this.$swal.showLoading()
-      this.$store.dispatch("editAnswer",payload)
-      .then(()=>{
-        this.isEditModalActive = false
-      })
-
+      this.$store.dispatch('editAnswer', payload)
+        .then(() => {
+          this.isEditModalActive = false
+        })
     },
-    deleteAnswer(){
-
+    deleteAnswer () {
       let id = this.theanswer._id
 
       this.$swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       })
-      .then(result=>{
-        if(result.value){
-          this.$store.dispatch("deleteAnswer", id)
-        }
-      })
-
-    }
-  ,
-    upvote(answer) {
+        .then(result => {
+          if (result.value) {
+            this.$store.dispatch('deleteAnswer', id)
+          }
+        })
+    },
+    upvote (answer) {
       let id = answer._id
       let QuestionId = answer.QuestionId
-      let payload = {id,QuestionId}
-      this.$store.dispatch("upvoteAnswer", payload);
+      let payload = { id, QuestionId }
+      this.$store.dispatch('upvoteAnswer', payload)
     },
-    downvote(answer) {
+    downvote (answer) {
       let QuestionId = answer.QuestionId
       let id = answer._id
-      let payload = {QuestionId,id}
-      this.$store.dispatch("downvoteAnswer", payload);
+      let payload = { QuestionId, id }
+      this.$store.dispatch('downvoteAnswer', payload)
     },
 
-    getDate(date) {
-      return new Date(date).toLocaleDateString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
+    getDate (date) {
+      return new Date(date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
     }
   }
-};
+}
 </script>
 
 <style>

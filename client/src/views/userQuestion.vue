@@ -6,7 +6,7 @@
                   <h2>{{$store.state.currentUser}} question</h2>
           <cardList :isUser="true"></cardList>
               </div>
-         
+
       </div>
        <sidebar></sidebar>
   </div>
@@ -14,19 +14,19 @@
 </template>
 
 <script>
-import sidebar from "../components/sidebar"
-import cardList from "../components/cardList"
+import sidebar from '../components/sidebar'
+import cardList from '../components/cardList'
 export default {
-    name : "userQuestion",
-    components : {
-        sidebar,
-        cardList
-    },
-    data(){
-        return {
-            isUser : true,
-        }
+  name: 'userQuestion',
+  components: {
+    sidebar,
+    cardList
+  },
+  data () {
+    return {
+      isUser: true
     }
+  }
 
 }
 </script>

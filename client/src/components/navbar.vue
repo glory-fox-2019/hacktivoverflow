@@ -40,17 +40,17 @@
 
 <script>
 export default {
-  name : "navbar",
-  data(){
-    return{
+  name: 'navbar',
+  data () {
+    return {
 
     }
   },
-  methods : {
-    signOut(){
+  methods: {
+    signOut () {
       localStorage.clear()
-      this.$store.commit("LOGIN_STATUS", false)
-      this.$router.push("/").catch(err=>{
+      this.$store.commit('LOGIN_STATUS', false)
+      this.$router.push('/').catch(err => {
 
       })
     }

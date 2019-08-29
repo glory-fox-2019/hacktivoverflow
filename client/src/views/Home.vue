@@ -4,7 +4,7 @@
     <div v-if="$store.state.isLogin" class="container-fluid">
         <div class="row mt-4">
             <div class="col">
-         
+
             </div>
         </div>
         <div class="row">
@@ -15,12 +15,12 @@
                 <div>
                     <h2>all question</h2>
                 </div>
-                <div> 
+                <div>
                   <button @click="isQuestionModalActive = true"  class="btn btn-warning">create new Question</button>
                 </div>
 
                   </div>
-                    
+
                     <cardList :isUser="false"></cardList>
                 </div>
             </div>
@@ -44,9 +44,6 @@
       </div>
     </b-modal>
 
-
-
-
   </div>
 </template>
 
@@ -54,7 +51,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import loginRegisterForm from '@/components/LoginRegisterForm.vue'
-import sidebar from "@/components/sidebar.vue"
+import sidebar from '@/components/sidebar.vue'
 // import card from '@/components/card.vue'
 import cardList from '@/components/cardList'
 export default {
@@ -65,54 +62,43 @@ export default {
     cardList,
     sidebar
   },
-  data(){
-    return{
-      isQuestionModalActive : false,
-      isUser : false,
-      formcreateQuestion : {
-        title : "",
-        description : ""
+  data () {
+    return {
+      isQuestionModalActive: false,
+      isUser: false,
+      formcreateQuestion: {
+        title: '',
+        description: ''
       }
 
     }
+  },
+
+  methods: {
+    createQuestion () {
+      this.$store.dispatch('createQuestion', this.formcreateQuestion)
+        .then(() => {
+          this.isQuestionModalActive = false
+          this.formcreateQuestion.title = ''
+          this.formcreateQuestion.description = ''
+        })
+    }
+
+  },
+  computed: {
+
+  },
+  mounted () {
+
+  },
+
+  created () {
+    if (localStorage.getItem('token')) {
+      this.$store.commit('LOGIN_STATUS', true)
+    } else {
+      this.$store.commit('LOGIN_STATUS', false)
+    }
   }
-  ,
-
-  methods : {
-    createQuestion(){
-      this.$store.dispatch("createQuestion", this.formcreateQuestion)
-      .then(()=>{
-        this.isQuestionModalActive = false
-        this.formcreateQuestion.title = ""
-        this.formcreateQuestion.description =""
-      })
-      
-    }
-
-  },
-  computed : {
-
-
-
-    
-
-  },
-  mounted(){
-  
-
-  },
-
-  created(){
-
-    if (localStorage.getItem("token")){
-      this.$store.commit("LOGIN_STATUS", true)
-    }
-    else{
-      this.$store.commit("LOGIN_STATUS", false)
-    }
-
-  }
-
 
 }
 </script>

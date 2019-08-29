@@ -13,30 +13,29 @@
 </template>
 
 <script>
-import sidebar from "../components/sidebar";
-import answer from "../components/answer"
+import sidebar from '../components/sidebar'
+import answer from '../components/answer'
 export default {
-  name: "userAnswer",
+  name: 'userAnswer',
   components: {
     sidebar,
     answer
   },
-  method : {
+  method: {
 
   },
-  computed : {
-    
-    userAnswers(){
+  computed: {
+
+    userAnswers () {
       return this.$store.state.userAnswers
     }
 
   },
-  mounted(){
-    this.$store.dispatch("getUserAnswers")
+  mounted () {
+    this.$store.dispatch('getUserAnswers')
   }
 
-
-};
+}
 </script>
 
 <style>

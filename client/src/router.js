@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import questionDetail from "./views/questionDetail.vue"
-import userQuestion from "./views/userQuestion.vue"
-import userAnswer from  "./views/userAnswer"
+import questionDetail from './views/questionDetail.vue'
+import userQuestion from './views/userQuestion.vue'
+import userAnswer from './views/userAnswer'
 Vue.use(Router)
 
 export default new Router({
@@ -28,16 +28,15 @@ export default new Router({
       name: 'question',
       component: questionDetail
     },
-    {path:"/user",
-     name: "user",
-     component : userQuestion
+    { path: '/user',
+      name: 'user',
+      component: userQuestion
 
-    }
-    ,
+    },
     {
-      path:"/answer",
-      name : "answer",
-      component : userAnswer,
+      path: '/answer',
+      name: 'answer',
+      component: userAnswer
     }
   ]
 })

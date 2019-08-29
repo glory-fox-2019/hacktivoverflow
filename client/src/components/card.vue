@@ -1,6 +1,6 @@
 <template>
   <div class="card flex-col mt-3" style="width:100%;">
- 
+
           <!-- <router-link :to="'/question/'+question._id" > -->
           <div class="" style="display:flex;justify-content:row">
           <div class="ml-2 mr-2 mt-4" style="width:18%">
@@ -18,23 +18,23 @@
               </div>
           </div>
           <!-- </router-link> -->
-          <div v-if="isUser" class="card-footer" style="display-flex;justify-content:space-around;"> 
-             
+          <div v-if="isUser" class="card-footer" style="display-flex;justify-content:space-around;">
+
              <div class="row">
             <div class="col-3">
-                
-            </div> 
-             
+
+            </div>
+
              <div class="col-8">
                   <button v-if="isUser"  @click="isQuestionModalActive = true" class="btn btn-warning">edit</button> |||
-            
+
                  <button @click="deleteQuestion"    v-if="isUser" class="btn btn-warning">delete</button>
             </div>
              </div>
         </div>
 
               <!-- Form untuk edit modal      -->
-  
+
   <b-modal title="Submit your answer" id="modal-Edit" v-model="isQuestionModalActive">
       <!-- <h4>Input your answer for this question</h4> -->
       <b-form @submit.prevent="editQuestion" id="EditQuestionForm">
@@ -50,97 +50,80 @@
       </div>
     </b-modal>
 
-
-
         </div>
-  
+
 </template>
 
 <script>
 export default {
-    name : 'card',
-    props : {
-        question : Object,
-        isUser : Boolean,
-    },
-    data(){
-        return {
-            isQuestionModalActive : false,
-            formEditQuestion : {
-                title :this.question.title,
-                description : this.question.description
-            }
-
-        }
-    },
-    methods : {
-
-        upvote(QuestionID){
-
-            let id = QuestionID
-            this.$store.dispatch("Upvote", id)
-
-
-        },
-        downvote(QuestionID){
-
-            let id = QuestionID
-            this.$store.dispatch("Downvote", id)
-
-
-
-        },
-        gotoQuestionDetail(){
-            this.$router.push(`/question/${this.question._id}`)
-            
-        },
-        editQuestion(){
-            let title = this.formEditQuestion.title
-            let description = this.formEditQuestion.description
-            let id = this.question._id
-            this.$store.dispatch("editQuestion",{title,description,id})
-            .then(()=>{
-                this.isQuestionModalActive = false
-            })
-        },
-        deleteQuestion(){
-            let id = this.question._id
-
-            this.$swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-            })
-            .then(result=>{
-                if(result.value){
-                    
-                    this.$store.dispatch("deleteQuestion", id)
-                }
-            })
-
-            
-        },
-        totalVotes(question){
-
-            return question.upvotes.length-question.downvotes.length
-
-        }
-
-    },
-    computed : {
-        getDate(){
-            return new Date(this.question.createdAt).toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-        }
-    },
-    mounted(){
+  name: 'card',
+  props: {
+    question: Object,
+    isUser: Boolean
+  },
+  data () {
+    return {
+      isQuestionModalActive: false,
+      formEditQuestion: {
+        title: this.question.title,
+        description: this.question.description
+      }
 
     }
+  },
+  methods: {
 
+    upvote (QuestionID) {
+      let id = QuestionID
+      this.$store.dispatch('Upvote', id)
+    },
+    downvote (QuestionID) {
+      let id = QuestionID
+      this.$store.dispatch('Downvote', id)
+    },
+    gotoQuestionDetail () {
+      this.$router.push(`/question/${this.question._id}`)
+    },
+    editQuestion () {
+      let title = this.formEditQuestion.title
+      let description = this.formEditQuestion.description
+      let id = this.question._id
+      this.$store.dispatch('editQuestion', { title, description, id })
+        .then(() => {
+          this.isQuestionModalActive = false
+        })
+    },
+    deleteQuestion () {
+      let id = this.question._id
 
+      this.$swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
+        .then(result => {
+          if (result.value) {
+            this.$store.dispatch('deleteQuestion', id)
+          }
+        })
+    },
+    totalVotes (question) {
+      return question.upvotes.length - question.downvotes.length
+    }
+
+  },
+  computed: {
+    getDate () {
+      return new Date(this.question.createdAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+    }
+  },
+  mounted () {
+
+  }
 
 }
 </script>

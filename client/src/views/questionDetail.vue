@@ -61,67 +61,65 @@
 </template>
 
 <script>
-import answer from "../components/answer.vue";
-import sidebar from "../components/sidebar.vue";
+import answer from '../components/answer.vue'
+import sidebar from '../components/sidebar.vue'
 
 export default {
-  name: "questionDetail",
+  name: 'questionDetail',
   components: {
     answer,
     sidebar
   },
-  data() {
+  data () {
     return {
       theQuestion: {},
       isAnswerModalActive: false,
       formCreateAnswer: {
-        title: "",
-        description: ""
+        title: '',
+        description: ''
       }
-    };
+    }
   },
   methods: {
-    upvote(QuestionID) {
-      let id = QuestionID;
-      this.$store.dispatch("upvoteQuestion", id);
+    upvote (QuestionID) {
+      let id = QuestionID
+      this.$store.dispatch('upvoteQuestion', id)
     },
-    downvote(QuestionID) {
-      let id = QuestionID;
-      this.$store.dispatch("downvoteQuestion", id);
+    downvote (QuestionID) {
+      let id = QuestionID
+      this.$store.dispatch('downvoteQuestion', id)
     },
     // totalVotes(question) {
     //   return question.upvotes.length - question.downvotes.length;
     // },
-    getDate(date) {
-      return new Date(date).toLocaleDateString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
+    getDate (date) {
+      return new Date(date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
     },
-    getUsername() {
-      return this.theQuestion.UserId.username;
+    getUsername () {
+      return this.theQuestion.UserId.username
     },
 
-    createAnswer() {
-      this.formCreateAnswer.QuestionId = this.$route.params.id;
-      this.$store.dispatch("createAnswer", this.formCreateAnswer)
-      .then(()=>{
-        this.formCreateAnswer.description=""
-        this.formCreateAnswer.title = ""
-         this.isAnswerModalActive = false;
-      })
-     
+    createAnswer () {
+      this.formCreateAnswer.QuestionId = this.$route.params.id
+      this.$store.dispatch('createAnswer', this.formCreateAnswer)
+        .then(() => {
+          this.formCreateAnswer.description = ''
+          this.formCreateAnswer.title = ''
+          this.isAnswerModalActive = false
+        })
     }
   },
-  mounted: function() {
-    let id = this.$route.params.id;
-    this.$store.dispatch("getOneQuestion", id).then(() => {
-      this.theQuestion = this.$store.state.theQuestionDetail;
-
-    });
-    this.$store.dispatch("getAnswer", id);
+  mounted: function () {
+    let id = this.$route.params.id
+    this.$store.dispatch('getOneQuestion', id).then(() => {
+      this.theQuestion = this.$store.state.theQuestionDetail
+    })
+    this.$store.dispatch('getAnswer', id)
     // this.question()
     // theQuestion = this.$store.state.theQuestionDetail
     // let id = this.$route.params.id
@@ -133,23 +131,22 @@ export default {
     // console.log(qq)
     // console.log(this.theQuestion)
     // })
-  }
-  ,
+  },
   computed: {
-    question() {
-      return this.$store.state.theQuestionDetail;
+    question () {
+      return this.$store.state.theQuestionDetail
     },
-    answers() {
-      return this.$store.state.answers;
+    answers () {
+      return this.$store.state.answers
     },
-    totalVotes() {
+    totalVotes () {
       let question = this.$store.state.theQuestionDetail
       // let question = this.theQuestion
 
       return question.upvotes.length - question.downvotes.length
     }
   }
-};
+}
 </script>
 
 <style>

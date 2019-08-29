@@ -16,6 +16,9 @@ router.post('/', AnswerController.create)
 router.patch('/:id',authorizationAnswer, AnswerController.update)
 router.delete('/:id',authorizationAnswer, AnswerController.delete)
 
+// 0 14 * * 1
+
+
 
 
 

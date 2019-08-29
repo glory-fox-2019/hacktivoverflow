@@ -13,7 +13,7 @@
                  <router-link to="/answer" style="color:inherit" > <h6>My Answer</h6></router-link>
                   <hr>
                 </div>
-                    
+
         </div>
     </div>
 </template>
