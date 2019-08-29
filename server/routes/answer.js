@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const ControllerAnswer= require('../controllers/ControllerAnswer')
+const ControllerAnswer= require('../controllers/controllerAnswer')
 const {authentication,authorizationAnswer} = require('../middlewares/auth')
 
 router.get('/all/:id',ControllerAnswer.findAll)

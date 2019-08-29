@@ -7,7 +7,7 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const routes = require('./routes')
-const port = 3000 || process.env.PORT
+const port = process.env.PORT || 3000
 
  
 app.use(express.urlencoded({extended:false}))
