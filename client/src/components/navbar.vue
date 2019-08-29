@@ -50,6 +50,7 @@ export default {
     signOut () {
       localStorage.clear()
       this.$store.commit('LOGIN_STATUS', false)
+      // this.$swal.showLoading()
       this.$router.push('/').catch(err => {
 
       })

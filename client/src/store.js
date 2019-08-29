@@ -6,7 +6,7 @@ import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 
 
-const questions_url = 'http://13.250.110.115//questions'
+const questions_url = 'http://13.250.110.115/questions'
 const answer_url = 'http://13.250.110.115/answers'
 
 
