@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended:true }));
 
 app.use('/user',routes.user);
 app.use('/question',routes.question);
+app.use('/comment',routes.comment);
 
 
 app.use('/', (req,res,next) => next({httpStatus: 404, message:'Url not found'}))

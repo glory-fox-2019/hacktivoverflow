@@ -49,7 +49,7 @@ class Comment {
   }
   static edit(req,res,next){
     Model.Comment
-      .findOne({id: req.params.id})
+      .findOne({_id: req.params.id})
       .then(data => {
         if(!data) next({httpStatus: 404, message: 'Comment not found'})
         res.json(data);
@@ -57,7 +57,7 @@ class Comment {
   }
   static delete(req,res,next){
     Model.Comment
-      .deleteOne({id: req.params.id})
+      .deleteOne({_id: req.params.id})
       .then(data => {
         if(data.deletedCount === 0) next({httpStatus: 404, message: 'Comment not found'})
         res.json({

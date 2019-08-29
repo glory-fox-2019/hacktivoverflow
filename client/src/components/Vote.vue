@@ -55,15 +55,13 @@ export default {
         headers: { access_token: localStorage.getItem('access_token') }
       })
         .then(({ data }) => {
-          console.log(this.type, 'type')
           this.$store.commit('UPDATE_VOTE', { type: this.type, voteType, iduser: this.user._id, idanswer: this.idanswer })
         })
         .catch((err) => {
-          console.log(err)
           this.$swal({
             type: 'error',
-            title: 'Error!'
-            // text: response.data.error,
+            title: 'Error!',
+            text: response.data.error,
           })
         })
     }

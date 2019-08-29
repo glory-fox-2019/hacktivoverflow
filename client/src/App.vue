@@ -2,15 +2,17 @@
   <div id="app">
     <Nav></Nav>
     <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import { mapActions } from 'vuex'
 
 export default {
-  components: { Nav },
+  components: { Nav, Footer },
   created () {
     this.checkLogin()
   },

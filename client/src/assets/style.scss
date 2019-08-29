@@ -12,6 +12,8 @@ $radius-normal: 10px;
 $radius-big: 15px;
 
 #app{
+  display:flex; 
+  flex-direction:column; 
   width: 100%;
   min-height: 100vh;
   background-color: $white;
@@ -115,9 +117,24 @@ $radius-big: 15px;
   border-radius: $radius-normal;
   border: 0;
   box-shadow: $drop-shadow;
+  .card--top{
+    display: flex;
+    .action{
+      display: flex;
+      align-items: center;
+      height: 87.5px;
+      a{
+        font-size: 25px;
+        text-decoration: none;
+        padding: 10px;
+        color: $black;
+      }
+    }
+  }
   .title{
     padding: 20px;
     padding-bottom: 40px;
+    width: 100%;
     span{
       font-size: 45px;
     }
@@ -172,7 +189,6 @@ $radius-big: 15px;
     .title{
       padding: 0;
       padding-bottom: 20px;
-      border-bottom: 1px solid #888;
     }
     .content{
       display: flex;
@@ -235,9 +251,29 @@ $radius-big: 15px;
             border-bottom: 1px solid #ccc;
           }
         }
+        .comment--list--hidden{
+          max-height: 200px;
+          overflow: hidden;
+          position: relative;
+          .comment--list--cover{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(rgba(255,255,255,0), white);
+            p{
+              width: 100%;
+              text-align: center;
+              position: absolute;
+              bottom: 0px;
+            }
+          }
+        }
         .comment--action{
           padding: 10px 0;
           >form{
+            padding: 0;
             display: flex;
           }
           input[type=text]{
@@ -257,7 +293,6 @@ $radius-big: 15px;
         }
       }
       .content__vote{
-        padding: 30px 0;
         text-align: center;
         font-size: 25px;
         .vote--action{
@@ -294,14 +329,33 @@ $radius-big: 15px;
     }
   }
   .content{
+    .content--top{
+      display: flex;
+    }
     display: block!important;
     .answer--list__item{
       display:flex;
     }
     .answer__title{
+      width: 100%;
       padding-bottom: 10px;
       span{
         font-size: 30px;
+      }
+    }
+    .answer__action{
+      display: flex;
+      align-items: center;
+      a{
+        font-size: 20px;
+        text-decoration: none;
+        padding: 10px;
+        color: $black;
+      }
+    }
+    .answer--form-create{
+      .title{
+        padding: 20px;
       }
     }
   }
@@ -368,9 +422,86 @@ $radius-big: 15px;
     display: inline-block;
     font-size: 14px;
     margin-right: 5px;
+    margin-bottom: 5px;
     padding: 5px 10px;
     color: #888888;
     border: 1px solid currentColor;
     border-radius: 20px;
+  }
+}
+
+#create-question, #edit-question{
+  .title{
+    padding: 20px;
+  }
+}
+
+.content{
+  .form{
+    padding: 20px;
+    padding-top: 0;
+    input[type=text]{
+      background-color: transparent;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: $radius-small;
+    }
+    .form__title{
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .form__tag{
+      margin-bottom: 0;
+    }
+    .quill-editor{
+      margin-bottom: 15px;
+      .ql-toolbar{
+        border-top-right-radius: $radius-small;
+        border-top-left-radius: $radius-small;
+      }
+      .ql-container{
+        border-bottom-right-radius: $radius-small;
+        border-bottom-left-radius: $radius-small;
+        font-size: 16px;
+        .ql-editor{
+          min-height: 100px;
+        }
+      }
+    }
+    .tag--container{
+      margin-bottom: 15px;
+    }
+    .form__submit{
+      background: transparent;
+      border: 1px solid $orange;
+      padding: 7px 10px;
+      color: $orange;
+      border-radius: $radius-small;
+      margin-right: 10px;
+    }
+    .form__submit:hover{
+      background-color: $orange;
+      color: $white;
+    }
+    .form__cancel{
+      background: transparent;
+      border: 1px solid currentColor;
+      padding: 7px 10px;
+      color: #888;
+      border-radius: $radius-small;
+    }
+    .form__cancel:hover{
+      background-color: #888;
+      color: $white;
+    }
+  }
+}
+#footer{
+  margin-top: auto;
+  background: #222;
+  padding: 30px;
+  p{
+    margin: 0;
+    color: white;
   }
 }

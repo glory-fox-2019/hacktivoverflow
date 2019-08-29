@@ -9,7 +9,9 @@ class Question {
         tags: req.body.tags,
         user: req.decode._id,
       })
-      .populate('user', 'name email')
+      .then(data => {
+        return data.populate('user', 'name email').execPopulate()
+      })
       .then(data => {
         res.status(201).json(data);
       })
@@ -116,6 +118,19 @@ class Question {
 
   static findAll(req,res,next){
     let whereData = {}
+    if(req.query.search) whereData.title = { $regex: req.query.search, $options: "i"}
+    Model.Question
+      .find(whereData)
+      .populate('user', 'name email')
+      .then(data => {
+        res.json(data);
+      })
+      .catch(next);
+  }
+  static findAllMy(req,res,next){
+    let whereData = {
+      user: req.decode._id,
+    }
     if(req.query.search) whereData.title = { $regex: req.query.search, $options: "i"}
     Model.Question
       .find(whereData)

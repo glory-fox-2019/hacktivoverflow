@@ -12,9 +12,7 @@
       <div class="question__title">
         <h1>{{ question.title }}</h1>
       </div>
-      <div class="question__description">
-        <p>{{ question.description }}</p>
-      </div>
+      <div class="question__description" v-html="question.description"></div>
       <div class="question__tag tag--container">
         <span class="tag" v-for="(tag,index) in question.tags" :key="index">
           {{ tag }}

@@ -8,6 +8,7 @@ const authentication = require('../middlewares/authentication');
 const authorization = require('../middlewares/authorization');
 
 router.get('/', question.findAll);
+router.get('/my', authentication, question.findAllMy);
 router.get('/:id', question.findOne);
 
 router.use('/:idquestion/answer', answer);

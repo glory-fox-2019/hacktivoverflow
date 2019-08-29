@@ -332,6 +332,35 @@ Response:
   ...
 ]
 ```
+## Find All My Question
+Url: `/question/my`
+Method: `GET`
+Status: `200`
+Authentication: `REQUIRED`
+
+Response: 
+```
+[
+  {
+    _id: String,
+    title: String,
+    description: String,
+    upvotes: Array,
+    downvotes: Array,
+    answers: Array,
+    tags: Array,
+    comments: Array,
+    user: {
+      _id: String,
+      name: String,
+      email: String,
+    },
+    createdAt: Date,
+    updatedAt: Date,
+  },
+  ...
+]
+```
 
 ## Find One Question
 Url: `/question/:id`
@@ -697,7 +726,7 @@ Error:
   - User must login
 
 ## Delete Comment
-Url: `/commnet/:id`
+Url: `/comment/:id`
 Method: `DELETE`
 Status: `200`
 Authentication: `REQUIRED`

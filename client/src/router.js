@@ -23,7 +23,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "CreateQuestion" */ './views/CreateQuestion.vue')
     },
     {
-      path: '/editQuestion',
+      path: '/editQuestion/:id',
       name: 'EditQuestion',
       component: () => import(/* webpackChunkName: "EditQuestion" */ './views/EditQuestion.vue')
     },

@@ -10,6 +10,9 @@ class Answer {
         user: req.decode._id,
       })
       .then(data => {
+        return data.populate('user','name email').execPopulate()
+      })
+      .then(data => {
         console.log(req.params.idquestion, data._id)
         answerData = data;
         return Model.Question
