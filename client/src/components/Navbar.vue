@@ -108,7 +108,10 @@ span.brand {
   font-size: 28px;
   font-weight: bold;
   color: #434343;
-  text-decoration: none;
+}
+
+a.brand {
+  text-decoration: none !important;
 }
 
 nav {
