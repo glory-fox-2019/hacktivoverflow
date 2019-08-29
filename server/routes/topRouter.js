@@ -42,12 +42,12 @@ new CronJob('0 7 * * 1', function() {
             .then(tops => {
                 Top.findByIdAndUpdate(topId, {$push:{topThree: newArr}}, {new: true, runValidators: true})
                 .then(data => {
-                    res.status(200).json(data)
+                    console.log('get top three')
                 })
             })
-            .catch(next)
+            .catch(console.log)
         })
-        .catch(next)
+        .catch(console.log)
   }, null, true, 'Asia/Jakarta');
 
 module.exports = router
