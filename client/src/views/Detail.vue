@@ -36,7 +36,7 @@
     <div class="answer-area d-flex flex-column align-items-start">
       <h4 class="reply-title">Reply:</h4>
       <!-- ---------- form answer ----------- -->
-      <div class="form-answer align-self-stretch d-flex flex-column">
+      <div class="form-answer align-self-stretch d-flex flex-column" v-if="token">
         <b-form-textarea
           id="textarea"
           placeholder="Your answer..."
@@ -66,7 +66,7 @@ import { mapState } from "vuex";
 import TagCard from "@/components/TagCard.vue";
 import AnswerCard from "@/components/AnswerCard.vue";
 import FormEditQuestion from "@/components/FormEditQuestion.vue";
-import moment from "moment";
+import moment, { locale } from "moment";
 import Swal from "sweetalert2";
 
 export default {
@@ -208,6 +208,9 @@ export default {
     },
     loggedEmail() {
       return localStorage.getItem("email");
+    },
+    token() {
+      return localStorage.getItem("token");
     }
   },
   created() {
