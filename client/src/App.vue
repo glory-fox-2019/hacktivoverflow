@@ -1,7 +1,7 @@
 <template>
 <b-container fluid style="padding: 0; margin: 0;">
     <Navbar v-if="isLogin"></Navbar>
-        <blockquote class="blockquote text-center mx-auto" style="width: 50%; padding: 10px;">
+        <blockquote v-if="!isLogin" class="blockquote text-center mx-auto" style="width: 50%; padding: 10px;">
             <p style="font-size: 15px;" class="giveMeEllipsis">{{ quote.text }}</p>
             <footer class="blockquote-footer">{{ quote.author }}</footer>
         </blockquote>

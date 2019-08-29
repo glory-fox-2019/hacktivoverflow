@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const Quote = require('../models/quote')
-const id = "5d678e992fc42c22a287ffb4"
+const id = "5d67a9eb8d71204e3e514075"
 router.get('/', (req, res, next) => {
     Quote.findById(id)
     .then(result => {

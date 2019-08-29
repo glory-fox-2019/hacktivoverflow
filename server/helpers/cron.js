@@ -1,7 +1,7 @@
 const CronJob = require('cron').CronJob;
 const Quote = require('inspirational-quotes');
 const ModelQuote = require('../models/quote');
-const id = "5d678e992fc42c22a287ffb4"
+const id = "5d67a9eb8d71204e3e514075"
 
 module.exports = () => {
     new CronJob('*/30 * * * *', () => {

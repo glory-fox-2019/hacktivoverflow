@@ -4,9 +4,9 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import router from './router';
 
-const user_url = "http://localhost:3000/user"
-const question_url = "http://localhost:3000/question"
-const answer_url = "http://localhost:3000/answer"
+const user_url = "http://104.198.161.188:80/user"
+const question_url = "http://104.198.161.188:80/question"
+const answer_url = "http://104.198.161.188:80/answer"
 
 Vue.use(Vuex)
 function swal(text) {
@@ -336,7 +336,7 @@ export default new Vuex.Store({
         getCron ({ commit, dispatch }, payload) {
             axios({
                 method: 'get',
-                url: "http://localhost:3000/quote",
+                url: "http://104.198.161.188:80/quote",
             })
             .then(({ data }) => {
                 commit('SETQUOTE', data)
