@@ -45,26 +45,29 @@ class AnswerController {
             const findAnswer = await Answer.findOne({ _id: answerId}).or([{ upvotes: userId }, { downvotes: userId }])
             if (!findAnswer) {
                 findByIdAnswer[vote].push(userId)
-                findByIdAnswer.save()
             }
             else {
                 if (vote == 'downvotes') {
                     if (findUpVote) {
                         findByIdAnswer.upvotes.pull(userId)
                         findByIdAnswer[vote].push(userId)
-                        findByIdAnswer.totalvotes = findByIdAnswer.upvotes.length - findByIdAnswer.downvotes.length;
-                        findByIdAnswer.save()
+                    }
+                    else {
+                        findByIdAnswer.downvotes.pull(userId)
                     }
                 }
                 else {
                     if (findDownVote) {
                         findByIdAnswer.downvotes.pull(userId)
                         findByIdAnswer[vote].push(userId)
-                        findByIdAnswer.totalvotes = findByIdAnswer.upvotes.length - findByIdAnswer.downvotes.length;
-                        findByIdAnswer.save()
+                    }
+                    else {
+                        findByIdAnswer.upvotes.pull(userId)
                     }
                 }
             }
+            findByIdAnswer.totalvotes = findByIdAnswer.upvotes.length - findByIdAnswer.downvotes.length;
+            findByIdAnswer.save()
             res.status(200).json(findByIdAnswer)
         }
         catch (err) {
@@ -85,6 +88,18 @@ class AnswerController {
                     message: "Answer not found"
                 }
             }
+        }
+        catch (err) {
+            next(err)
+        }
+    }
+
+    static async editAnswer (req, res, next) {
+        try {
+            const id = req.params.id;
+            const { title, description } = req.body;
+            const answerUpdated = await Answer.findByIdAndUpdate(id, { title, description }, { new: true })
+            res.status(201).json(answerUpdated)
         }
         catch (err) {
             next(err)

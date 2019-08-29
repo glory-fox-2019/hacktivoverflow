@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Landingpage from './views/Landingpage.vue'
 import Dashboard from './views/Dashboard.vue'
 import Detail from './views/Detail.vue'
+import UserQuestion from './views/UserQuestion.vue'
+import CreateQuestion from './views/CreateQuestion.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +25,15 @@ export default new Router({
         path: '/dashboard/:id',
         name: 'details',
         component: Detail
+    },
+    {
+        path: '/user',
+        name: 'userQuestion',
+        component: UserQuestion
+    },{
+        path: '/createQuestion',
+        name: 'createQuestion',
+        component: CreateQuestion
     }
   ]
 })

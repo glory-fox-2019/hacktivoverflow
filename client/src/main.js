@@ -5,8 +5,15 @@ import store from './store'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import wysiwyg from "vue-wysiwyg";
+
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+Vue.use(wysiwyg, {
+    hideModules: { "table": true, "image": true },
+    maxHeight: "500px",
+    forcePlainTextOnPaste: false
+});
 new Vue({
   router,
   store,

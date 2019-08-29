@@ -8,5 +8,6 @@ router.use(Authentication)
 router.get('/', AnswerController.loadAnswer)
 router.post('/', AnswerController.create)
 router.post('/:id', AnswerController.voteAnswer)
+router.put('/:id', AnswerController.editAnswer)
 
 module.exports = router

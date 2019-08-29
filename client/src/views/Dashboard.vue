@@ -1,6 +1,6 @@
 <template>
 <div>
-    <Question v-for="question in questions" :key="question._id" style="margin-top: 3px;" :question="question"></Question>
+    <Question v-for="question in questions" :key="question._id" style="margin-top: 3px;" :question="question" :status="false"></Question>
 </div>
  
 </template>

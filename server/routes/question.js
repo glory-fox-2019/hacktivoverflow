@@ -6,6 +6,7 @@ const Authorization = require('../middlewares/author');
 router.use(Authentication);
 
 router.get('/', QuestionController.loadQuestion);
+router.get('/userQuestion', QuestionController.loadUserQuestion)
 router.post('/', QuestionController.create);
 router.get('/:id', QuestionController.findOneQuestion)
 router.put('/:id', Authorization, QuestionController.updateQuestion)

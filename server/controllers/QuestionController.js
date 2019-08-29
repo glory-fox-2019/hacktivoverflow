@@ -25,7 +25,24 @@ class QuestionController {
 
     static async loadQuestion (req, res, next) {
         try {
-            const questions = await Question.find().sort({updatedAt: -1}).populate('user', '-password').populate({
+            const questions = await Question.find().sort({createdAt: -1}).populate('user', '-password').populate({
+                path: 'answer',
+                populate: {
+                    path: 'user',
+                    select: '-password'
+                }
+            })
+            res.status(200).json(questions)
+        }
+        catch (err) {
+            next(err)
+        }
+    }
+
+    static async loadUserQuestion (req, res, next) {
+        try {
+            const userId = req.decode.id
+            const questions = await Question.find({user: userId}).sort({updatedAt: -1}).populate('user', '-password').populate({
                 path: 'answer',
                 populate: {
                     path: 'user',
@@ -62,34 +79,30 @@ class QuestionController {
             const findQuestion = await Question.findOne({ _id: questionId}).or([{ upvotes: userId }, { downvotes: userId }])
             if (!findQuestion) {
                 findByIdQuestion[vote].push(userId)
-                findByIdQuestion.save()
             }
             else {
                 if (vote == 'downvotes') {
                     if (findUpVote) {
                         findByIdQuestion.upvotes.pull(userId)
                         findByIdQuestion[vote].push(userId)
-                        findByIdQuestion.totalvotes = findByIdQuestion.upvotes.length - findByIdQuestion.downvotes.length;
-                        findByIdQuestion.save()
+
                     }
                     else {
                         findByIdQuestion.downvotes.pull(userId)
-                        findByIdQuestion.save()
                     }
                 }
                 else {
                     if (findDownVote) {
                         findByIdQuestion.downvotes.pull(userId)
                         findByIdQuestion[vote].push(userId)
-                        findByIdQuestion.totalvotes = findByIdQuestion.upvotes.length - findByIdQuestion.downvotes.length;
-                        findByIdQuestion.save()
                     }
                     else {
                         findByIdQuestion.upvotes.pull(userId)
-                        findByIdQuestion.save()
                     }
                 }
             }
+            findByIdQuestion.totalvotes = findByIdQuestion.upvotes.length - findByIdQuestion.downvotes.length;
+            findByIdQuestion.save()
             res.status(200).json(findByIdQuestion)
         }
         catch (err) {
@@ -105,6 +118,11 @@ class QuestionController {
                 populate: {
                     path: 'user',
                     select: '-password'
+                },
+                options: {
+                    sort: {
+                        createdAt: -1
+                    }
                 }
             })
             if (question) {
