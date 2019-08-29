@@ -70,11 +70,11 @@ export default new Vuex.Store({
         let index = state.question.answers.findIndex(el => el._id === payload.idanswer)
         commentState = state.question.answers[index].comments
       }
-      let index = commentState.findIndex(el =>  el._id === payload.id)
+      let index = commentState.findIndex(el => el._id === payload.id)
       commentState.splice(index, 1)
     },
     ADD_ANSWER (state, payload) {
-      state.question.answers.push(payload);
+      state.question.answers.push(payload)
     },
     UPDATE_ANSWER (state, payload) {
       let index = state.question.answers.findIndex(el => el._id === payload._id)
@@ -95,7 +95,7 @@ export default new Vuex.Store({
       state.search.input = payload.input
       state.search.questions = payload.questions
     }
-    
+
   },
   actions: {
     fetchQuestion ({ commit, state }, id) {
@@ -133,7 +133,7 @@ export default new Vuex.Store({
       }
     },
     fetchMyQuestion ({ commit, state }) {
-      ax.get('/question/my', { headers: {access_token: localStorage.getItem('access_token')}})
+      ax.get('/question/my', { headers: { access_token: localStorage.getItem('access_token') } })
         .then(({ data }) => {
           commit('SET_MYQUESTION', data)
         })
@@ -141,7 +141,7 @@ export default new Vuex.Store({
     },
     search ({ commit, state }, keyword) {
       let encodeKeyword = encodeURI(keyword)
-      ax.get('/question?search='+encodeKeyword)
+      ax.get('/question?search=' + encodeKeyword)
         .then(({ data }) => {
           let payload = {
             input: keyword,

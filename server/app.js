@@ -10,7 +10,7 @@ const routes = require('./routes');
 const morgan = require('morgan');
 const nodecron = require('./middlewares/nodecron')
 
-mongoose.connect('mongodb://localhost:27017/task_hacktivoverflow',{ useNewUrlParser: true })
+mongoose.connect(process.env.DB,{ useNewUrlParser: true })
   .then(() => console.log('Connected to Database'))
   .catch(err => console.log('Error Connecting to database | Error:'+err));
 

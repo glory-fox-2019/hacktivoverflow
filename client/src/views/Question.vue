@@ -61,7 +61,7 @@ export default {
     this.fetchQuestion(this.$route.params.id)
   },
   computed: {
-    ...mapState(['question','user'])
+    ...mapState(['question', 'user'])
   },
   methods: {
     ...mapActions(['fetchQuestion']),

@@ -38,18 +38,18 @@ export default {
           value: [],
           input: ''
         }
-      },
+      }
     }
   },
   methods: {
     addTag () {
-      if(this.edit.tags.input){
+      if (this.edit.tags.input) {
         this.edit.tags.value.push(this.edit.tags.input)
         this.edit.tags.input = ''
       }
     },
     deleteTag (index) {
-      this.edit.tags.value.splice(index,1)
+      this.edit.tags.value.splice(index, 1)
     },
     editQuestion () {
       const payload = {
@@ -57,7 +57,7 @@ export default {
         description: this.edit.description,
         tags: this.edit.tags.value
       }
-      ax.put('/question/'+this.id, payload, { headers: { access_token: localStorage.getItem('access_token') } })
+      ax.put('/question/' + this.id, payload, { headers: { access_token: localStorage.getItem('access_token') } })
         .then(({ data }) => {
           // this.$store.commit('UPDATE_QUESTION', {id: this.id ,data})
           this.$router.push('/')
@@ -66,9 +66,9 @@ export default {
           this.$swal({
             type: 'error',
             title: 'Error!',
-            text: response.data.error,
-          });
-        });
+            text: response.data.error
+          })
+        })
     },
     cancel () {
       this.$router.push('/')

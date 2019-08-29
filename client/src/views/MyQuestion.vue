@@ -6,9 +6,10 @@
           <span>My Question</span>
         </div>
         <div class="content">
-          <div class="question--list">
+          <div class="question--list" v-if="myQuestion.length > 0">
             <Question-List-Item v-for="question in myQuestion" :key="question._id" :question="question"></Question-List-Item>
           </div>
+          <p v-else style="padding: 20px">No Content</p>
         </div>
       </div>
     </div>

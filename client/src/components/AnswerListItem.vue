@@ -54,7 +54,7 @@ export default {
       mode: 'view',
       edit: {
         title: '',
-        description: '',
+        description: ''
       }
     }
   },
@@ -65,21 +65,21 @@ export default {
       this.mode = 'edit'
     },
     editAnswer () {
-      ax.put('/question/'+this.idquestion+'/answer/'+this.answer._id, this.edit, { headers: { access_token: localStorage.getItem('access_token') } })
+      ax.put('/question/' + this.idquestion + '/answer/' + this.answer._id, this.edit, { headers: { access_token: localStorage.getItem('access_token') } })
         .then(({ data }) => {
-          this.$store.commit('UPDATE_ANSWER',data)
+          this.$store.commit('UPDATE_ANSWER', data)
           this.mode = 'view'
         })
         .catch(({ response }) => {
           this.$swal({
             type: 'error',
             title: 'Error!',
-            text: response.data.error,
-          });
-        });
+            text: response.data.error
+          })
+        })
     },
     cancelEdit () {
-      this.mode = 'view'      
+      this.mode = 'view'
     },
     deleteAnswer () {
       this.$swal.fire({
@@ -92,9 +92,9 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          ax.delete('/question/'+this.idquestion+'/answer/'+this.answer._id, { headers: { access_token: localStorage.getItem('access_token') } })
+          ax.delete('/question/' + this.idquestion + '/answer/' + this.answer._id, { headers: { access_token: localStorage.getItem('access_token') } })
             .then(({ data }) => {
-              this.$store.commit('DELETE_ANSWER',{ id: this.answer._id})
+              this.$store.commit('DELETE_ANSWER', { id: this.answer._id })
               this.$swal.fire(
                 'Deleted!',
                 'Your Answer has been deleted.',
@@ -105,9 +105,9 @@ export default {
               this.$swal({
                 type: 'error',
                 title: 'Error!',
-                text: response.data.error,
-              });
-            });
+                text: response.data.error
+              })
+            })
         }
       })
     }

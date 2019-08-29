@@ -15,7 +15,7 @@ export default {
   }),
   methods: {
     OnGoogleAuthSuccess (idToken) {
-      ax.post('/user/login/google',{idToken})
+      ax.post('/user/login/google', { idToken })
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
           this.$store.commit('SET_USER', data.payload)

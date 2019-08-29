@@ -42,7 +42,7 @@ export default {
       menu: {
         account: false,
         search: ''
-      },
+      }
     }
   },
   methods: {
@@ -51,7 +51,7 @@ export default {
       this.$store.commit('LOGOUT')
     },
     search () {
-      if(this.$route.path !== '/') this.$router.replace('/')
+      if (this.$route.path !== '/') this.$router.replace('/')
       this.$store.dispatch('search', this.menu.search)
     }
   },

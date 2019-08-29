@@ -27,24 +27,24 @@ export default {
     }
   },
   methods: {
-    createAnswer() {
+    createAnswer () {
       const payload = {
         title: this.answer.title,
         description: this.answer.description
       }
-      ax.post('/question/'+this.idquestion+'/answer', payload, { headers: { access_token: localStorage.getItem('access_token') } })
-        .then(({data}) => {
+      ax.post('/question/' + this.idquestion + '/answer', payload, { headers: { access_token: localStorage.getItem('access_token') } })
+        .then(({ data }) => {
           this.answer.title = ''
           this.answer.description = ''
-          this.$store.commit('ADD_ANSWER',data)
+          this.$store.commit('ADD_ANSWER', data)
         })
         .catch((err) => {
           this.$swal({
             type: 'error',
             title: 'Error!',
-            text: err,
-          });
-        });
+            text: err
+          })
+        })
     }
   }
 }

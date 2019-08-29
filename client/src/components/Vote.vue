@@ -61,7 +61,7 @@ export default {
           this.$swal({
             type: 'error',
             title: 'Error!',
-            text: response.data.error,
+            text: response.data.error
           })
         })
     }

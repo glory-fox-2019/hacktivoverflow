@@ -46,7 +46,7 @@ export default {
       }
       ax.post(url, payload, { headers: { access_token: localStorage.getItem('access_token') } })
         .then(({ data }) => {
-          this.expandComment();
+          this.expandComment()
           this.add.comment = ''
           this.$store.commit('ADD_COMMENT', { type: this.type, data, idanswer: this.idanswer })
         })
@@ -58,7 +58,7 @@ export default {
           })
         })
     },
-    deleteComment(id){
+    deleteComment (id) {
       this.$swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -69,9 +69,9 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          ax.delete('/comment/'+id, { headers: { access_token: localStorage.getItem('access_token') } })
+          ax.delete('/comment/' + id, { headers: { access_token: localStorage.getItem('access_token') } })
             .then(({ data }) => {
-              this.$store.commit('DELETE_COMMENT', { type: this.type, id, idanswer: this.idanswer })          
+              this.$store.commit('DELETE_COMMENT', { type: this.type, id, idanswer: this.idanswer })
               this.$swal.fire(
                 'Deleted!',
                 'Your Comment has been deleted.',
@@ -82,14 +82,14 @@ export default {
               this.$swal({
                 type: 'error',
                 title: 'Error!',
-                text: response.data.error,
-              });
-            });
+                text: response.data.error
+              })
+            })
         }
       })
     },
-    expandComment(){
-      this.expand = true;
+    expandComment () {
+      this.expand = true
     }
   },
   computed: {

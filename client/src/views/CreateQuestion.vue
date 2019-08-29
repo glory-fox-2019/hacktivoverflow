@@ -42,13 +42,13 @@ export default {
   },
   methods: {
     addTag () {
-      if(this.question.tags.input){
+      if (this.question.tags.input) {
         this.question.tags.value.push(this.question.tags.input)
         this.question.tags.input = ''
       }
     },
     deleteTag (index) {
-      this.question.tags.value.splice(index,1)
+      this.question.tags.value.splice(index, 1)
     },
     createQuestion () {
       const payload = {
@@ -65,9 +65,9 @@ export default {
           this.$swal({
             type: 'error',
             title: 'Error!',
-            text: response.data.error,
-          });
-        });
+            text: response.data.error
+          })
+        })
     },
     cancel () {
       this.$router.push('/')
