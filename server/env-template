@@ -1,0 +1,5 @@
+PORT= your port
+
+SECRET_PASSWORD= secret password for jwt
+
+uri=your mongo db collection url 
