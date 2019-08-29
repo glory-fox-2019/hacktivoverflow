@@ -6,8 +6,12 @@
         <b-col cols="3">
           <b-row class="pt-5 mb-5 border" style="height: 100vh;" align="right">
             <b-col cols="12">
-             <h4 class="border-bottom mb-3"> <i class="fas fa-user-circle"></i> My Question </h4>
-             <h4 class="border-bottom mb-3"> <i class="fas fa-folder"></i> Explore </h4>
+             <router-link to="/question/collection">
+             <h4 class="border-bottom mb-3" v-if="isLogin"> <i class="fas fa-user-circle"></i> My Question </h4>
+             </router-link>
+             <router-link to="/question">
+             <h4 class="border-bottom mb-3"><i class="fas fa-globe-asia"></i> Explore </h4>
+             </router-link>
             </b-col>
           </b-row>
         </b-col>
@@ -21,8 +25,10 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import { mapState } from 'vuex';
 
 export default {
+  computed: mapState(['isLogin']),
   components: {
     Navbar
   },
@@ -30,7 +36,7 @@ export default {
     if (localStorage.token) {
       this.$store.commit("SAVELOGIN");
     }
-  }
+  },
 };
 </script>
 <style>
@@ -55,5 +61,8 @@ export default {
 }
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+* {
+  font-family: 'Montserrat', sans-serif;
 }
 </style>

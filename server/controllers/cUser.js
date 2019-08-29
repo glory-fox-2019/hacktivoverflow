@@ -19,7 +19,8 @@ class UserController {
                 if(data){
                     if(verifyPassword(password, data.password)){
                         const token = createToken(data)
-                        res.status(200).json({token})
+                        data.password = undefined
+                        res.status(200).json({token,data})
                     } else {
                         let err = {};
                         err.message = 'Email / Password not found!';

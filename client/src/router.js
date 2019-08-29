@@ -5,6 +5,7 @@ import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Detail from './views/DetailPage.vue';
 import Create from './views/Create.vue';
+import Collection from './views/Collection.vue';
 
 Vue.use(Router);
 
@@ -12,6 +13,10 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: '/',
+      redirect: '/question'
+    },
     {
       path: '/question',
       name: 'home',
@@ -26,6 +31,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register,
+    },
+    {
+      path: '/question/collection',
+      name: 'collection',
+      component : Collection,
     },
     {
       path: '/question/:id',

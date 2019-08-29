@@ -9,13 +9,16 @@ class AnswerController {
         let answer = {}
         Answer.create({description, question: id, owner: userId})
         .then(data => {
+            Answer.populate(data, {path: 'owner'}, function(err,newData){
+                if (err) next(err)
+            })
             answer = data;
             return Question.findByIdAndUpdate(id, {$push: {answer: data._id}}, {new: true})
         })
         .then(data => {
 
             res.status(201).json(answer)
-        })
+        })  
         .catch(next)
     }
 
@@ -29,11 +32,21 @@ class AnswerController {
         .catch(next)
     }
 
+    static update(req,res,next){
+        const { id } = req.params
+        const { description } = req.body
+        Answer.findByIdAndUpdate(id,{description},{new: true}).populate('owner')
+        .then(data => {
+            res.status(200).json(data)
+        })
+        .catch(next)
+    }
+
 
     static votes(req,res,next){
         const { id } = req.params
         const idUser = req.decode.id
-        const { votetype } = req.body
+        let { votetype } = req.body
         let check = false;
         let checkVote = null;
         if (votetype == "upvotes" ){
@@ -43,19 +56,19 @@ class AnswerController {
         }
         Answer.findById(id)
             .then(data => {
-                for (let i=0; i<data[votetype].length; i++){
-                    if (data[votetype][i] == idUser){
-                        res.status(200).json({message: 'Cant doing this again'})
-                        return
-                    }
-                }
                 for (let i=0; i<data[checkVote].length; i++){
                     if (data[checkVote][i] == idUser){
-                        console.log('true')
                         check = true;
                     }
                 }
-                
+                for (let i=0; i<data[votetype].length; i++){
+                    if (data[votetype][i] == idUser){
+                        let temp = checkVote;
+                        checkVote = votetype
+                        votetype = temp
+                        check = true;
+                    }
+                }
                 return AnswerController.checkVotes(check, votetype, checkVote,idUser,id)
             })
             .then(newData => {

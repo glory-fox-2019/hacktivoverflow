@@ -13,8 +13,8 @@ class QuestionController {
     }
 
     static myCollection(req,res,next){
-        const owner = req.decode
-        Question.find(owner)
+        const owner = req.decode.id
+        Question.find({owner})
         .then(data => {
             res.status(200).json(data)
         })
@@ -39,7 +39,7 @@ class QuestionController {
     
     static getById(req,res,next){
         const {id} = req.params;
-        Question.findById(id).populate('upvotes').populate('owner').populate('downvotes').populate({
+        Question.findById(id).populate('owner').populate({
             path: 'answer',
             populate:{
                 path: 'owner'
@@ -63,6 +63,9 @@ class QuestionController {
         const { id } = req.params
         Question.findByIdAndDelete(id)
             .then(data => {
+                return Answer.deleteMany({question : data._id})
+            })
+            .then(data => {
                 res.status(200).json({message: 'Successfully deleted!'})
             })
             .catch(next)
@@ -83,7 +86,7 @@ class QuestionController {
     static votes(req,res,next){
         const { id } = req.params
         const idUser = req.decode.id
-        const { votetype } = req.body
+        let { votetype } = req.body
         let check = false;
         let checkVote = null;
         if (votetype == "upvotes" ){
@@ -93,19 +96,19 @@ class QuestionController {
         }
         Question.findById(id)
             .then(data => {
-                for (let i=0; i<data[votetype].length; i++){
-                    if (data[votetype][i] == idUser){
-                        res.status(200).json({message: 'Cant doing this again'})
-                        return
-                    }
-                }
                 for (let i=0; i<data[checkVote].length; i++){
                     if (data[checkVote][i] == idUser){
-                        console.log('true')
+                        check = true;
+                    }
+                } 
+                for (let i=0; i<data[votetype].length; i++){
+                    if (data[votetype][i] == idUser){
+                        let temp = checkVote;
+                        checkVote = votetype
+                        votetype = temp
                         check = true;
                     }
                 }
-                
                 return QuestionController.checkVotes(check, votetype, checkVote,idUser,id)
             })
             .then(newData => {

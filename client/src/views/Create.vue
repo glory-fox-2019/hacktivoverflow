@@ -69,7 +69,6 @@ export default {
       const token = localStorage.getItem("token");
       this.isProc = true;
       const input = this.form;
-      console.log(input)
       axios({
         method: "post",
         url: "/question/create",

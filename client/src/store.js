@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Swal from 'sweetalert2';
 
 Vue.use(Vuex);
 
@@ -21,6 +22,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-      
+    alert(context, payload){
+      Swal.fire({
+        type: payload.type,
+        title: payload.title
+      })
+    }
   },
 });
