@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
+  <div id="app" >
       <navbar class="mb-4"/>
-      <login v-if="!this.$store.state.isLogin"/>
+      <login v-if="!this.$store.state.isLogin" style="min-height:70vh"/>
       <div v-else>
         <div class="row">
           <div class="col-sm-2">
               <sidebarmy/>
           </div>  
           <div class="col-sm-10">
-            <router-view/>
+            <router-view style="min-height:70vh"/>
           </div>
       </div>
     </div>

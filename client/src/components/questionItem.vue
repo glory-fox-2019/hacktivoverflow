@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <router-link :to="'/' + question._id" class="link"><h5 class="card-title">{{question.title}}</h5></router-link>
                         <p class="card-text" v-html="question.description"/>
-                        <small>asked by {{question.User.name}}</small>
+                        <small>asked by {{question.User.name}}</small> <br>
                     </div>    
                 </div>
             </div>

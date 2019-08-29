@@ -15,6 +15,13 @@
 
                     </div>
 
+                    <div class = "card mb-2">
+                        <div class = "card-body">
+                            <input type="text" placeholder = "Tags (separated by comma)..." style="width : 100%; height: 40px; text-align:left" v-model="tags">
+                        </div>
+
+                    </div>
+
                     <div class = "card mb-4">
                         <div class = "card-body">
                             <input type="submit" value = "Publish Question" style="width : 100%; height: 40px; background-color:rgb(255, 116, 0); color:white" v-on:click = "newPost">
@@ -31,7 +38,8 @@ export default {
     data () {
         return {
             inputTitle: "",
-            inputContent: ""
+            inputContent: "",
+            tags: ""
         }
     },
     methods: {
@@ -43,7 +51,8 @@ export default {
             this.$store.dispatch('createQuestion',payload)
             this.$store.dispatch('fetch_question')
             this.$router.push('/')
-        }
+        },
+
     }
 
 }

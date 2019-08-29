@@ -1,6 +1,6 @@
 <template>
-    <div class="row ml-3 pb-4">
-        <div class= "card pt-3 pl-3 pb-3" style="width:100%; text-align:left">
+    <div class="row ml-3 pb-4" style="width:98%">
+        <div class= "card pt-3 pl-3 pb-3 " style="width:100%; text-align:left">
             <h3>{{this.$store.state.oneQuestion.title}}</h3>
             <small>Asked at <b>{{this.$store.state.oneQuestion.created_at}}</b> | By <b>{{this.$store.state.oneQuestion.User.name}}</b></small>
             <hr>
@@ -16,9 +16,9 @@
                         <a href="#" @click="downvotesQuestion"><img src="../assets/down-arrow.png" width="50px" height="50px"></a>
                     </div>
                     <div v-else>
-                        <img src="../assets/up-arrow.png" width="50px" height="50px">
+                        <a href="#" @click="noVotes()"><img src="../assets/up-arrow.png" width="50px" height="50px"></a>
                         <center><h2>{{this.$store.state.oneQuestion.upvotes.length - this.$store.state.oneQuestion.downvotes.length}}</h2></center>
-                        <img src="../assets/down-arrow.png" width="50px" height="50px">
+                         <a href="#" @click="noVotes()"><img src="../assets/down-arrow.png" width="50px" height="50px"></a>
                     </div>
                 </div>
                 <div class="col-sm-11 mr-3" style="text-align:justify">
@@ -36,9 +36,9 @@
                         <a href="#" @click="downvotesAnswer(answer._id)"><img src="../assets/down-arrow.png" width="50px" height="50px"></a>
                     </div>
                     <div v-else>
-                        <img src="../assets/up-arrow.png" width="50px" height="50px">
+                        <a href="#" @click="noVotes()"><img src="../assets/up-arrow.png" width="50px" height="50px"></a>
                         <center><h2>{{answer.upvotes.length - answer.downvotes.length}}</h2></center>
-                        <img src="../assets/down-arrow.png" width="50px" height="50px">
+                        <a href="#" @click="noVotes()"><img src="../assets/down-arrow.png" width="50px" height="50px"></a>
                     </div>
                 </div>
                 <div class="col-sm-11 mr-3" style="text-align:justify">
@@ -152,7 +152,14 @@ export default {
                     })
                     console.log(err)
                 })
-            
+        },
+        noVotes() {
+            Swal.fire({
+                type: 'error',
+                title: `Sorry, You can't vote your own post.`,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     }
 

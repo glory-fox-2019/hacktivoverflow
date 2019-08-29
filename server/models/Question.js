@@ -7,7 +7,8 @@ const Question = new Schema({
     description: {type: String},
     upvotes: [{type: ObjectId, ref: "User"}],
     downvotes: [{type: ObjectId, ref: "User"}],
-    User: {type: ObjectId, ref:"User"}
+    User: {type: ObjectId, ref:"User"},
+    Tags: [{type: String}]
   },
   { timestamps: { 
       createdAt: 'created_at'
