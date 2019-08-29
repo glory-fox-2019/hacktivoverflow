@@ -1,7 +1,7 @@
 <template>
   <div>
-    <input v-model="search" class="form-control mr-sm-2 mb-2" type="search" placeholder="Search your post by title..."
-      aria-label="Search">
+    <!-- <input v-model="search" class="form-control mr-sm-2 mb-2" type="search" placeholder="Search your post by title..."
+      aria-label="Search"> -->
     <div v-for="question in tagId" :key="question._id" class="card mb-3">
       <div class="row">
         <div class="col-sm-12">

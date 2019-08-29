@@ -60,7 +60,9 @@
             <div class="line col-sm-2 d-flex flex-column justify-content-center">
               <b-input-group class="d-flex flex-column justify-content-center align-items-center">
                 <b-input-group-append>
-                  <a @click.prevent="upvotes(answer._id)" class="vote">&#x02C4;</a>
+                  <!-- <a>{{answer.upvotes}}</a>
+                  <a>{{UserId}}</a> -->
+                  <a :class="{upvoteColorClass:answer.upvotes.includes(UserId)}" @click.prevent="upvotes(answer._id)" class="vote">&#x02C4;</a>
                   <!-- <b-btn type="submit" @click="upvote(question._id)" variant="outline-secondary">&#8679;</b-btn> -->
                 </b-input-group-append>
 
@@ -68,7 +70,7 @@
                 <!-- <b-btn variant="outline-secondary">{{question.upvotes.length - question.downvotes.length}}</b-btn> -->
               
                 <b-input-group-prepend>
-                  <a @click.prevent="downvotes(answer._id)" class="vote">	&#x02C5;</a>
+                  <a :class="{downvoteColorClass:answer.downvotes.includes(UserId)}" @click.prevent="downvotes(answer._id)" class="vote">	&#x02C5;</a>
                   <!-- <b-btn type="submit" @click="downvote(question._id)" variant="outline-secondary">&#8681;</b-btn> -->
                 </b-input-group-prepend>
               </b-input-group>
@@ -278,6 +280,14 @@ export default {
         })
     }
   },
+  computed: {
+    UserId() {
+      return localStorage.getItem('_id')
+    }
+  },
+  created(){
+    this.getAllQuestion()
+  },
   created(){
     this.refresh()
     console.log('======',this.$store.state.loginEmail)
@@ -346,5 +356,11 @@ export default {
     font-weight: bold;
     font-size: 15px;
     color: #6AC9EC;
+  }
+  .upvoteColorClass{
+    background-color: red
+  }
+  .downvoteColorClass{
+    background-color: red
   }
 </style>

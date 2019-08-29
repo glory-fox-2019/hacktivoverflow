@@ -5,7 +5,7 @@
       <router-link to="/about">About</router-link>
     </div> -->
 
-        <!-- ===== Modal Register ===== -->
+    <!-- ===== Modal Register ===== -->
     <div>
       <b-modal ref="modal-register" id="modal-register" centered title="Register" hide-footer >
         <div class="modal-body">
@@ -94,9 +94,9 @@
       </b-modal>
     </div>
 
-    <div class="container-fluid" style="height: 100%; width: 100%">
+    <div class="container-fluid" style="height: 100%; width: 100%; border-radius: 25px;">
       <div class="mt-3 fluid" style="margin-left:7%; margin-right:7%">
-        <b-navbar toggleable="lg">
+        <b-navbar toggleable="lg" type="dark" variant="dark">
           <b-navbar-brand><img @click.prevent="toHome()" alt="Forum Box" class="nav-item img-fluid pl--5" src="./assets/askfully.png" style="height:50px"></b-navbar-brand>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -104,12 +104,12 @@
 
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">  
-              <b-nav-item @click.prevent="triggerRegister" v-if="!$store.state.isLogin" v-b-modal.modal-register> <span class="nav-item">Register</span></b-nav-item>
-              <b-nav-item @click.prevent="triggerLogin" v-if="!$store.state.isLogin" v-b-modal.modal-login><span class="nav-item">Login</span></b-nav-item>
-              <b-nav-item @click.prevent="triggerCreate" v-if="$store.state.isLogin" v-b-modal.modal-create> <span class="nav-item mr-3">&#9997; Create Post </span> </b-nav-item>
+              <b-nav-item @click.prevent="triggerRegister" v-if="!$store.state.isLogin" v-b-modal.modal-register> <span class="header-font">Register</span></b-nav-item>
+              <b-nav-item @click.prevent="triggerLogin" v-if="!$store.state.isLogin" v-b-modal.modal-login><span class="header-font">Login</span></b-nav-item>
+              <b-nav-item @click.prevent="triggerCreate" v-if="$store.state.isLogin" v-b-modal.modal-create> <span class="header-font mr-3">&#9997; Create Post </span> </b-nav-item>
               <b-nav-item-dropdown right v-if="$store.state.isLogin">
                 <!-- Using 'button-content' slot -->
-                <template slot="button-content"><span class="nav-item">User</span></template>
+                <template slot="button-content"><span class="header-font">User</span></template>
                 <b-dropdown-item @click.prevent="changeView('/mypost')"><span class="nav-item">Profile</span></b-dropdown-item>
                 <b-dropdown-item @click.prevent="logoutUser"><span class="nav-item">Logout</span></b-dropdown-item>
               </b-nav-item-dropdown>
@@ -120,7 +120,7 @@
 
       <div class="row mt-2">
         <div class="col-sm-1"></div>
-        <div class="col-sm-2">
+        <div v-if="$store.state.isLogin" class="col-sm-2">
           <div v-if="$store.state.isLogin" class="card">
             <ul class="list-group list-group-flush text-left">
               <li @click.prevent="changeView('/')" class="nav-item list-group-item">&#127757; Discover</li>
@@ -137,7 +137,11 @@
           </div>
           
         </div>
-        <div class="col-sm-8">
+        <div  v-if="$store.state.isLogin" class="col-sm-8">
+          <router-view/>
+        </div>
+
+        <div  v-if="!$store.state.isLogin" class="col-sm-10">
           <router-view/>
         </div>
         <!-- <div class="col-sm-2">
@@ -368,6 +372,19 @@ export default {
   */
   h5{
     font-family: 'Oswald', sans-serif;
+  }
+  .header-font{
+    font-family: 'Righteous', cursive !important;
+    cursor: pointer !important;
+    transition: 0.2s !important;
+    color: white !important;
+  }
+  .header-font:hover{
+    font-family: 'Oswald', sans-serif;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    color: #6AC9EC;
   }
   .nav-item {
     font-family: 'Righteous', cursive !important;
