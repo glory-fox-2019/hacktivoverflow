@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import ax from '@/config/axios'
 import GoogleSignInButton from 'vue-google-signin-button-directive'
 
 export default {
@@ -14,6 +15,12 @@ export default {
   }),
   methods: {
     OnGoogleAuthSuccess (idToken) {
+      ax.post('/user/login/google',{idToken})
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
+          this.$store.commit('SET_USER', data.payload)
+          this.$store.commit('SET_ISLOGIN', true)
+        })
       // Receive the idToken and make your magic with the backend
     },
     OnGoogleAuthFail (error) {

@@ -11,6 +11,10 @@ export default new Vuex.Store({
     question: {},
     user: {},
     myQuestion: [],
+    search: {
+      questions: [],
+      input: ''
+    }
   },
   mutations: {
     SET_USER (state, payload) {
@@ -85,8 +89,12 @@ export default new Vuex.Store({
       state.questions.push(payload)
     },
     SET_MYQUESTION (state, payload) {
-      state.myQuestion = payload;
+      state.myQuestion = payload
     },
+    SET_SEARCH_RESULT_QUESITON (state, payload) {
+      state.search.input = payload.input
+      state.search.questions = payload.questions
+    }
     
   },
   actions: {
@@ -130,6 +138,17 @@ export default new Vuex.Store({
           commit('SET_MYQUESTION', data)
         })
         .catch(({ response }) => console.log(response))
+    },
+    search ({ commit, state }, keyword) {
+      let encodeKeyword = encodeURI(keyword)
+      ax.get('/question?search='+encodeKeyword)
+        .then(({ data }) => {
+          let payload = {
+            input: keyword,
+            questions: data
+          }
+          commit('SET_SEARCH_RESULT_QUESITON', payload)
+        })
     }
   }
 })

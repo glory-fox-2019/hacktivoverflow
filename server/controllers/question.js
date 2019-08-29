@@ -122,6 +122,7 @@ class Question {
     Model.Question
       .find(whereData)
       .populate('user', 'name email')
+      .sort({ createdAt: -1 })
       .then(data => {
         res.json(data);
       })
@@ -146,6 +147,11 @@ class Question {
       .populate({
         path: 'answers',
         model: 'Answer',
+        options: {
+          sort: {
+            'createdAt': -1
+          }
+        },
         populate: [
           {
             path: 'comments',

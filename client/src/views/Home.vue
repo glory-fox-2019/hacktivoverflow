@@ -1,13 +1,23 @@
 <template>
   <div class="container">
     <div class="card">
-      <div class="title">
-        <span>
-          Newest Question
-        </span>
-      </div>
-      <div class="question--list">
-        <Question-List-Item v-for="question in questions" :key="question._id" :question="question"></Question-List-Item>
+      <div id="newest-question">
+        <div class="title">
+          <span v-if="!search.input">
+            Newest Question
+          </span>
+          <span v-else>
+            Search Question: {{ search.input }}
+          </span>
+        </div>
+        <div class="question--list">
+          <div v-if="!search.input">
+            <Question-List-Item v-for="question in questions" :key="question._id" :question="question"></Question-List-Item>
+          </div>
+          <div v-else>
+            <Question-List-Item v-for="question in search.questions" :key="question._id" :question="question"></Question-List-Item>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -28,7 +38,7 @@ export default {
     this.fetchQuestions()
   },
   computed: {
-    ...mapState(['questions'])
+    ...mapState(['questions','search'])
   },
   methods: {
     ...mapActions(['fetchQuestions'])

@@ -8,6 +8,7 @@ const port = process.env.PORT;
 const cors = require('cors');
 const routes = require('./routes');
 const morgan = require('morgan');
+const nodecron = require('./middlewares/nodecron')
 
 mongoose.connect('mongodb://localhost:27017/task_hacktivoverflow',{ useNewUrlParser: true })
   .then(() => console.log('Connected to Database'))
@@ -19,6 +20,8 @@ app.use(morgan('dev'))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
+
+nodecron.questionDaily()
 
 app.use('/user',routes.user);
 app.use('/question',routes.question);

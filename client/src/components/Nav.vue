@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <div class="nav__search">
-        <input type="text" placeholder="Search Question">
+        <input type="text" placeholder="Search Question" v-debounce:200="search" v-model="menu.search">
       </div>
       <div class="nav--right">
         <div class="nav__action">
@@ -22,6 +22,7 @@
           <div class="nav__account__menu" v-if="menu.account">
             <ul>
               <li><router-link to="/user/myquestion" @click="logout" v-if="isLogin">My Question</router-link></li>
+              <!-- <li><router-link to="/user/myquestion" @click="logout" v-if="isLogin">Add Watched tags</router-link></li> -->
               <li><a href="javascript:void(0)" @click="logout" v-if="isLogin">logout</a></li>
             </ul>
           </div>
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import ax from '@/config/axios'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -39,7 +41,8 @@ export default {
     return {
       menu: {
         account: false,
-      }
+        search: ''
+      },
     }
   },
   methods: {
@@ -47,6 +50,10 @@ export default {
       localStorage.clear()
       this.$store.commit('LOGOUT')
     },
+    search () {
+      if(this.$route.path !== '/') this.$router.replace('/')
+      this.$store.dispatch('search', this.menu.search)
+    }
   },
   computed: {
     ...mapState(['isLogin', 'user'])

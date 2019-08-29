@@ -391,7 +391,34 @@ Error:
 - 404: 
   - Question not found
 
+## Get Top Question
+Url: `/question/top`
+Method: `GET`
+Status: `200`
 
+Response: 
+```
+{
+  _id: String,
+  title: String,
+  description: String,
+  upvotes: Array,
+  downvotes: Array,
+  answers: Array,
+  tags: Array,
+  comments: Array,
+  user: {
+    _id: String,
+    name: String,
+    email: String,
+  },
+  createdAt: Date,
+  updatedAt: Date,
+}
+```
+Error: 
+- 404: 
+  - Question not found
 
 # Answer
 ## Create Answer

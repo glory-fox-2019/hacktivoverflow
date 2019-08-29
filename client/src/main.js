@@ -6,6 +6,7 @@ import BootstrapVue from 'bootstrap-vue'
 import VueSweetalert2 from 'vue-sweetalert2'
 import VueMoment from 'vue-moment'
 import VueQuillEditor from 'vue-quill-editor'
+import VueDebounce from 'vue-debounce'
 
 import 'sweetalert2/dist/sweetalert2.min.css'
 
@@ -19,6 +20,9 @@ Vue.use(BootstrapVue)
 Vue.use(VueSweetalert2)
 Vue.use(VueMoment)
 Vue.use(VueQuillEditor)
+Vue.use(VueDebounce, {
+  listenTo: ['keyup']
+})
 
 new Vue({
   router,
