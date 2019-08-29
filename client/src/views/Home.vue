@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-8" style="border:2px solid black">
+            <div class="col-8" >
 
                 <div class="content-section">
                   <div class="row" style="display:flex;justify-content:space-around;">

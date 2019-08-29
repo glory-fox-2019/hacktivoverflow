@@ -48,9 +48,11 @@ export default {
   },
   methods : {
     signOut(){
-      // localStorage.removeItem()
       localStorage.clear()
       this.$store.commit("LOGIN_STATUS", false)
+      this.$router.push("/").catch(err=>{
+        
+      })
     }
   }
 }

@@ -1,8 +1,9 @@
 <template>
-  <div class="container mt-4">
+  <div v-if="$store.state.isLogin" class="container mt-4">
       <div class="row">
           <div class="col-8">
               <div class="content-section">
+                  <h2>{{$store.state.currentUser}} question</h2>
           <cardList :isUser="true"></cardList>
               </div>
          

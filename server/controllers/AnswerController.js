@@ -16,7 +16,7 @@ class AnswerController {
 
     static delete(req, res, next) {
 
-        const id = req.body.id
+        const id = req.params.id
 
         Answer.findByIdAndDelete(id)
             .then(success => {
@@ -27,7 +27,8 @@ class AnswerController {
 
     static update(req, res, next) {
 
-        let id = req.body.id
+        console.log("masuk ke update")
+        let id = req.params.id
         let updatedData = {}
 
         req.body.title && (updatedData.title = req.body.title)
@@ -50,9 +51,9 @@ class AnswerController {
     }
 
     static getUserAnswers(req, res, next) {
-
+        // console.log("masuk ke user answers")
         let UserId = req.decode.id
-        Answer.find({ UserId }).sort({createdAt :'desc'})
+        Answer.find({ UserId }).sort({createdAt :'desc'}).populate("UserId")
             .then(allAnswer => {
                 res.status(200).json(allAnswer)
             })

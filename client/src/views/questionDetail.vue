@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-if="$store.state.isLogin" class="container">
     <div class="row mt-5">
       <div class="col-8">
         <div class="card flex-row mt-3" style="width:100%;">
@@ -33,16 +33,16 @@
     </div>
 
     <!-- Modal untuk menjawab pertanyaan -->
-    <b-modal title="Submit your question" id="modal-create" v-model="isAnswerModalActive">
+    <b-modal title="Submit your answer" id="modal-create" v-model="isAnswerModalActive">
       <!-- <h4>Input your answer for this question</h4> -->
       <b-form @submit.prevent="createAnswer" id="createAnswerForm">
         <b-form-group label="Enter your title" label-for="title">
           <b-form-input type="text" v-model="formCreateAnswer.title" placeholder="title" required></b-form-input>
         </b-form-group>
-        <b-form-group label="question" label-for="description">
+        <b-form-group label="answer" label-for="description">
           <textarea
             v-model="formCreateAnswer.description"
-            placeholder="question"
+            placeholder="answer"
             class="form-control"
             rows="3"
           ></textarea>
@@ -106,8 +106,13 @@ export default {
 
     createAnswer() {
       this.formCreateAnswer.QuestionId = this.$route.params.id;
-      this.$store.dispatch("createAnswer", this.formCreateAnswer);
-      this.isAnswerModalActive = false;
+      this.$store.dispatch("createAnswer", this.formCreateAnswer)
+      .then(()=>{
+        this.formCreateAnswer.description=""
+        this.formCreateAnswer.title = ""
+         this.isAnswerModalActive = false;
+      })
+     
     }
   },
   mounted: function() {

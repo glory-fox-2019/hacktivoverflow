@@ -4,7 +4,7 @@ const User = require('../models/User')
 
 function authentication(req,res,next){    
     try {
-
+        // console.log("masuk ke authnetication")
         const token = req.headers.token
         const decode = jwt.verify(token, Secret)
         req.decode = decode

@@ -20,6 +20,7 @@ export default new Vuex.Store({
     isLogin : false,
     allQuestions:[],
     userQuestions:[],
+    userAnswers :[],
     currentUser : "",
     theQuestionDetail : {
         UserId : {},
@@ -55,6 +56,9 @@ export default new Vuex.Store({
 
     CURRENT_USER(state,payload){
         state.currentUser = payload
+    },
+    USER_ANSWER(state, payload){
+        state.userAnswers = payload
     }
 
 
@@ -396,6 +400,92 @@ export default new Vuex.Store({
             })
         })
        
+    },
+    getUserAnswers({commit,dispatch}){
+        let token = localStorage.getItem("token")
+
+        axios({
+            url : `${answer_url}`,
+            method : "GET",
+            headers : {token}
+        })
+        .then(response=>{
+            console.log(response.data)
+            let payload  =response.data
+            commit("USER_ANSWER",payload)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    },
+
+    editAnswer({commit, dispatch},payload){
+        let token = localStorage.getItem("token")
+
+        let id = payload.id
+        let title = payload.title
+        let content = payload.content
+
+        axios({
+            url : `${answer_url}/${id}`,
+            method : "PATCH",
+            data : {title,content},
+            headers : {token}
+        })
+        .then(response=>{
+            console.log(response.data)
+            Vue.swal.close()
+            Vue.swal.fire({
+                 type : "success",
+                 title : "You have successfully edited your answer",
+                 showConfirmButton : false,
+                 timer : 1500
+            })
+            dispatch("getUserAnswers")
+        })
+        .catch(err=>{
+            // console.log(err)
+            let message = err.response.data.message
+            Vue.swal.fire({
+                type : "error",
+                title : message,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+    }
+,
+    deleteAnswer({commit,dispatch}, id){
+
+        let token = localStorage.getItem("token")
+        Vue.swal.showLoading()
+        axios({
+            url :`${answer_url}/${id}`,
+            method :"DELETE",
+            headers : {token}
+        })
+        .then(response=>{
+            // console.log(response.data)
+            Vue.swal.close()
+            Vue.swal.fire({
+                type : "success",
+                title : "You have successfully delete your question",
+                showConfirmButton : false,
+                timer : 1500
+            })
+            dispatch("getUserAnswers")
+        })
+        .catch(err=>{
+            // console.log(err)
+            let message = err.response.data.message
+            Vue.swal.fire({
+                type : "error",
+                title : message,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+
     }
 
   }

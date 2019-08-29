@@ -10,9 +10,10 @@
           </div>
           <div @click="gotoQuestionDetail" class="card-body">
           <h5 class="card-title">{{question.title}}</h5>
+          <br>
           <p class="card-text text-justify">{{question.description}}</p>
-          <p>by {{question.UserId.username}}</p>
-          <p>{{getDate}}</p>
+          <p style="font-size:13px">by {{question.UserId.username}}</p>
+          <p style="font-size:13px">{{getDate}}</p>
           <!-- <p>on  -->
               </div>
           </div>
@@ -20,8 +21,8 @@
           <div v-if="isUser" class="card-footer" style="display-flex;justify-content:space-around;"> 
              
              <div class="row">
-            <div class="col-4">
-                dnadsudaundsund
+            <div class="col-3">
+                
             </div> 
              
              <div class="col-8">
@@ -40,7 +41,7 @@
         <b-form-group label="Enter your title" label-for="title">
           <b-form-input type="text" v-model="formEditQuestion.title"  :value="question.title" required></b-form-input>
         </b-form-group>
-        <b-form-group label="answer" label-for="description">
+        <b-form-group label="question" label-for="description">
            <textarea v-model="formEditQuestion.description" placeholder="answer" class="form-control" rows="3" ></textarea>
         </b-form-group>
       </b-form>
