@@ -13,12 +13,12 @@ import NavBar from './components/NavBar'
 export default {
   name: 'App',
   components: {
-    NavBar,
+    NavBar
   },
   data: () => ({
     //
   }),
-  created() {
+  created () {
     if (localStorage.token) {
       this.$router.push('/home/all')
       this.$store.commit('CHANGELOGIN', true)
@@ -28,5 +28,5 @@ export default {
       this.$router.push('/login')
     }
   }
-};
+}
 </script>

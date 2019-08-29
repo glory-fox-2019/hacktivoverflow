@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'navbar',
   computed: mapState([
@@ -20,13 +20,13 @@ export default {
   ]),
 
   methods: {
-    logout() {
+    logout () {
       localStorage.removeItem('token')
       localStorage.removeItem('userData')
       this.$store.commit('CHANGELOGIN', false)
       this.$store.commit('GETCURRENTUSER', '')
       this.$router.push('/login')
-    },
+    }
   }
 }
 </script>

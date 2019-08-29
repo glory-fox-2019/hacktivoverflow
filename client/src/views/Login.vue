@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import axios from "axios";
-import Swal from "sweetalert2";
-const url = "http://localhost:3000";
+import axios from 'axios'
+import Swal from 'sweetalert2'
+const url = 'http://34.87.27.57'
 
 export default {
   props: {
@@ -52,38 +52,38 @@ export default {
   },
   data: () => ({
     drawer: null,
-    email: "",
-    password: ""
+    email: '',
+    password: ''
   }),
   methods: {
-    login() {
+    login () {
       axios
         .post(`${url}/users/login`, {
           email: this.email,
           password: this.password
         })
         .then(({ data }) => {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("userData", data.user._id);
-          this.$store.commit("CHANGELOGIN", true);
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('userData', data.user._id)
+          this.$store.commit('CHANGELOGIN', true)
           this.$store.commit('GETCURRENTUSER', data.user._id)
           Swal.fire({
-            position: "center",
-            type: "success",
-            title: "Welcome to HacktivOverflow",
+            position: 'center',
+            type: 'success',
+            title: 'Welcome to HacktivOverflow',
             showConfirmButton: false,
             timer: 1500
-          });
-          this.$router.push("/home/all");
+          })
+          this.$router.push('/home/all')
         })
         .catch(err => {
           Swal.fire({
-            type: "error",
-            title: "Oops...",
-            text: "Invalid email/password"
-          });
-        });
+            type: 'error',
+            title: 'Oops...',
+            text: 'Invalid email/password'
+          })
+        })
     }
   }
-};
+}
 </script>

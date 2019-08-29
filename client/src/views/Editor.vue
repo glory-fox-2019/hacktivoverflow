@@ -14,23 +14,23 @@
 </template>
 
 <script>
-import axios from "axios";
-import { mapState } from "vuex";
+import axios from 'axios'
+import { mapState } from 'vuex'
 import Swal from 'sweetalert2'
-const url = "http://localhost:3000";
+const url = 'http://34.87.27.57'
 export default {
-  name: "Editor",
-  props: ["id"],
-  computed: mapState(["page", "editId"]),
-  data() {
+  name: 'Editor',
+  props: ['id'],
+  computed: mapState(['page', 'editId']),
+  data () {
     return {
-      title: "",
-      content: ""
-    };
+      title: '',
+      content: ''
+    }
   },
   methods: {
-    saveQ() {
-      let token = localStorage.getItem("token");
+    saveQ () {
+      let token = localStorage.getItem('token')
       axios
         .patch(
           `${url}/questions/${this.editId}`,
@@ -41,20 +41,20 @@ export default {
           { headers: { token } }
         )
         .then(({ data }) => {
-          this.$store.dispatch("getQuestions");
-          this.$router.push("/home/all");
+          this.$store.dispatch('getQuestions')
+          this.$router.push('/home/all')
           Swal.fire({
-            position: "center",
-            type: "success",
-            title: "Your work has been saved",
+            position: 'center',
+            type: 'success',
+            title: 'Your work has been saved',
             showConfirmButton: false,
             timer: 1500
-          });
-        });
+          })
+        })
     },
 
-    saveA() {
-        let token = localStorage.getItem("token");
+    saveA () {
+      let token = localStorage.getItem('token')
       axios
         .patch(
           `${url}/answers/${this.editId}`,
@@ -65,39 +65,39 @@ export default {
         )
         .then(({ data }) => {
           this.$store.dispatch('getAnswers', data.questionId)
-          this.$router.push(`/home/${data.questionId}`);
+          this.$router.push(`/home/${data.questionId}`)
           Swal.fire({
-            position: "center",
-            type: "success",
-            title: "Answer updated",
+            position: 'center',
+            type: 'success',
+            title: 'Answer updated',
             showConfirmButton: false,
             timer: 1500
-          });
-        });
+          })
+        })
     }
   },
 
-  created() {
-    let token = localStorage.getItem("token");
-    if (this.page == "question") {
+  created () {
+    let token = localStorage.getItem('token')
+    if (this.page == 'question') {
       axios
         .get(`${url}/questions/${this.editId}`, { headers: { token } })
         .then(({ data }) => {
-          this.title = data.title;
-          this.content = data.content;
+          this.title = data.title
+          this.content = data.content
         })
-        .catch(console.log);
-    } else if (this.page == "answer") {
+        .catch(console.log)
+    } else if (this.page == 'answer') {
       axios
         .get(`${url}/answers/${this.editId}/one`, { headers: { token } })
         .then(({ data }) => {
-            console.log(data)
-          this.content = data.content;
+          console.log(data)
+          this.content = data.content
         })
         .catch(console.log)
     }
   }
-};
+}
 </script>
 
 <style>

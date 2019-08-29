@@ -12,21 +12,21 @@
 </template>
 
 <script>
-import axios from "axios";
-import Swal from "sweetalert2";
-const url = "http://localhost:3000";
+import axios from 'axios'
+import Swal from 'sweetalert2'
+const url = 'http://34.87.27.57'
 
 export default {
-  name: "addAnswer",
-  data() {
+  name: 'addAnswer',
+  data () {
     return {
-      content: ""
-    };
+      content: ''
+    }
   },
   methods: {
-    addAnsw() {
-      let token = localStorage.getItem("token");
-      let questionId = this.$route.params.id;
+    addAnsw () {
+      let token = localStorage.getItem('token')
+      let questionId = this.$route.params.id
       axios
         .post(
           `${url}/answers/${questionId}`,
@@ -34,19 +34,19 @@ export default {
           { headers: { token } }
         )
         .then(({ data }) => {
-          this.content = "";
-          this.$store.dispatch("getAnswers", data.questionId);
+          this.content = ''
+          this.$store.dispatch('getAnswers', data.questionId)
         })
         .catch(err => {
           Swal.fire({
-            type: "error",
-            title: "Oops...",
-            text: `Answer can't be empty`,
-          });
-        });
+            type: 'error',
+            title: 'Oops...',
+            text: `Answer can't be empty`
+          })
+        })
     }
   }
-};
+}
 </script>
 
 <style>

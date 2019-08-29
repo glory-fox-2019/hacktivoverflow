@@ -16,7 +16,7 @@
           <br>
           <QuestionList v-for="(myQuestion, index) in myQuestions" :key="index" :q="myQuestion">
           </QuestionList>
-       
+
       </v-list-item-content>
     </v-list-item>
   </v-card>
@@ -27,29 +27,29 @@ import QuestionList from '../components/QuestionList'
 import { mapState } from 'vuex'
 
 export default {
-    name: 'myPage',
-    data() {
-        return {
-            myQuestions: []
-        }
-    },
-    components: {
-        QuestionList
-    },
-    computed: mapState([
-        'questions',
-        'currentUser'
-    ]),
-    methods: {
-
-    },
-    created() {
-        for(let i = 0; i < this.questions.length; i++) {
-            if(this.questions[i].userId._id === this.currentUser) {
-                this.myQuestions.push(this.questions[i])
-            } 
-        }  
+  name: 'myPage',
+  data () {
+    return {
+      myQuestions: []
     }
+  },
+  components: {
+    QuestionList
+  },
+  computed: mapState([
+    'questions',
+    'currentUser'
+  ]),
+  methods: {
+
+  },
+  created () {
+    for (let i = 0; i < this.questions.length; i++) {
+      if (this.questions[i].userId._id === this.currentUser) {
+        this.myQuestions.push(this.questions[i])
+      }
+    }
+  }
 
 }
 </script>

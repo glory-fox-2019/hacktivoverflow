@@ -44,38 +44,38 @@
 
 <script>
 import axios from 'axios'
-const url = 'http://localhost:3000'
+const url = 'http://34.87.27.57'
 export default {
   name: 'sidebar',
-  data() {
-    return{
+  data () {
+    return {
       top1: {},
       top2: {},
       top3: {}
     }
   },
   methods: {
-    all() {
+    all () {
       this.$store.dispatch('getQuestions')
       this.$router.push('/home/all')
     },
 
-    mine() {
+    mine () {
       this.$store.dispatch('getQuestions')
       this.$router.push('/home/mine')
     }
   },
 
-  created() {
+  created () {
     axios.get(`${url}/top`)
-    .then(({data}) => {
-      this.top1 = data[0],
-      this.top2 = data[1],
-      this.top3 = data[2]
-    })
-    .catch(console.log)
+      .then(({ data }) => {
+        this.top1 = data[0],
+        this.top2 = data[1],
+        this.top3 = data[2]
+      })
+      .catch(console.log)
   }
-};
+}
 </script>
 
 <style scoped>

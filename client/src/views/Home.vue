@@ -7,20 +7,20 @@
     <v-flex md10>
         <router-view/>
     </v-flex>
-  </v-layout> 
+  </v-layout>
   </v-container>
 </template>
 
 <script>
 import SideBar from '../components/SideBar'
 export default {
-    name: 'home',
-    components: {
-        SideBar,
-    },
-    created() {
-        this.$store.dispatch('getQuestions')      
-    }
+  name: 'home',
+  components: {
+    SideBar
+  },
+  created () {
+    this.$store.dispatch('getQuestions')
+  }
 }
 </script>
 

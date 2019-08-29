@@ -38,7 +38,7 @@ export default new Router({
           path: ':id',
           name: 'detail',
           component: Detail
-        },
+        }
       ]
     },
     {
@@ -50,7 +50,7 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
-    },
-    
+    }
+
   ]
 })

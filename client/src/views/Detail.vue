@@ -5,9 +5,9 @@
         <v-list-item-title>
           <h2>{{question.title}}</h2>
         </v-list-item-title>
-        
+
           <p>{{question.content}}</p>
-       
+
         <v-list-item-subtitle>{{answers.length}} Answers</v-list-item-subtitle>
         <v-list-item-subtitle>posted by: {{question.userId.name}}</v-list-item-subtitle>
       </v-list-item-content>
@@ -34,68 +34,68 @@
 </template>
 
 <script>
-import axios from "axios";
-import Swal from "sweetalert2";
-import { mapState } from "vuex";
-const url = "http://localhost:3000";
-import AnswerList from "../components/AnswerList";
-import AddAnswer from "../components/AddAnswer";
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import { mapState } from 'vuex'
+import AnswerList from '../components/AnswerList'
+import AddAnswer from '../components/AddAnswer'
+const url = 'http://34.87.27.57'
 
 export default {
-  name: "detailQuestion",
-  data() {
+  name: 'detailQuestion',
+  data () {
     return {
       // question: {},
-    };
+    }
   },
-  computed: mapState(["answers", "question"]),
+  computed: mapState(['answers', 'question']),
   components: {
     AnswerList,
     AddAnswer
   },
   methods: {
-    up(input) {
-      let id = input._id;
-      let token = localStorage.getItem("token");
+    up (input) {
+      let id = input._id
+      let token = localStorage.getItem('token')
       axios
         .patch(`${url}/questions/${id}/upvote`, {}, { headers: { token } })
         .then(({ data }) => {
-          this.$store.dispatch("getQuestionDetail", id);
+          this.$store.dispatch('getQuestionDetail', id)
           Swal.fire({
-            position: "top-end",
-            type: "info",
+            position: 'top-end',
+            type: 'info',
             title: `${data.message}`,
             showConfirmButton: false,
             timer: 500
-          });
+          })
         })
-        .catch(console.log);
+        .catch(console.log)
     },
 
-    down(input) {
-      let id = input._id;
-      let token = localStorage.getItem("token");
+    down (input) {
+      let id = input._id
+      let token = localStorage.getItem('token')
       axios
         .patch(`${url}/questions/${id}/downvote`, {}, { headers: { token } })
         .then(({ data }) => {
-          this.$store.dispatch("getQuestionDetail", id);
+          this.$store.dispatch('getQuestionDetail', id)
           Swal.fire({
-            position: "top-end",
-            type: "info",
+            position: 'top-end',
+            type: 'info',
             title: `${data.message}`,
             showConfirmButton: false,
             timer: 500
-          });
+          })
         })
-        .catch(console.log);
+        .catch(console.log)
     }
   },
-  created() {
-    let id = this.$route.params.id;
-    this.$store.dispatch("getQuestionDetail", id);
-    this.$store.dispatch("getAnswers", id);
+  created () {
+    let id = this.$route.params.id
+    this.$store.dispatch('getQuestionDetail', id)
+    this.$store.dispatch('getAnswers', id)
   }
-};
+}
 </script>
 
 <style>

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-const url = 'http://localhost:3000'
+const url = 'http://34.87.27.57'
 
 Vue.use(Vuex)
 
@@ -17,36 +17,36 @@ export default new Vuex.Store({
     editId: ''
   },
   mutations: {
-    GETQUESTIONS(state, payload) {
+    GETQUESTIONS (state, payload) {
       state.questions = payload
     },
 
-    CHANGELOGIN(state, payload) {
+    CHANGELOGIN (state, payload) {
       state.isLogin = payload
     },
 
-    GETANSWERS(state, payload) {
+    GETANSWERS (state, payload) {
       state.answers = payload
     },
 
-    GETCURRENTUSER(state, payload) {
+    GETCURRENTUSER (state, payload) {
       state.currentUser = payload
     },
 
-    GETDETAIL(state, payload) {
+    GETDETAIL (state, payload) {
       state.question = payload
     },
 
-    CHANGEPAGE(state, payload) {
+    CHANGEPAGE (state, payload) {
       state.page = payload
     },
 
-    CHANGEEDITID(state, payload) {
+    CHANGEEDITID (state, payload) {
       state.editId = payload
     }
   },
   actions: {
-    getQuestions(context, payload) {
+    getQuestions (context, payload) {
       let token = localStorage.getItem('token')
       axios.get(`${url}/questions`, { headers: { token } })
         .then(({ data }) => {
@@ -55,20 +55,20 @@ export default new Vuex.Store({
         .catch(console.log)
     },
 
-    getAnswers(context, payload) {
+    getAnswers (context, payload) {
       let token = localStorage.getItem('token')
       axios.get(`${url}/answers/${payload}`, { headers: { token } })
-        .then(({data}) => {
+        .then(({ data }) => {
           context.commit('GETANSWERS', data)
         })
         .catch(console.log)
     },
 
-    getQuestionDetail(context, payload) {
-        let token = localStorage.getItem('token')
-        axios.get(`${url}/questions/${payload}`, {headers: {token}})
-        .then(({data}) => {
-            context.commit('GETDETAIL', data)
+    getQuestionDetail (context, payload) {
+      let token = localStorage.getItem('token')
+      axios.get(`${url}/questions/${payload}`, { headers: { token } })
+        .then(({ data }) => {
+          context.commit('GETDETAIL', data)
         })
         .catch(console.log)
     }

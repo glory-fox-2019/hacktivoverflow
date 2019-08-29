@@ -13,20 +13,20 @@
 </template>
 
 <script>
-import axios from "axios";
-import Swal from "sweetalert2";
-const url = "http://localhost:3000";
+import axios from 'axios'
+import Swal from 'sweetalert2'
+const url = 'http://34.87.27.57'
 export default {
-  name: "addQuestion",
-  data() {
+  name: 'addQuestion',
+  data () {
     return {
-      title: "",
-      content: ""
-    };
+      title: '',
+      content: ''
+    }
   },
   methods: {
-    AddQ() {
-      let token = localStorage.getItem("token");
+    AddQ () {
+      let token = localStorage.getItem('token')
       axios
         .post(
           `${url}/questions`,
@@ -37,18 +37,18 @@ export default {
           { headers: { token } }
         )
         .then(({ data }) => {
-          this.$store.dispatch("getQuestions");
+          this.$store.dispatch('getQuestions')
         })
         .catch(err => {
           Swal.fire({
-            type: "error",
-            title: "Oops...",
+            type: 'error',
+            title: 'Oops...',
             text: `Title and Question must be filled`
-          });
-        });
+          })
+        })
     }
   }
-};
+}
 </script>
 
 <style>

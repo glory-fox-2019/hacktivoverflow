@@ -50,9 +50,9 @@
 </template>
 
 <script>
-import axios from "axios";
-import Swal from "sweetalert2";
-const url = "http://localhost:3000";
+import axios from 'axios'
+import Swal from 'sweetalert2'
+const url = 'http://34.87.27.57'
 
 export default {
   props: {
@@ -60,12 +60,12 @@ export default {
   },
   data: () => ({
     drawer: null,
-    name: "",
-    email: "",
-    password: ""
+    name: '',
+    email: '',
+    password: ''
   }),
   methods: {
-    register() {
+    register () {
       axios
         .post(`${url}/users/register`, {
           name: this.name,
@@ -73,23 +73,23 @@ export default {
           password: this.password
         })
         .then(({ data }) => {
-         this.$router.push('/login')
+          this.$router.push('/login')
           Swal.fire({
-            position: "center",
-            type: "success",
-            title: "Please login to continue",
+            position: 'center',
+            type: 'success',
+            title: 'Please login to continue',
             showConfirmButton: false,
             timer: 1500
-          });
+          })
         })
         .catch(err => {
           Swal.fire({
-            type: "error",
-            title: "Oops...",
-            text: "Please fill all the blanks"
-          });
-        });
+            type: 'error',
+            title: 'Oops...',
+            text: 'Please fill all the blanks'
+          })
+        })
     }
   }
-};
+}
 </script>

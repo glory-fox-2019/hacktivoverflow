@@ -9,7 +9,7 @@
       </v-list-item-content>
     </v-flex>
     <v-divider vertical></v-divider>
-    <v-flex md7 >
+    <v-flex md6 >
       <v-list-item-title @click="showDetail(q._id)" class="clickhover">
         <h3>{{q.title}}</h3> <br>
       </v-list-item-title>
@@ -17,73 +17,73 @@
       <v-list-item-subtitle>by: {{q.userId.name}}</v-list-item-subtitle>
     </v-flex>
 
-    <v-flex v-if="q.userId._id == currentUser" row wrap>
+    <v-flex v-if="q.userId._id == currentUser" md1>
       <v-btn color="warning" @click="edit(q._id)">Edit</v-btn>
     </v-flex>
-    <v-flex v-if="q.userId._id == currentUser" row wrap>
+    <v-flex v-if="q.userId._id == currentUser" md1>
       <v-btn color="error" @click="remove(q._id)">Delete</v-btn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import axios from "axios";
-import { mapState } from "vuex";
+import axios from 'axios'
+import { mapState } from 'vuex'
 import Swal from 'sweetalert2'
-const url = "http://localhost:3000";
+const url = 'http://34.87.27.57'
 
 export default {
-  name: "questionlist",
-  props: ["q"],
-  data() {
+  name: 'questionlist',
+  props: ['q'],
+  data () {
     return {
       replies: 0
-    };
+    }
   },
   methods: {
-    showDetail(id) {
-      this.$router.push(`/home/${id}`);
+    showDetail (id) {
+      this.$router.push(`/home/${id}`)
     },
 
-    edit(id) {
+    edit (id) {
       this.$store.commit('CHANGEPAGE', 'question')
       this.$store.commit('CHANGEEDITID', id)
       this.$router.push('/home/editor')
     },
 
-    remove(id) {
-      let token = localStorage.getItem("token");
+    remove (id) {
+      let token = localStorage.getItem('token')
       Swal.fire({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: "You won't be able to revert this!",
-        type: "warning",
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       }).then(result => {
         if (result.value) {
           axios
             .delete(`${url}/questions/${id}`, { headers: { token } })
             .then(({ data }) => {
-                this.$store.dispatch('getQuestions')
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            });
+              this.$store.dispatch('getQuestions')
+              Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+            })
         }
-      });
+      })
     }
   },
-  computed: mapState(["answers", "currentUser"]),
+  computed: mapState(['answers', 'currentUser']),
 
-  created() {
+  created () {
     let token = localStorage.getItem('token')
-      axios.get(`${url}/answers/${this.q._id}`, { headers: { token } })
-        .then(({data}) => {
-          this.replies = data.length
-        })
-        .catch(console.log)
+    axios.get(`${url}/answers/${this.q._id}`, { headers: { token } })
+      .then(({ data }) => {
+        this.replies = data.length
+      })
+      .catch(console.log)
   }
-};
+}
 </script>
 
 <style>

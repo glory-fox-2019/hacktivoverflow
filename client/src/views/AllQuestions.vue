@@ -18,24 +18,24 @@
           <h2 class="qlist">Questions List</h2>
           <QuestionList v-for="(question, index) in questions" :key="index" :q="question">
           </QuestionList>
-       
+
       </v-list-item-content>
     </v-list-item>
   </v-card>
 </template>
 
 <script>
-import QuestionList from "../components/QuestionList";
-import AddQuestion from "../components/AddQuestion"
-import { mapState } from "vuex";
+import QuestionList from '../components/QuestionList'
+import AddQuestion from '../components/AddQuestion'
+import { mapState } from 'vuex'
 export default {
-  name: "AllQuestions",
+  name: 'AllQuestions',
   components: {
     QuestionList,
     AddQuestion
   },
-  computed: mapState(["questions"])
-};
+  computed: mapState(['questions'])
+}
 </script>
 
 <style>
