@@ -29,7 +29,7 @@ export default {
    created (){
     axios({
       method: "GET",
-      url: `http://localhost:3000/question/${this.$route.params.id}`,
+      url: `http://34.87.7.44/question/${this.$route.params.id}`,
       headers: {
         token: localStorage.getItem("token")
       }

@@ -79,7 +79,7 @@
             <textarea class="mt-2 typeArea" placeholder="description answer" v-model="description"></textarea>
           </div>
           <div class="mt-2">
-            <input type="submit" class="btn btn-primary" value="Edit" />
+            <input type="submit" class="btn btn-primary" value="Add" />
           </div>
         </form>
       </div>
@@ -94,7 +94,7 @@ export default {
   created() {
     axios({
       method: "GET",
-      url: `http://localhost:3000/question/${this.$route.params.id}`,
+      url: `http://34.87.7.44/question/${this.$route.params.id}`,
       headers: {
         token: localStorage.getItem("token")
       }
@@ -104,7 +104,7 @@ export default {
         console.log(data);
         return axios({
           method: "GET",
-          url: `http://localhost:3000/answer/${this.$route.params.id}`,
+          url: `http://34.87.7.44/answer/${this.$route.params.id}`,
           headers: {
             token: localStorage.getItem("token")
           }
@@ -138,7 +138,7 @@ export default {
         .then(data2 => {
           return axios({
             method: "GET",
-            url: `http://localhost:3000/answer/${this.$route.params.id}`,
+            url: `http://34.87.7.44/answer/${this.$route.params.id}`,
             headers: {
               token: localStorage.getItem("token")
             }

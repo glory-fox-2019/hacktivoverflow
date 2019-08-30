@@ -17,6 +17,7 @@
           </div>
         </div>
         <input type="text" v-model="hastag" class="add-hastag mt-3" placeholder="  add your hastag here" />
+       <p style="text-align : left;" class="mt-2">*setiap memasukkan hastag baru harus klik spasi terlebih dahulu</p> 
         <input type="submit" class="buttonadd" value="Create" />
       </form>
     </div>

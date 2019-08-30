@@ -8,6 +8,16 @@
           </div>
         </div>
         <form name="login" style="height: 440px;" @submit.prevent="LoginUser">
+           <div class="form-group">
+            <label for="exampleInputEmail1">Username</label>
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              placeholder="Enter username"
+              v-model="username"
+            />
+          </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input
@@ -51,7 +61,7 @@
           <div class="form-group">
             <p class="text-center">
               Don't have account?
-              <a href="#" id="signup" @click="pindahPage">Sign up here</a>
+              <!-- <a href="#" id="signup" @click="pindahPage">Sign up here</a> -->
             </p>
           </div>
         </form>
@@ -64,6 +74,7 @@
 export default {
     data (){
         return {
+            username : '',
             email : '',
             password : ''
         }
@@ -75,15 +86,12 @@ export default {
     },
     methods : {
         LoginUser (){
-            let {email , password} = this
-            this.$store.dispatch('loginUser' , {email,password})
+            let {email , password , username} = this
+            this.$store.dispatch('registerUser' , {email,password , username})
             .then(data=>{
-                this.$router.push('/')
+                this.$router.push('/login');
             })
             .catch(console.log)
-        },
-        pindahPage (){
-          this.$router.push('/register')
         }
     }
 };

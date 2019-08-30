@@ -21,30 +21,7 @@ export default {
     }
   },
   created (){
-    // new CronJob(
-    //   "0 0 */1 * * *",
-    //   function() {
-    //     // console.log("You will see this message every second");
-    //     axios({
-    //             method : 'GET',
-    //             url : 'http://localhost:3000/vote',
-    //             headers : {
-    //                 token : localStorage.getItem('token')
-    //             }
-    //         })
-    //         .then(({data})=>{
-    //             // this.$store.commit('MOSTVOTES' ,  data.name)
-    //             this.most = data
-    //             console.log('sdfdsfdsf =============================')
-    //             // commit('RENDERQUESTION' , data)
-    //             // console.log(data)
-    //         })
-    //         .catch(console.log)
-    //   },
-    //   null,
-    //   true,
-    //   "Asia/Jakarta"
-    // );
+    
   }
 };
 </script>

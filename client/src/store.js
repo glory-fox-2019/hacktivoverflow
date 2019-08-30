@@ -32,7 +32,7 @@ export default new Vuex.Store({
                 let {  hastagList ,  title , description } = payload
                 axios({
                     method : 'POST',
-                    url : 'http://localhost:3000/question',
+                    url : 'http://34.87.7.44/question',
                     headers : {
                         token : localStorage.getItem('token')
                     },
@@ -53,7 +53,7 @@ export default new Vuex.Store({
         RenderQuestion ({state, dispatch,commit},payload){
             axios({
                 method : 'GET',
-                url : 'http://localhost:3000/question',
+                url : 'http://34.87.7.44/question',
                 headers : {
                     token : localStorage.getItem('token')
                 }
@@ -68,7 +68,7 @@ export default new Vuex.Store({
             return new Promise((resolve, reject)=>{
                 let {email , password} = payload
                 // console.log(payload)
-                axios.post('http://localhost:3000/user/login',{
+                axios.post('http://34.87.7.44/user/login',{
                     email , password
                 })
                 .then(({data})=>{
@@ -80,12 +80,25 @@ export default new Vuex.Store({
                 .catch(reject)
             })
         },
+        registerUser ({state} , payload){
+            return new Promise((resolve, reject)=>{
+                let {email , password , username} = payload
+                // console.log(payload)
+                axios.post('http://34.87.7.44/user/register',{
+                    email , password , username
+                })
+                .then(({data})=>{
+                    resolve(data)
+                })
+                .catch(reject)
+            })
+        },
         addAnswer ({state,commit} , payload){
             return new Promise((resolve,reject)=>{
                 let { title ,  question , description } = payload
                 axios({
                     method : 'POST',
-                    url : 'http://localhost:3000/answer',
+                    url : 'http://34.87.7.44/answer',
                     headers : {
                         token : localStorage.getItem('token')
                     },
@@ -104,7 +117,7 @@ export default new Vuex.Store({
         getAnswer ({commit , state},payload){
             axios({
                 method : 'POST',
-                url : 'http://localhost:3000/answer/',
+                url : 'http://34.87.7.44/answer/',
                 headers : {
                     token : localStorage.getItem('token')
                 },
@@ -123,7 +136,7 @@ export default new Vuex.Store({
             return new Promise((resolve,reject)=>{
                 axios({
                     method : 'PUT',
-                    url : `http://localhost:3000/vote/${payload.id}`,
+                    url : `http://34.87.7.44/vote/${payload.id}`,
                     headers : {
                         token : localStorage.getItem('token')
                     },
@@ -144,7 +157,7 @@ export default new Vuex.Store({
             return new Promise((resolve,reject)=>{
                 axios({
                     method : 'PUT',
-                    url : `http://localhost:3000/vote/${payload.id}/answer`,
+                    url : `http://34.87.7.44/vote/${payload.id}/answer`,
                     headers : {
                         token : localStorage.getItem('token')
                     },
@@ -166,7 +179,7 @@ export default new Vuex.Store({
                 let {    title , description ,  id } = payload
                 axios({
                     method : 'PUT',
-                    url : `http://localhost:3000/question/${id}`,
+                    url : `http://34.87.7.44/question/${id}`,
                     headers : {
                         token : localStorage.getItem('token')
                     },
@@ -177,7 +190,7 @@ export default new Vuex.Store({
                 .then(({data})=>{
                     return axios({
                         method : 'GET',
-                        url : 'http://localhost:3000/question',
+                        url : 'http://34.87.7.44/question',
                         headers : {
                             token : localStorage.getItem('token')
                         }
@@ -197,7 +210,7 @@ export default new Vuex.Store({
                 let {   id } = payload
                 axios({
                     method : 'DELETE',
-                    url : `http://localhost:3000/question/${id}`,
+                    url : `http://34.87.7.44/question/${id}`,
                     headers : {
                         token : localStorage.getItem('token')
                     }
@@ -205,7 +218,7 @@ export default new Vuex.Store({
                 .then(({data})=>{
                     return axios({
                         method : 'GET',
-                        url : 'http://localhost:3000/question',
+                        url : 'http://34.87.7.44/question',
                         headers : {
                             token : localStorage.getItem('token')
                         }
@@ -226,7 +239,7 @@ export default new Vuex.Store({
                 let {title, description ,id } = payload
                 axios({
                     method : 'PUT',
-                    url : `http://localhost:3000/answer/${id}`,
+                    url : `http://34.87.7.44/answer/${id}`,
                     headers : {
                         token : localStorage.getItem('token')
                     },
@@ -237,7 +250,7 @@ export default new Vuex.Store({
                 .then(({data})=>{
                     return axios({
                         method : 'GET',
-                        url : 'http://localhost:3000/question',
+                        url : 'http://34.87.7.44/question',
                         headers : {
                             token : localStorage.getItem('token')
                         }
@@ -256,7 +269,7 @@ export default new Vuex.Store({
             return new Promise((resolve,reject)=>{
                 axios({
                     method : 'GET',
-                    url : `http://localhost:3000/question/searchtag?tag=${payload}`,
+                    url : `http://34.87.7.44/question/searchtag?tag=${payload}`,
                     headers : {
                         token : localStorage.getItem('token')
                     }
