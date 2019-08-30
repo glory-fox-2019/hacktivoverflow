@@ -57,7 +57,7 @@ export default {
         .then(({ data }) => {
           this.$store.commit('UPDATE_VOTE', { type: this.type, voteType, iduser: this.user._id, idanswer: this.idanswer })
         })
-        .catch((err) => {
+        .catch(({response}) => {
           this.$swal({
             type: 'error',
             title: 'Error!',

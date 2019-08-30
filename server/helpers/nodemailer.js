@@ -39,14 +39,14 @@ let transporter = nodemailer.createTransport({
 });
 
 module.exports = {
-  sendMail (mails, content) {
+  sendMail (title, mails, content) {
     let mailPromises = []
     for (let i in mails) {
       let newPromise = new Promise ((resolve, reject) => {
         transporter.sendMail({
           from: 'hello.hacktivoverflow@gmail.com', // sender address
           to: mails[i],
-          subject: 'Hello ✔',
+          subject: title,
           text: 'Hello world?',
           html: content
         })

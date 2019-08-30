@@ -10,7 +10,7 @@ function questionDailyContent(data){
     if(description.length > 140) description = description.substring(0,10) + '...';
     
     let question =  `
-      <a href="/question/:id">
+      <a href="http://hacktivoverflow.justarya.com/question/${data[i]._id}">
         <h2>${data[i].title}</h2>
         <p>${description}</p>
       </a>    
@@ -30,7 +30,7 @@ function questionDailyContent(data){
 
 module.exports = {
   questionDaily () {   
-    new CronJob('0 23 16 * * *', function() {
+    new CronJob('0 25 10 * * *', function() {
       console.log('Cron job is doing its job ...')
 
       let dt = new Date()
@@ -48,8 +48,9 @@ module.exports = {
         .then(data => {
           let content = questionDailyContent(data)
           console.log(data, content)
+          let title = "Help Others! Build Reputation - HacktivOverflow"
           let mails = mailData.map(el => el.email)
-          nodemailer.sendMail(mails, content)
+          nodemailer.sendMail(title, mails, content)
         })
         .catch(err => console.log(err))
     }, null, true, 'Asia/Jakarta');

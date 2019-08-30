@@ -49,6 +49,7 @@ export default {
     logout () {
       localStorage.clear()
       this.$store.commit('LOGOUT')
+      this.$router.replace('/')
     },
     search () {
       if (this.$route.path !== '/') this.$router.replace('/')

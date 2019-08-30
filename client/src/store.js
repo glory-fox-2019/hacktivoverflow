@@ -31,6 +31,7 @@ export default new Vuex.Store({
     },
     LOGOUT (state) {
       state.isLogin = false
+      state.user = {}
     },
     UPDATE_VOTE (state, payload) {
       let voteState

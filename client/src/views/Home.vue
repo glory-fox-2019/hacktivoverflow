@@ -50,6 +50,7 @@ export default {
   },
   created () {
     this.fetchQuestions()
+    console.log('fetch Question')
   },
   computed: {
     ...mapState(['questions', 'search', 'user'])
