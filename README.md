@@ -33,7 +33,7 @@ example :
 | Route  | HTTP | Headers(s) | Body | Sucess Response | Error Response  | Description         |
 | ------ | ---- | ---------- | - |-| ---- | ----- | ------------------- |
 | `/users/register` | POST | `none` | `name (string, required), email (string, required), password (string, required)` | (201) json(_id, name, email, password (encrypted), createdAt, updatedAt, __v) | (500) json(code, message)  | Sign up with new user info |
-| `/users/login` | POST | `none` | `email (string, required), password (string, required)` |  (200) json(              token, _id, name, email | (500) json(code, message), (401) json(code, message)  | Sign in and get an access token based on credentials |
+| `/users/login` | POST | `none` | `email (string, required), password (string, required)` |  (200) json(token, _id, name, email) | (500) json(code, message), (401) json(code, message)  | Sign in and get an access token based on credentials |
 
 
 ## List of Questions routes:
