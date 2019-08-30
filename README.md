@@ -48,8 +48,8 @@ example :
 | `/findAll` | GET | `none` | `none` | (200) [ json(_id, AnswerId, upvotes, downvotes, tags, title, content, UserId, createdAt, updatedAt, __v)] | (500) json(message) | Get all questions |
 | `/detail/:id` | GET | `none` | `none` | (200) json(_id, AnswerId, upvotes, downvotes, tags, title, content, UserId, createdAt, updatedAt, __v) | (500) json(message) | Get question by id |
 | `/tag` | POST | `none` | `none` | (200) [ json(_id, AnswerId, upvotes, downvotes, tags, title, content, UserId, createdAt, updatedAt, __v)] | (500) json(message) | Get questions by tags |
-| `/create` | POST | `token` | `title`,`content`,`tags` | (200) [ json(_id, AnswerId, upvotes, downvotes, tags, title, content, UserId, createdAt, updatedAt, __v)] | (500) json(message), (403) unauthorized | Create questions |
-| `/userQuestion` | POST | `token` | `none` | (200) [ json(_id, AnswerId, upvotes, downvotes, tags, title, content, UserId, createdAt, updatedAt, __v)] | (500) json(message), (403) unauthorized | Get user logged in quesetion |
+| `/create` | POST | `token` | `title`,`content`,`tags` | (200) [ json(_id, AnswerId, upvotes, downvotes, tags, title, content, UserId, createdAt, updatedAt, __v)] | (500) json(message), (403) json(message: unauthorized) | Create questions |
+| `/userQuestion` | POST | `token` | `none` | (200) [ json(_id, AnswerId, upvotes, downvotes, tags, title, content, UserId, createdAt, updatedAt, __v)] | (500) json(message), (403) json(message: unauthorized) | Get user logged in quesetion |
 | `/upvotes/:id` | POST | `token` | `none` | (200) json(n,nModified,ok) | (500) json(message), (403) json(message: unauthorized) | Upvote question by id |
 | `/downvotes/:id` | POST | `token` | `none` | (200) json(n,nModified,ok) | ((500) json(message), (403) json(message: unauthorized) | Downvote question by id |
 | `/:id` | DELETE | `token` | `none` | (200) json(ok,deletedCount,n) | (500) json(message), (403) json(message: unauthorized) | Delete question by id |
