@@ -69,6 +69,11 @@ export default {
           });
         })
         .catch(err => {
+          Swal.fire({
+            type: 'error',
+            title: 'Oops!',
+            html: err.response.data.message
+          })
           console.log(err);
         });
     }

@@ -41,6 +41,7 @@
 
 <script>
 import axios from "@/apis/server.js";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -89,6 +90,11 @@ export default {
           this.$bvModal.hide("add-question");
         })
         .catch(err => {
+          Swal.fire({
+            type: "error",
+            title: "Oops!",
+            text: "Please fill all fields"
+          });
           console.log(err);
         });
     }

@@ -59,6 +59,10 @@ export default {
           });
         })
         .catch(err => {
+          Swal.fire({
+            type: 'error',
+            title: err.response.data.message,
+          })
           console.log(err);
         });
     }
