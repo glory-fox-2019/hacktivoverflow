@@ -40,12 +40,20 @@ class Answer {
       .catch(next)
   }
   static delete(req,res,next){
+    let answerData;
     Model.Answer
       .deleteOne({_id: req.params.idanswer})
       .then(data => {
-        if(data.deletedCount === 0) next({httpStatus: 404, message: 'Answer not found'})
+        answerData = data;
+        return Model.Question
+          .findByIdAndUpdate(req.params.idquestion, {
+            $pull: { answers: req.params.idanswer }
+          })    
+      })
+      .then(data => {
+        if(answerData.deletedCount === 0) next({httpStatus: 404, message: 'Answer not found'})
         res.json({
-          delete: data.deletedCount,
+          delete: answerData.deletedCount,
           message: 'Successfully Delete Answer',
         })
       })

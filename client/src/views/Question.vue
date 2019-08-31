@@ -22,7 +22,7 @@
             <div class="question__more--container content__more--container">
               <div class="row">
                 <Comment :type="'question'" :comments="question.comments" :idquestion="question._id"></Comment>
-                <Content-Detail :user="question.user" :date="question.createdAt"></Content-Detail>
+                <Content-Detail :user="question.user" :date="question.createdAt" type="question"></Content-Detail>
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@
         <div class="content">
           <Answer-List-Item v-for="answer in question.answers" :answer="answer" :idquestion="question._id" :key="answer._id"></Answer-List-Item>
           <!-- Form Answer -->
-          <Create-Answer :idquestion="question._id"></Create-Answer>
+          <Create-Answer :idquestion="question._id" v-if="Object.keys(user).length > 0"></Create-Answer>
         </div>
       </div>
     </div>
@@ -49,6 +49,7 @@ import Comment from '@/components/Comment'
 import Vote from '@/components/Vote'
 import ContentDetail from '@/components/ContentDetail'
 import { mapState, mapActions } from 'vuex'
+import ax from '@/config/axios'
 
 export default {
   components: { AnswerListItem, Comment, Vote, ContentDetail, CreateAnswer },
@@ -66,7 +67,35 @@ export default {
   methods: {
     ...mapActions(['fetchQuestion']),
     deleteQuestion () {
-
+      this.$swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          ax.delete('/question/' + this.question._id, { headers: { access_token: localStorage.getItem('access_token') } })
+            .then(({ data }) => {
+              this.$router.replace('/')
+              // this.$store.commit('DELETE_QUESTION', { id: this.answer._id })
+              this.$swal.fire(
+                'Deleted!',
+                'Your Answer has been deleted.',
+                'success'
+              )
+            })
+            .catch(({ response }) => {
+              this.$swal({
+                type: 'error',
+                title: 'Error!',
+                text: response.data.error
+              })
+            })
+        }
+      })
     }
   }
 }

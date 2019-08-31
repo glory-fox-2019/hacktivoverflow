@@ -18,7 +18,7 @@
         <div class="answer__more--container content__more--container">
           <div class="row">
             <Comment :type="'answer'" :comments="answer.comments" :idquestion="idquestion" :idanswer="answer._id"></Comment>
-            <Content-Detail :user="answer.user" :date="answer.createdAt"></Content-Detail>
+            <Content-Detail :user="answer.user" :date="answer.createdAt" type="answer"></Content-Detail>
           </div>
         </div>
       </div>
