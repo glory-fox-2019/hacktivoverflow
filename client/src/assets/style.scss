@@ -1,0 +1,507 @@
+$orange: #FF9900;
+$light-orange: #FFEBCE;
+$dark-orange: #B28100;
+$blue: #0075FF;
+$white: #ffffff;
+$black: #5F5F5F;
+
+$drop-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
+
+$radius-small: 8px;
+$radius-normal: 10px;
+$radius-big: 15px;
+
+#app{
+  display:flex; 
+  flex-direction:column; 
+  width: 100%;
+  min-height: 100vh;
+  background-color: $white;
+}
+#nav{
+  background-color: $white;
+  >div{
+    display: flex;
+    align-items: center;
+  }
+  .nav__brand{
+    padding: 10px 20px;
+    span{
+      color: $orange;
+      text-decoration: none;
+      font-size: 30px;
+    }
+    a{
+      outline: none;
+    }
+    a:hover{
+      text-decoration: none;
+    }
+  }
+  .nav__search{
+    padding: 10px;
+    width: 100%;
+    input{
+      background-color: transparent;
+      color: $black;
+      width: 100%;
+      border: 0;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: $radius-small;
+    }
+    input:focus{
+      color: black;
+    }
+  }
+  .nav--right{
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+  }
+  .nav__account{
+    height: 100%;
+    position: relative;
+    .nav__account--button{
+      height: 67px;
+      padding: 6px;
+      color: $orange;
+      background-color: $light-orange;
+      display: flex;
+      align-items: center;
+    }
+    .nav__account__avatar{
+      margin: 0 5px;
+      height: 35px;
+      width: 35px;
+      background-color: #888;
+      border-radius: 50%;
+    }
+    .nav__account__name{
+      margin: 0 10px;
+    }
+    .nav__account__menu{
+      background-color: white;
+      right: 0;
+      position: absolute;
+      z-index: 999;
+      min-width: 100%;
+      box-sizing: border-box;
+      box-shadow: $drop-shadow;
+      ul{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        li{
+          a{
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            color: $black;
+          }
+        }
+
+      }
+    }
+  }
+  .nav__action{
+    align-self: center;
+    padding: 0 20px;
+    a{
+      color: $orange;
+    }
+  }
+}
+.card{
+  margin: 30px 0;
+  border-radius: $radius-normal;
+  border: 0;
+  box-shadow: $drop-shadow;
+  .card--top{
+    display: flex;
+    .action{
+      display: flex;
+      align-items: center;
+      height: 87.5px;
+      a{
+        font-size: 25px;
+        text-decoration: none;
+        padding: 10px;
+        color: $black;
+      }
+    }
+  }
+  .title{
+    padding: 20px;
+    padding-bottom: 40px;
+    width: 100%;
+    span{
+      font-size: 45px;
+    }
+  }
+}
+
+.question--list__item{
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 20px;
+  color: #212529;
+  .expression{
+    width: 100px;
+    text-align: center;
+    .expression__label{
+      font-size: 16px;
+    }
+    .expression__number{
+      font-size: 20px;
+    }
+  }
+  .question--content{
+    padding-left: 20px;
+    width: 100%;
+    .question__title{
+      h1{
+        font-size: 30px;
+      }
+    }
+    .question__description{
+      color: #888;
+      max-height: 100px;
+      overflow: hidden;
+      p{
+        margin: 0;
+      }
+    }
+  }
+}
+.question--list__item:last-child{
+  border-bottom: 0;
+}
+.question--list__item:hover{
+  text-decoration: none;
+  color: currentColor;
+  background-color: #f6f6f6;
+}
+
+#question{
+  .card{
+    padding: 20px;
+    .title{
+      padding: 0;
+      padding-bottom: 20px;
+    }
+    .content{
+      display: flex;
+      .content--left{
+        width: 100px;
+      }
+      .content--right{
+        width: 100%;
+        padding: 15px;
+      }
+      .content__description{
+        width: 100%;
+        padding-bottom: 20px;
+        font-size: 18px;
+      }
+      .content__detail--container{
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 100%;
+      }  
+      .content__detail{
+        font-size: 14px;
+        border: 2px solid $orange;
+        border-radius: $radius-normal;
+        padding: 8px;
+        margin: 20px 0;
+        display: inline-block;
+
+        .content__detail__time{
+          margin-bottom: 7px;
+        }
+        .content__detail__account{
+          display: flex;
+          align-items: center;
+        }
+        .content__detail__account__avatar{
+          width: 40px;
+          height: 40px;
+          background-color: grey;
+          border-radius: 50%;
+        }
+        .content__detail__account__name{
+          padding-left: 10px;
+          font-size: 16px;
+        }
+      }
+      .comment{
+        .comment--list{
+          margin-top: 20px;
+          .comment--list__item{
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            .comment--list__item--detail{
+              color: #888;
+            }
+          }
+          .comment--list__item:last-child{
+            border-bottom: 1px solid #ccc;
+          }
+        }
+        .comment--list--hidden{
+          max-height: 200px;
+          overflow: hidden;
+          position: relative;
+          .comment--list--cover{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-image: linear-gradient(rgba(255,255,255,0), white);
+            p{
+              width: 100%;
+              text-align: center;
+              position: absolute;
+              bottom: 0px;
+            }
+          }
+        }
+        .comment--action{
+          padding: 10px 0;
+          >form{
+            padding: 0;
+            display: flex;
+          }
+          input[type=text]{
+            font-size: 14px;
+            padding: 8px;
+            border-radius: $radius-small;
+            width: 100%;
+            border: 1px solid transparent;
+            background-color: #eee;
+          }
+          button{
+            font-size: 14px;
+            background-color: transparent;
+            border: 0;
+            outline: 0;
+          }
+        }
+      }
+      .content__vote{
+        text-align: center;
+        font-size: 25px;
+        .vote--action{
+          button{
+            border: 0;
+            background-color: transparent;
+            outline: 0;
+            span{
+              font-size: 50px;
+            }
+          }
+          button.active--up{
+            color: $blue;
+
+          }
+          button.active--down{
+            color: red;
+          }
+        }
+
+        .vote--count{
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+#answer{
+  .title{
+    border-bottom: 0!important;
+    span{
+      font-size: 40px;
+    }
+  }
+  .content{
+    .content--top{
+      display: flex;
+    }
+    display: block!important;
+    .answer--list__item{
+      display:flex;
+    }
+    .answer__title{
+      width: 100%;
+      padding-bottom: 10px;
+      span{
+        font-size: 30px;
+      }
+    }
+    .answer__action{
+      display: flex;
+      align-items: center;
+      a{
+        font-size: 20px;
+        text-decoration: none;
+        padding: 10px;
+        color: $black;
+      }
+    }
+    .answer--form-create{
+      .title{
+        padding: 20px;
+      }
+    }
+  }
+}
+
+.auth{
+  display: flex;
+  justify-content: center;
+  .card{
+    display: flex;
+    flex-direction: row;
+  }
+  .auth--banner{
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex-grow: 1;
+    height: 100%;
+    p{
+      text-align: center;
+      font-size: 40px;
+    }
+  }
+  .auth--form{
+    padding: 15px;
+    h2{
+      font-size: 35px;
+      margin-bottom: 20px;
+    }
+    input{
+      width: 450px;
+    }
+    button{
+      background-color: $orange;
+      color: black;
+      border: 0;
+      
+    }
+    .auth--divider{
+      p{
+        margin: 10px 0;
+      }
+    }
+    .auth--form--google{
+      margin-top: 10px;
+    }
+    .google-signin-button {
+      color: $blue;
+      background-color: white;
+      border: 1px solid $blue;
+      font-size: 16px;
+      border-radius: 10px;
+      padding: 8px;
+      outline: 0;
+    }
+  }
+}
+
+.tag--container{
+  margin-top: 10px;
+  .tag{
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    color: #888888;
+    border: 1px solid currentColor;
+    border-radius: 20px;
+  }
+}
+
+#create-question, #edit-question{
+  .title{
+    padding: 20px;
+  }
+}
+
+.content{
+  .form{
+    padding: 20px;
+    padding-top: 0;
+    input[type=text]{
+      background-color: transparent;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: $radius-small;
+    }
+    .form__title{
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .form__tag{
+      margin-bottom: 0;
+    }
+    .quill-editor{
+      margin-bottom: 15px;
+      .ql-toolbar{
+        border-top-right-radius: $radius-small;
+        border-top-left-radius: $radius-small;
+      }
+      .ql-container{
+        border-bottom-right-radius: $radius-small;
+        border-bottom-left-radius: $radius-small;
+        font-size: 16px;
+        .ql-editor{
+          min-height: 100px;
+        }
+      }
+    }
+    .tag--container{
+      margin-bottom: 15px;
+    }
+    .form__submit{
+      background: transparent;
+      border: 1px solid $orange;
+      padding: 7px 10px;
+      color: $orange;
+      border-radius: $radius-small;
+      margin-right: 10px;
+    }
+    .form__submit:hover{
+      background-color: $orange;
+      color: $white;
+    }
+    .form__cancel{
+      background: transparent;
+      border: 1px solid currentColor;
+      padding: 7px 10px;
+      color: #888;
+      border-radius: $radius-small;
+    }
+    .form__cancel:hover{
+      background-color: #888;
+      color: $white;
+    }
+  }
+}
+#footer{
+  margin-top: auto;
+  background: #222;
+  padding: 30px;
+  p{
+    margin: 0;
+    color: white;
+  }
+}
