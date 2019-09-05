@@ -1,18 +1,19 @@
 var nodemailer = require('nodemailer');
-
+const email = process.env.EMAIL
+const password = process.env.PASSWORD
 
 function sendEmail(person) {
 
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'valhallaeighty@gmail.com',
-            pass: '0721253062'
+            user: email,
+            pass: password
         }
     });
 
     var mailOptions = {
-        from: 'muhammadsavero@gmail.com',
+        from: 'valhallaeighty@gmail.com',
         to: `${person}`,
         subject: 'X overflow dengan valhalla',
         text: `Please donate to this website we are urgently needeed money`
@@ -28,10 +29,10 @@ function sendEmail(person) {
 
 }
 
-// let person = "saveromuhammad@yahoo.com"
+let person = "jackomoi14@gmail.com"
 // let msg = "congratulation you get the most upvotes answer"
 
-// sendEmail(person,msg)
+sendEmail(person)
 
 module.exports=sendEmail
 
