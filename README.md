@@ -19,7 +19,8 @@ Deployed Web URL:
 ## Screenshots
 1. Homepage
 ![Homepage](https://i.ibb.co/XS1y8nK/Screen-Shot-2020-03-12-at-13-40-32.png)
-2. 
+2. Question Detail
+![Question Detail](https://i.ibb.co/23SWKfR/Screen-Shot-2020-03-12-at-13-40-47.png)
 
 ## Users API
 |  HTTP  | Endpoint | Headers | Body | Description | Reference |
