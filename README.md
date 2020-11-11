@@ -11,9 +11,15 @@ Deployed Web URL:
 [http://questo.yogautomo.com](http://questo.yogautomo.com)
 
 ## Index of Reference:
+* [Screenshots]()
 * [Users]()
 * [Questions]()
 * [Answers]()
+
+## Screenshots
+1. Homepage
+![Homepage](https://i.ibb.co/XS1y8nK/Screen-Shot-2020-03-12-at-13-40-32.png)
+2. 
 
 ## Users API
 |  HTTP  | Endpoint | Headers | Body | Description | Reference |
